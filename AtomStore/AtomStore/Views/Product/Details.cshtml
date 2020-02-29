@@ -1,0 +1,310 @@
+﻿@using AtomStore.Data.Enums
+@model AtomStore.Models.ProductViewModels.DetailViewModel
+@{
+    ViewData["Title"] = Model.Product.Name;
+    ViewData["MetaKeyword"] = Model.Product.SeoKeywords;
+    ViewData["MetaDescription"] = Model.Product.SeoDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var category = Model.Category;
+    var product = Model.Product;
+}
+@section Scripts{
+    <script src="~/client-app/controllers/product/details.js"></script>
+    <script>
+        var productObj = new ProductDetailController();
+        productObj.initialize();
+    </script>
+}
+<!-- Breadcrumbs start -->
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home Page" href="index.html">Home</a><span>&raquo;</span></li>
+                    <li class=""> <a title="@category.Name" href="/@category.SeoAlias-c.@(category.Id).html">@category.Name</a><span>&raquo;</span></li>
+                    <li><strong>@product.Name</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+<div class="main-container col1-layout">
+    <div class="container">
+        <div class="row">
+            <div class="col-main">
+                <div class="product-view-area">
+                    <div class="product-big-image col-xs-12 col-sm-5 col-lg-5 col-md-5">
+                        @*<div class="icon-sale-label sale-left">Sale</div>*@
+                        <div class="large-image"> <a href="@product.Image" class="cloud-zoom" id="zoom1" rel="useWrapper: false, adjustY:0, adjustX:20"> <img class="zoom-img" src="@product.Image" alt="@product.Name"> </a> </div>
+                        <div class="flexslider flexslider-thumb">
+                            <ul class="previews-list slides">
+                                @foreach (var item in Model.ProductImages)
+                                {
+                                    <li><a href='@item.Path' class='cloud-zoom-gallery' rel="useZoom: 'zoom1', smallImage: '@item.Path' "><img src="@item.Path" alt="@item.Caption" /></a></li>
+                                }
+                            </ul>
+                        </div>
+
+                        <!-- end: more-images -->
+
+                    </div>
+                    <div class="col-xs-12 col-sm-7 col-lg-7 col-md-7 product-details-area">
+                        <div class="product-name">
+                            <h1>@product.Name</h1>
+                        </div>
+                        <div class="price-box">
+                            @if (product.PromotionPrice.HasValue)
+                            {
+                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $@product.PromotionPrice.Value.ToString("F1") </span> </p>
+                                <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">$@product.Price.ToString("F1")  </span> </p>
+                            }
+                            else
+                            {
+                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">$@product.Price.ToString("F1") </span> </p>
+                            }
+
+                        </div>
+                        <div class="ratings">
+                            <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                            <p class="availability @(product.Status==AtomStore.Data.Enums.Status.Active?"in-stock":"out-of-stock") pull-right">Availability: <span>@product.Status</span></p>
+                        </div>
+                        <div class="short-description">
+                            <h2>Quick Overview</h2>
+                            @product.Description
+                        </div>
+                        <div class="product-color-size-area">
+                            <div class="color-area">
+                                <h2 class="saider-bar-title">Color</h2>
+                                <div class="color">
+                                    <select asp-items="Model.Colors" id="ddlColorId"></select>
+                                </div>
+                            </div>
+                            <div class="size-area">
+                                <h2 class="saider-bar-title">Size</h2>
+                                <div class="size">
+                                    <select asp-items="Model.Sizes" id="ddlSizeId"></select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="product-variation">
+                            <form action="#" method="post">
+                                <div class="cart-plus-minus">
+                                    <label for="qty">Quantity:</label>
+                                    <div class="numbers-row">
+                                        <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="dec qtybutton"><i class="fa fa-minus">&nbsp;</i></div>
+                                        <input type="text" class="qty" title="Qty" value="1" maxlength="12" id="txtQuantity" name="txtQuantity">
+                                        <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="inc qtybutton"><i class="fa fa-plus">&nbsp;</i></div>
+                                    </div>
+                                </div>
+                                <button class="button pro-add-to-cart" id="btnAddToCart" data-id="@Model.Product.Id" title="Add to Cart" type="button"><span><i class="fa fa-shopping-basket"></i> Add to Cart</span></button>
+                            </form>
+                        </div>
+
+                        @if (Model.Tags.Count > 0)
+                        {
+                            <div class="pro-tags">
+                                <div class="pro-tags-title">Tags:</div>
+                                @foreach (var tag in Model.Tags)
+                                {
+                                    <a href="/tag.@(tag.Id).html">@tag.Name</a>
+                                }
+                            </div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="product-overview-tab">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="product-tab-inner">
+                                <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
+                                    <li class="active"> <a href="#description" data-toggle="tab"> Description </a> </li>
+                                </ul>
+                                <div id="productTabContent" class="tab-content">
+                                    <div class="tab-pane fade in active" id="description">
+                                        <div class="std">
+                                            @Html.Raw(product.Content)
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main Container End -->
+<!-- Related Product Slider -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="related-product-area">
+                <div class="page-header">
+                    <h2>Related Products</h2>
+                </div>
+                <div class="related-products-pro">
+                    <div class="slider-items-products">
+                        <div id="related-product-slider" class="product-flexslider hidden-buttons">
+                            <div class="slider-items slider-width-col4 fadeInUp">
+                                @foreach (var item in Model.RelatedProducts)
+                                {
+                                    var url = item.SeoAlias + "-" + "p." + item.Id + ".html";
+                                    <div class="product-item">
+                                        <div class="item-inner">
+                                            <div class="product-thumbnail">
+                                                <div class="pr-img-area">
+                                                    <a title="@item.Name" href="@url">
+                                                        <figure> <img class="first-img" src="@item.Image" alt="@item.Name"> <img class="hover-img" src="@item.Image" alt="@item.Name"></figure>
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="@item.Name" href="@url">@item.Name</a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box">
+                                                                <span class="regular-price">
+                                                                    <span class="price">$@item.Price.ToString("F1")</span>
+                                                                </span>
+                                                            </div>
+                                                            <div class="pro-action">
+                                                                <button type="button" class="add-to-cart" data-id="@item.Id"><span> Add to Cart</span> </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Related Product Slider End -->
+    <!-- Upsell Product Slider -->
+    @if (Model.UpsellProducts.Count > 0)
+    {
+        <section class="upsell-product-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="page-header">
+                            <h2>UpSell Products</h2>
+                        </div>
+                        <div class="slider-items-products">
+                            <div id="upsell-product-slider" class="product-flexslider hidden-buttons">
+                                <div class="slider-items slider-width-col4">
+                                    @foreach (var item in Model.UpsellProducts)
+                                    {
+                                        var url = item.SeoAlias + "-" + "p." + item.Id + ".html";
+                                        <div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    <div class="pr-img-area">
+                                                        <a title="@item.Name" href="@url">
+                                                            <figure> <img class="first-img" src="@item.Image" alt="@item.Name"> <img class="hover-img" src="@item.Image" alt="@item.Name"></figure>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <div class="item-info">
+                                                    <div class="info-inner">
+                                                        <div class="item-title"> <a title="@item.Name" href="@url">@item.Name</a> </div>
+                                                        <div class="item-content">
+                                                            <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                            <div class="item-price">
+                                                                <div class="price-box">
+                                                                    <span class="regular-price">
+                                                                        <span class="price">$@item.Price.ToString("F1")</span>
+                                                                    </span>
+                                                                </div>
+                                                                <div class="pro-action">
+                                                                    <button type="button" class="add-to-cart" data-id="@item.Id"><span> Add to Cart</span> </button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <!-- Upsell Product Slider End -->
+    }
+
+
+</div>
+
+<!-- service section -->
+<div class="jtv-service-area">
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3 col-sm-6 col-xs-12">
+                <div class="block-wrapper ship">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-paper-plane"></i></div>
+                        <div class="service-wrapper">
+                            <h3>World-Wide Shipping</h3>
+                            <p>On order over $99</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-6 col-xs-12 ">
+                <div class="block-wrapper return">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-rotate-right"></i></div>
+                        <div class="service-wrapper">
+                            <h3>30 Days Return</h3>
+                            <p>Moneyback guarantee </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-6 col-xs-12">
+                <div class="block-wrapper support">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-umbrella"></i></div>
+                        <div class="service-wrapper">
+                            <h3>Support 24/7</h3>
+                            <p>Call us: ( +123 ) 456 789</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-6 col-xs-12">
+                <div class="block-wrapper user">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-tags"></i></div>
+                        <div class="service-wrapper">
+                            <h3>Member Discount</h3>
+                            <p>25% on order over $199</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

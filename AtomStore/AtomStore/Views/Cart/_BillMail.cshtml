@@ -1,0 +1,55 @@
+﻿@model OrderViewModel
+<h1>ATOM Store new bill</h1>
+<table>
+    <tr>
+        <td>Customer Name</td>
+        <td>@Model.CustomerName</td>
+    </tr>
+    <tr>
+        <td>Address</td>
+        <td>@Model.CustomerAddress</td>
+    </tr>
+    <tr>
+        <td>Phone</td>
+        <td>@Model.CustomerPhone</td>
+    </tr>
+    <tr>
+        <td>Date</td>
+        <td>@Model.DateCreated.ToString("dd/MM/yyyy hh:mm")</td>
+    </tr>
+    <tr>
+        <td>Details</td>
+        <td>
+            <table>
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                    <th>Price</th>
+                    <th>Total</th>
+                </tr>
+                </thead>
+                <tbody>
+                @foreach (var item in Model.OrderDetails)
+                {
+                    <tr>
+                        <th><img src="@item.Product.Image" width=100 /></th>
+                        <td>@item.Product.Name</td>
+                        <td>@item.Quantity</td>
+                        <td>@item.Price</td>
+                        <td>@((item.Quantity * item.Price).ToString("F1"))</td>
+                    </tr>
+                }
+                </tbody>
+                <tfoot>
+                <tr>
+                    <td colspan="5">
+                        Total: @Model.OrderDetails.Sum(x => x.Quantity * x.Price).ToString("F1")
+                    </td>
+                </tr>
+                </tfoot>
+            </table>
+        </td>
+    </tr>
+</table>

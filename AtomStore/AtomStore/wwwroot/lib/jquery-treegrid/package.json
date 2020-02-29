@@ -1,0 +1,62 @@
+{
+  "_from": "jquery-treegrid@0.3.0",
+  "_id": "jquery-treegrid@0.3.0",
+  "_inBundle": false,
+  "_integrity": "sha1-5EXU54nL2F7ARe1GcZLXCyqxidM=",
+  "_location": "/jquery-treegrid",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "version",
+    "registry": true,
+    "raw": "jquery-treegrid@0.3.0",
+    "name": "jquery-treegrid",
+    "escapedName": "jquery-treegrid",
+    "rawSpec": "0.3.0",
+    "saveSpec": null,
+    "fetchSpec": "0.3.0"
+  },
+  "_requiredBy": [
+    "#DEV:/"
+  ],
+  "_resolved": "https://registry.npmjs.org/jquery-treegrid/-/jquery-treegrid-0.3.0.tgz",
+  "_shasum": "e445d4e789cbd85ec045ed467192d70b2ab189d3",
+  "_spec": "jquery-treegrid@0.3.0",
+  "_where": "E:\\TLCN\\git\\TLCN_fstore\\AtomStore\\AtomStore",
+  "author": {
+    "name": "Maksym Pomazan"
+  },
+  "bugs": {
+    "url": "https://github.com/maxazan/jquery-treegrid/issues"
+  },
+  "bundleDependencies": false,
+  "deprecated": false,
+  "description": "jQuery TreeGrid plugin",
+  "devDependencies": {
+    "grunt": "~0.4.5",
+    "grunt-contrib-jshint": "~0.10.0",
+    "grunt-contrib-nodeunit": "~0.4.1",
+    "grunt-contrib-uglify": "~0.5.0"
+  },
+  "directories": {
+    "example": "examples",
+    "test": "tests"
+  },
+  "homepage": "https://github.com/maxazan/jquery-treegrid",
+  "keywords": [
+    "treegrid",
+    "table",
+    "grid",
+    "ui"
+  ],
+  "license": "MIT",
+  "main": "index.js",
+  "name": "jquery-treegrid",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/maxazan/jquery-treegrid.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "0.3.0"
+}

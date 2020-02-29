@@ -1,0 +1,35 @@
+﻿@model List<AtomStore.Application.ViewModels.Product.ProductCategoryViewModel>
+<div id="mobile-menu">
+    <ul>
+        <li>
+            <a href="/" class="home1">Home</a>
+        </li>
+        <li>
+            <a>Products</a>
+            <ul>
+                @foreach (var item in Model.Where(x => x.ParentId == null))
+                {
+                    <li>
+                        <a href="/@item.SeoAlias-c.@(item.Id).html">@item.Name </a>
+                        <ul>
+                            @foreach (var subItem in Model.Where(x => x.ParentId == item.Id))
+                            {
+                                <li>
+                                    <a href="/@subItem.SeoAlias-c.@(subItem.Id).html">@subItem.Name </a>
+                                    <ul>
+                                        @foreach (var subItem1 in Model.Where(x => x.ParentId == subItem.Id))
+                                        {
+                                            <li>
+                                                <a href="/@subItem1.SeoAlias-c.@(subItem1.Id).html">@subItem1.Name </a>
+                                            </li>
+                                        }
+                                    </ul>
+                                </li>
+                            }
+                        </ul>
+                    </li>
+                }
+            </ul>
+        </li>
+    </ul>
+</div>

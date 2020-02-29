@@ -1,0 +1,30 @@
+@using Microsoft.AspNetCore.Identity
+@using AtomStore.Models
+@using AtomStore.Extensions
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+
+
+<a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+    <div class="profile_img">
+        <span class="prfil-img"><img src="images/2.jpg" alt=""> </span>
+        <div class="user-name">
+            <p>@User.GetSpecificClaim("FullName")</p>
+            <span>@User.GetSpecificClaim("Roles")</span>
+        </div>
+        <i class="fa fa-angle-down lnr"></i>
+        <i class="fa fa-angle-up lnr"></i>
+        <div class="clearfix"></div>
+    </div>
+</a>
+<ul class="dropdown-menu drp-mnu">
+    <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
+    <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
+    <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
+    <li>
+        <form action="/Admin/Account/Logout" method="post" id="logoutForm" class="navbar-left">
+            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+        </form>
+    </li>
+</ul>

@@ -1,0 +1,114 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using AtomStore.Authorization
+@inject IAuthorizationService  AuthorizationService
+@section Styles{
+    <link href="~/lib/jQuery-EasyUI/themes/material/easyui.css" rel="stylesheet" />
+    <link href="~/lib/jquery-easyui/themes/icon.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/lib/jquery-easyui/jquery.easyui.min.js"></script>
+    <script src="~/app/controllers/product/index.js" asp-append-version="true"></script>
+    <script src="~/app/controllers/product/quantitymanagement.js"></script>
+    <script src="~/app/controllers/product/imagemanagement.js"></script>
+    <script>
+        var product = new productcontroller();
+        product.initialize();
+    </script>
+}
+<div class="bs-example widget-shadow" data-example-id="contextual-table">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Products</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right">
+                <div class="input-group">
+                    <input type="text" id="txtkeyword" class="form-control" placeholder="Search for..." />
+                    <span class="input-group-btn">
+                        <button class="btn btn-primary" id="btnSearch" type="button">Go</button>
+                    </span>
+                </div>
+            </div>
+            <div class="col-md-4 col-sm-12 form-group pull-right">
+                <select class="form-control" id="ddlCategorySearch">
+                    <option>--Select category--</option>
+                </select>
+            </div>
+            <div class="col-md-12 col-sm-12 form-group pull-right">
+                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Create)).Succeeded)
+                {
+                    <button id="btnCreate" class="btn btn-success">Create</button>
+                }
+                    <a class="btn btn-danger" href="~/templates/ProductImportTemplate.xlsx">Download template</a>
+                    <button class="btn btn-success" id="btn-import" type="button">Import excel</button>
+                    <button class="btn btn-primary" id="btn-export" type="button">Export excel</button>
+                </div>
+        </div>
+    </div>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Image</th>
+                <th>Created Date</th>
+                <th>Status</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody id="tbl-content">
+        </tbody>
+    </table>
+    <!--Pagination-->
+    <div class="row">
+        <div class="col-sm-5">
+            <div class="dataTables_info" id="datatable-checkbox_info" role="status" aria-live="polite">
+                <select id="ddlShowPage">
+                    <option value="10" selected="selected">10</option>
+                    <option value="20">20</option>
+                    <option value="30">30</option>
+                    <option value="50">50</option>
+                </select>
+                <span class="item-per-page">
+                    Item/page.
+                </span>
+                Total: <strong id="lblTotalRecords"></strong>
+            </div>
+        </div><div class="col-sm-7">
+            <div class="dataTables_paginate paging_simple_numbers" id="datatable-checkbox_paginate">
+                <ul id="paginationUL"></ul>
+            </div>
+        </div>
+    </div>
+</div>
+<script id="table-template" type="x-tmmpl-mustache">
+    <tr class="active">
+        <td>{{Name}}</td>
+        <td>{{CategoryName}}</td>
+        <td>{{Price}}</td>
+        <td>{{{Image}}}</td>
+        <td>{{CreatedDate}}</td>
+        <td>{{{Status}}}</td>
+        <th scope="row">
+            @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded)
+            {
+                <a class="btn-edit" data-id="{{Id}}"><i class="fa fa-pencil-square-o"></i></a>
+            }
+
+            @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded)
+            {
+                <a href="#" data-id="{{Id}}" class="btn btn-xs btn-images"><i class="fa fa-image"></i></a>
+                <a href="#" data-id="{{Id}}" class="btn btn-xs btn-quantity"><i class="fa fa-hourglass-start"></i></a>
+            }
+            @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded)
+            {
+                <a class="btn-delete" data-id="{{Id}}"><i class="fa fa-trash-o"></i></a>
+            }
+        </th>
+    </tr>
+</script>
+@Html.Partial("_AddEditmodal.cshtml")
+@Html.Partial("_ImportExcelModal.cshtml")
+@Html.Partial("_QuantityManagement.cshtml")
+@Html.Partial("_ImageManagement.cshtml")

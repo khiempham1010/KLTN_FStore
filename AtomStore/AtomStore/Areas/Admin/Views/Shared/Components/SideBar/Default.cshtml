@@ -1,0 +1,28 @@
+﻿@model List<FunctionViewModel>
+
+<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="sidebar-menu">
+        <li class="header">MAIN NAVIGATION</li>
+        @foreach (var item in Model.Where(x => string.IsNullOrEmpty(x.ParentId)))
+        {
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa @item.IconCss"></i>
+                    <span>@item.Name </span>
+                    <i class="fa fa-angle-left pull-right"></i>
+                </a>
+                @if (Model.Any(x => x.ParentId == item.Id))
+                {
+                    <ul class="treeview-menu">
+                        @foreach (var jitem in Model.Where(x => x.ParentId == item.Id))
+                        {
+                            <li><a href="@jitem.URL"><i class="fa fa-angle-right"></i> @jitem.Name</a></li>
+                        }
+
+
+                    </ul>
+                }
+            </li>
+        }
+    </ul>
+</div>

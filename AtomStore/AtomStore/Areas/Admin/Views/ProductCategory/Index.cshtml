@@ -1,0 +1,57 @@
+﻿@using Microsoft.AspNetCore.Authorization
+@using AtomStore.Authorization
+@inject IAuthorizationService  AuthorizationService
+@{
+    ViewData["Title"] = "Index";
+}
+@section Styles{
+    <link href="~/lib/jQuery-EasyUI/themes/material/easyui.css" rel="stylesheet" />
+    <link href="~/lib/jquery-easyui/themes/icon.css" rel="stylesheet" />
+}
+@section Scripts{
+    <script src="~/lib/jquery-easyui/jquery.easyui.min.js"></script>
+    <script src="~/app/controllers/product-category/index.js"></script>
+    <script>
+        var productCategory = new productCategoryController();
+        productCategory.initialize();
+    </script>
+
+}
+<div class="bs-example widget-shadow" data-example-id="contextual-table">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>Products Categories</h3>
+        </div>
+        <div class="title_right">
+            <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right">
+                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Create)).Succeeded)
+                {
+                    <button class="btn btn-success" id="btnCreate" type="button">Create</button>
+                }
+                </div>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12">
+            <div class="x-panel">
+                <div class="x-content">
+                    <ul id="treeProductCategory"></ul>
+                    <div id="contextMenu" class="easyui-menu" style="width:120px;">
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded)
+                        {
+                            <div id="btnEdit" data-options="iconCls:'icon-edit'">Update</div>
+                        }
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded)
+                        {
+                            <div id="btnDelete" data-options="iconCls:'icon-remove'">Delete</div>
+                        }
+                        </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+@Html.Partial("_AddEditModal.cshtml")

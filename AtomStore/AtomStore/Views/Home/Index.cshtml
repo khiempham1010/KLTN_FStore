@@ -1,0 +1,317 @@
+﻿@model HomeViewModel
+@{
+    ViewData["Title"] = Model.Title;
+    ViewData["MetaKeyword"] = Model.MetaKeyword;
+    ViewData["MetaDescription"] = Model.MetaDescription;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@section Scripts{
+
+    <script src="~/client-app/controllers/home/index.js"></script>
+    <script>
+        var homeObj = new HomeController();
+        homeObj.initialize();
+    </script>
+}
+
+<!-- Slideshow  -->
+<div class="main-slider" id="home">
+    <div class="container">
+        <div class="row">
+
+            <div class="col-sm-12 col-md-12 col-lg-12 col-xs-12 jtv-slideshow">
+                <div id="jtv-slideshow">
+                    <div id='rev_slider_4_wrapper' class='rev_slider_wrapper fullwidthbanner-container'>
+                        <div id='rev_slider_4' class='rev_slider fullwidthabanner'>
+                            <ul>
+                                <li data-transition='fade' data-slotamount='7' data-masterspeed='1000' data-thumb=''>
+                                    <img src='~/client-side/images/slider/banner1.gif' data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' alt="banner" />
+                                    <div class="caption-inner">
+                                        <div class='tp-caption sfb  tp-resizeme ' data-x='370' data-y='280' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4; white-space:nowrap;'></div>
+                                    </div>
+                                </li>
+                                <li data-transition='fade' data-slotamount='7' data-masterspeed='1000' data-thumb=''>
+                                    <img src='~/client-side/images/slider/banner3.gif' data-bgposition='left top' data-bgfit='cover' data-bgrepeat='no-repeat' alt="banner" />
+                                    <div class="caption-inner left">
+                                        <div class='tp-caption sfb  tp-resizeme ' data-x='375' data-y='290' data-endspeed='500' data-speed='500' data-start='1500' data-easing='Linear.easeNone' data-splitin='none' data-splitout='none' data-elementdelay='0.1' data-endelementdelay='0.1' style='z-index:4; white-space:nowrap;'></div>
+                                    </div>
+                                </li>
+                            </ul>
+                            <div class="tp-bannertimer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- service section -->
+@Html.Partial("_ServicePartial.cshtml")
+
+<div class="inner-box">
+    <div class="container">
+        <div class="row">
+            <!--  -->
+            <!--         <div class="col-md-3 top-banner hidden-sm">
+                      <div class="jtv-banner3">
+                        <div class="jtv-banner3-inner"><a href="#"><img src="images/sub1.jpg" alt="HTML template"></a>
+                          <div class="hover_content">
+                            <div class="hover_data">
+                              <div class="title"> Big Sale </div>
+                              <div class="desc-text">Up to 55% off</div>
+                              <span>Camera, Laptop &amp; Mobile</span>
+                              <p><a href="#" class="shop-now">Get it now!</a></p>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div> -->
+            <!-- Best Sale -->
+            <div class="col-sm-12 col-md-12 jtv-best-sale special-pro">
+                <div class="jtv-best-sale-list">
+                    <div class="wpb_wrapper">
+                        <div class="best-title text-left">
+                            <h2>Special Offers</h2>
+                        </div>
+                    </div>
+                    <div class="slider-items-products">
+                        <div id="jtv-best-sale-slider" class="product-flexslider">
+                            <div class="slider-items">
+                                @foreach (var item in Model.TopSellProducts)
+                                {
+                                    <div class="product-item">
+                                        <div class="item-inner">
+                                            <div class="product-thumbnail">
+                                                @*<div class="icon-new-label new-left">New</div>*@
+                                                <div class="pr-img-area">
+                                                    <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html">
+                                                        <figure>
+                                                            <img height="255" class="first-img" src="@item.Image" alt="@item.Name">
+                                                            <img height="255" class="hover-img" src="@item.Image" alt="@item.Name">
+                                                        </figure>
+                                                    </a>
+                                                </div>
+                                                @*<div class="pr-info-area">
+                                                        <div class="pr-button">
+                                                            <div class="mt-button add_to_wishlist"> <a href="#"> <i class="fa fa-heart-o"></i> </a> </div>
+                                                            <div class="mt-button add_to_compare"> <a href="#"> <i class="fa fa-link"></i> </a> </div>
+                                                            <div class="mt-button quick-view"> <a href="#"> <i class="fa fa-search"></i> </a> </div>
+                                                        </div>
+                                                    </div>*@
+                                            </div>
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html">@item.Name </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box"> <span class="regular-price"> <span class="price">$@item.Price.ToString("F1")</span> </span> </div>
+                                                        </div>
+                                                        <div class="pro-action">
+                                                            <button type="button" data-id="@item.Id" class="add-to-cart"><span> Add to Cart</span> </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- All products-->
+
+<div class="container">
+    <div class="home-tab">
+        <div class="tab-title text-left">
+            <h2>Best selling</h2>
+
+        </div>
+        <div id="productTabContent" class="tab-content">
+            <div class="tab-pane active in" id="computer">
+                <div class="featured-pro">
+                    <div class="slider-items-products">
+                        <div id="computer-slider" class="product-flexslider hidden-buttons">
+                            <div class="slider-items slider-width-col4">
+                                @foreach (var item in Model.TopSellProducts)
+                                {
+                                    <div class="product-item">
+                                        <div class="item-inner">
+                                            <div class="product-thumbnail">
+                                                @*<div class="icon-new-label new-left">New</div>*@
+                                                <div class="pr-img-area">
+                                                    <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html">
+                                                        <figure>
+                                                            <img height="255" class="first-img" src="@item.Image" alt="@item.Name">
+                                                            <img height="255" class="hover-img" src="@item.Image" alt="@item.Name">
+                                                        </figure>
+                                                    </a>
+                                                </div>
+                                                @*<div class="pr-info-area">
+                                                        <div class="pr-button">
+                                                            <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart-o"></i> </a> </div>
+                                                            <div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                                            <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>
+                                                        </div>
+                                                    </div>*@
+                                            </div>
+                                            <div class="item-info">
+                                                <div class="info-inner">
+                                                    <div class="item-title"> <a title="Product title here" href="/@item.SeoAlias-p.@(item.Id).html">@item.Name </a> </div>
+                                                    <div class="item-content">
+                                                        <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="item-price">
+                                                            <div class="price-box"> <span class="regular-price"> <span class="price">$@item.Price.ToString("F1")</span> </span> </div>
+                                                        </div>
+                                                        <div class="pro-action">
+                                                            <button type="button" data-id="@item.Id" class="add-to-cart"><span> Add to Cart</span> </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- MODIFIED DAILY OF THE DAY -->
+
+
+<div class="featured-products">
+    <div class="container">
+        <div class="row">
+
+            <!-- Best Sale -->
+            <div class="col-md-4 top-banner hidden-sm">
+                <div class="jtv-banner3">
+                    <div class="jtv-banner3-inner">
+                        <a href="#"><img src="~/client-side/images/banner999.gif" alt="HTML template"></a>
+                    </div>
+                </div>
+            </div>
+            <!-- Banner -->
+            <div class="col-md-4 top-banner hidden-sm">
+                <div class="jtv-banner3">
+                    <div class="jtv-banner3-inner">
+                        <a href="#"><img src="~/client-side/images/banner1001.gif" alt="HTML template"></a>
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="col-md-4 top-banner hidden-sm">
+                <div class="jtv-banner3">
+                    <div class="jtv-banner3-inner">
+                        <a href="#"><img src="~/client-side/images/banner1000.gif" alt="HTML template"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Blog -->
+<!-- our clients Slider -->
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-12 col-xs-12">
+            <div class="our-clients">
+                <div class="slider-items-products">
+                    <div id="our-clients-slider" class="product-flexslider hidden-buttons">
+                        <div class="slider-items slider-width-col6">
+                            <div class="item"><a href="https://www.nike.com/vn/"><img src="~/client-side/images/brand1.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.adidas.com/us"><img src="~/client-side/images/brand2.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.supreme-streetwear.com/"><img src="~/client-side/images/brand3.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.zara.com/vn/"><img src="~/client-side/images/brand4.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.uniqlo.com/us/en/home/"><img src="~/client-side/images/brand5.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://global.lacoste.com/en/homepage"><img src="~/client-side/images/brand6.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://us.louisvuitton.com/eng-us/homepage"><img src="~/client-side/images/brand7.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.dior.com/en_int"><img src="~/client-side/images/brand8.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.gucci.com/int/en/"><img src="~/client-side/images/brand9.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.hermes.com/us/en/"><img src="~/client-side/images/brand10.png" alt="Image"></a> </div>
+                            <div class="item"><a href="https://www.underarmour.com/en-us"><img src="~/client-side/images/brand11.png" alt="Image"></a> </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- BANNER-AREA-START -->
+<!-- BANNER-AREA-END -->
+
+<div class="footer-newsletter">
+    <div class="container">
+        <div class="row">
+            <!-- Newsletter -->
+            <div class="col-md-6 col-sm-6">
+                <form id="newsletter-validate-detail" method="post" action="#">
+                    <h3>Join Us?</h3>
+                    <div class="title-divider"><span></span></div>
+                    <p class="sub-title text-center">Accompanying us, you will shine!</p>
+
+                </form>
+            </div>
+            <!-- Customers Box -->
+            <div class="col-sm-6 col-xs-12 testimonials">
+                <div class="page-header">
+                    <h2>What Co-Founder say?</h2>
+                </div>
+                <div class="slider-items-products">
+                    <div id="testimonials-slider" class="product-flexslider hidden-buttons home-testimonials">
+                        <div class="slider-items slider-width-col2 ">
+                            <div class="holder">
+                                <blockquote>
+                                    You gotta have style. It helps you get down the stairs. It helps you get up in the morning.
+                                    It's a way of the life. Without it, you're nobody.
+                                </blockquote>
+                                <div class="thumb"> <img src="~/client-side/images/vtus.jpg" alt="testimonials img"> </div>
+                                <div class="holder-info">
+                                    <strong class="name">Tu Ngo</strong>
+                                    <strong class="designation">CEO, Company</strong>
+                                    <div class="socialCEO">
+                                        <li class="social-network fb"><a title="Connect us on Facebook" target="_blank" href="https://www.facebook.com/vtus.727"><i class="fa fa-facebook"></i></a></li>
+
+                                        <li class="social-network rss"><a title="Connect us on Instagram" target="_blank" href="https://www.instagram.com/vtus.727/"><i class="fa fa-instagram"></i></a></li>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="holder">
+                                <blockquote>
+                                    Fashion can be bought. Style one must possess. Always dress like you're going to see your worst enemy.
+                                </blockquote>
+                                <div class="thumb"> <img src="~/client-side/images/xki.jpg" alt="testimonials img"> </div>
+                                <div class="holder-info">
+                                    <strong class="name">Khiem Pham</strong>
+                                    <strong class="designation">Co-Founder, Company</strong>
+                                    <div class="socialCEO">
+                                        <li class="social-network1 fb"><a title="Connect us on Facebook" target="_blank" href="https://www.facebook.com/khiempham1098"><i class="fa fa-facebook"></i></a></li>
+
+                                        <li class="social-network rss"><a title="Connect us on Instagram" target="_blank" href="https://www.instagram.com/khiem.px/"><i class="fa fa-instagram"></i></a></li>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

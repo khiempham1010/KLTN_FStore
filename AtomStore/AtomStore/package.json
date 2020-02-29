@@ -1,0 +1,30 @@
+{
+    "version": "1.0.0",
+    "name": "asp.net",
+    "private": true,
+    "devDependencies": {
+        "gentelella": "~1.4.0",
+        "font-awesome": "~4.7.0",
+        "bootstrap": "3.3.7",
+        "jquery": "2.2.0",
+        "jquery-validation": "1.14.0",
+        "jquery-validation-unobtrusive": "3.2.6",
+        "nprogress": "0.2.0",
+        "bootstrap-daterangepicker": "~2.1.25",
+        "fastclick": "~1.0.6",
+        "chart.js": "2.8.0",
+        "jquery-sparkline": "2.4.0",
+        "flot": "~0.8.3",
+        "flot-spline": "0.0.1",
+        "flot.curvedlines": "1.1.1",
+        "moment": "2.24.0",
+        "bootbox": "5.3.2",
+        "notifyjs": "3.0.0",
+        "animate.css": "3.7.2",
+        "mustache": "3.1.0",
+        "twbs-pagination": "1.4.1",
+        "ckeditor": "4.12.1",
+        "jquery-treegrid": "0.3.0",
+        "bootstrap-datepicker": "1.9.0"
+    }
+}
