@@ -83,6 +83,35 @@
     font-family: Dosis;
 }
 
+.form-control9::-moz-placeholder {
+    color: #333333;
+}
+
+.form-control9 {
+    box-shadow: none;
+    border: 1px #e8e8e8 solid;
+    border-radius: 3px;
+}
+
+.successImg {
+    text-align: center;
+    margin-top: 2%;
+}
+
+.resetPassword {
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 2%;
+}
+
+.subResetPassword {
+    text-align: center;
+    color: gray;
+    font-size: 13px;
+    margin-top: 2%;
+}
+
 /*
 .socialCEO ul li {
 	display: inline-block;
@@ -3972,7 +4001,7 @@ footer .footer-contact-item {
 .footer-coppyright {
     padding-bottom: 2px;
     background-color: #222;
-    margin-top: 40px;
+    margin-top: 1%;
 }
 
 .coppyright {
@@ -4021,8 +4050,8 @@ nav {
     background: #fff;
     border-bloc: none;
     /* border-color: red; */
-    border-top: #E5E5E4 solid 1px;
-    border-bottom: #e5e5e5 solid 1px;
+    border-top: #EEEEEE solid 1px;
+    border-bottom: #EEEEEE solid 1px;
 }
 
 .jtv-sticky-menu {
