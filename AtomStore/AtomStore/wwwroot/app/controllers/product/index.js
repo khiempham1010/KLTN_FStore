@@ -168,7 +168,8 @@
                 var content = CKEDITOR.instances.txtContent.getData();
                 var status = $('#ckStatusM').prop('checked') == true ? 1 : 0;
                 var showHome = $('#ckShowHomeM').prop('checked');
-
+                if (dateCreated == "")
+                    dateCreated = UniqueDateTime();
                 $.ajax({
                     type: "POST",
                     url: "/Admin/Product/SaveEntity",
@@ -393,6 +394,25 @@
                 atom.notify('Cannot loading data', 'error');
             }
         })
+    }
+
+    function UniqueDateTime(format = '', language = 'en-US') {
+        //returns a meaningful unique number based on current time, and milliseconds, making it virtually unique
+        //e.g : 20170428-115833-547
+        //allows personal formatting like more usual :YYYYMMDDHHmmSS, or YYYYMMDD_HH:mm:SS
+        var dt = new Date();
+        var modele = "YYYY-MM-DDTHH:mm:SS.mss";
+        if (format !== '') {
+            modele = format;
+        }
+        modele = modele.replace("YYYY", dt.getFullYear());
+        modele = modele.replace("MM", (dt.getMonth() + 1).toLocaleString(language, { minimumIntegerDigits: 2, useGrouping: false }));
+        modele = modele.replace("DD", dt.getDate().toLocaleString(language, { minimumIntegerDigits: 2, useGrouping: false }));
+        modele = modele.replace("HH", dt.getHours().toLocaleString(language, { minimumIntegerDigits: 2, useGrouping: false }));
+        modele = modele.replace("mm", dt.getMinutes().toLocaleString(language, { minimumIntegerDigits: 2, useGrouping: false }));
+        modele = modele.replace("SS", dt.getSeconds().toLocaleString(language, { minimumIntegerDigits: 2, useGrouping: false }));
+        modele = modele.replace("mss", dt.getMilliseconds().toLocaleString(language, { minimumIntegerDigits: 3, useGrouping: false }));
+        return modele;
     }
 
     function wrapPaging(RecordCount, callBack, changPageSize) {

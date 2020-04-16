@@ -37,7 +37,7 @@
                 success: function (path) {
                     clearFileInput($("#fileImage"));
                     images.push(path);
-                    $('#image-list').append('<div class="col-md-3"><img width="100"  data-path="' + path + '" src="' + path + '"></div>');
+                    $('#image-list').append('<div class="col-md-3"><img width="100"  data-path="' + path + '" src="' + path + '"><br><a href="#" class="btn-delete-image">Delete</a></div>');
                     atom.notify('Đã tải ảnh lên thành công!', 'success');
 
                 },
@@ -49,14 +49,15 @@
 
         $("#btnSaveImages").on('click', function () {
             var imageList = [];
-            $.each($('#image-list').find('img'), function (i, item) {
+            
+            $('#image-list').find('img').each(function (i, item) {
                 imageList.push($(this).data('path'));
             });
             $.ajax({
                 url: '/admin/Product/SaveImages',
                 data: {
                     productId: $('#hidId').val(),
-                    images: images
+                    images: imageList
                 },
                 type: 'post',
                 dataType: 'json',
@@ -79,7 +80,7 @@
             success: function (response) {
                 var render = '';
                 $.each(response, function (i, item) {
-                    render += '<div class="col-md-3"><img width="100" src="' + item.Path + '"><br/><a href="#" class="btn-delete-image">Xóa</a></div>'
+                    render += '<div class="col-md-3"><img width="100" src="' + item.Path + '"><br/><a href="#" class="btn-delete-image">Delete</a></div>'
                 });
                 $('#image-list').html(render);
                 clearFileInput();
@@ -88,11 +89,11 @@
     }
 
     function clearFileInput(ctrl) {
-        //try {
-        //    ctrl.value = null;
-        //} catch (ex) { }
-        //if (ctrl.value) {
-        //    ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
-        //}
+        try {
+            ctrl.value = null;
+        } catch (ex) { }
+        if (ctrl.value) {
+            ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
+        }
     }
 }
