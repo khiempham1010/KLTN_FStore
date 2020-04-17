@@ -13,19 +13,13 @@ namespace AtomStore.Controllers
 {
     public class AccountSettingsController : Controller
     {
-        IProductService _productService;
-        IOrderService _orderService;
         IViewRenderService _viewRenderService;
         IConfiguration _configuration;
         IEmailSender _emailSender;
         IUserService _userService;
-        public AccountSettingsController(IProductService productService,
-            IViewRenderService viewRenderService, IEmailSender emailSender,
-            IConfiguration configuration, IOrderService orderService,
-            IUserService userService)
+        public AccountSettingsController( IViewRenderService viewRenderService, IEmailSender emailSender,
+            IConfiguration configuration, IUserService userService)
         {
-            _productService = productService;
-            _orderService = orderService;
             _viewRenderService = viewRenderService;
             _configuration = configuration;
             _emailSender = emailSender;
@@ -40,6 +34,7 @@ namespace AtomStore.Controllers
             if (User.Identity.IsAuthenticated == true)
             {
                 model.AppUserViewModel = _userService.GetById(User.GetSpecificClaim("UserId").ToString()).Result;
+
             }
             return View(model);
         }

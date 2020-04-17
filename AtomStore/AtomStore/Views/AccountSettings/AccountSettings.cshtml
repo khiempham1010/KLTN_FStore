@@ -1,8 +1,8 @@
 ﻿@model AtomStore.Models.AccountSettingsViewModel
-@*@{
-        ViewData["Title"] = "AccountSettings";
-        Layout = "~/Views/Shared/_Layout.cshtml";
-    }*@
+@{
+    ViewData["Title"] = "AccountSettings";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
 
 <!-- Breadcrumbs -->
@@ -21,93 +21,93 @@
 </div>
 <!-- Breadcrumbs End -->
 <!-- Main Container -->
-<section class="main-container col1-layout">
-    <div class="main container">
-        <div class="resetPassword">ACCOUNT SETTINGS</div>
-        <div class="page-content">
 
-            <div class="account-login">
-                <div class="col-md-3 col-sm-2"></div>
-                <div class="col-md-6 col-sm-8">
-                    <div class="single-input p-bottom50 clearfix">
-                        @*<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">*@
-                        <form action="/accountsettings.html" method="post">
-                            @Html.AntiForgeryToken()
-                            <div class="row">
-                                <div class="col-sm-6" style="padding-top: 3%;">
-                                    <label>Full Name:</label>
-                                    @if (Model.AppUserViewModel != null)
-                                    {
-                                        <div class="input-text">
-                                            <input type="text" asp-for="FullName" name="fullName" class="form-control value=@Model.AppUserViewModel.FullName">
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="input-text">
-                                            <input type="text" asp-for="FullName" name="fullName" class="form-control">
-                                        </div>
-                                    }
+<div class="main container">
+    <div class="resetPassword">ACCOUNT SETTINGS</div>
+    <div class="page-content">
 
-                                </div>
-                                <div class="col-sm-6" style="padding-top: 3%;">
-                                    <label>Email:</label>
-                                    @if (Model.AppUserViewModel != null)
-                                    {
-                                        <div class="input-text">
-                                            <input type="text" asp-for="Email" name="email" class="form-control value=@Model.AppUserViewModel.Email">
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="input-text">
-                                            <input type="text" asp-for="Email" name="email" class="form-control">
-                                        </div>
-                                    }
-                                </div>
-                                <div class="col-sm-6" style="padding-top: 3%;">
-                                    <label>Phone:</label>
-                                    @if (Model.AppUserViewModel != null)
-                                    {
-                                        <div class="input-text">
-                                            <input type="text" name="phoneNumber" asp-for="PhoneNumber" class="form-control value=@Model.AppUserViewModel.PhoneNumber">
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="input-text">
-                                            <input type="text" name="phoneNumber" asp-for="PhoneNumber" class="form-control">
-                                        </div>
-                                    }
-                                </div>
-                                <div class="col-sm-6" style="padding-top: 3%;">
-                                    <label>Day of birth:</label>
-                                    @if (Model.AppUserViewModel != null)
-                                    {
-                                        <div class="input-text">
-                                            <input type="date" asp-for="BirthDay" name="birthDay" class="form-control value=@Model.AppUserViewModel.BirthDay">
-                                        </div>
-                                    }
-                                    else
-                                    {
-                                        <div class="input-text">
-                                            <input type="date" asp-for="BirthDay" name="birthDay" class="form-control">
-                                        </div>
-                                    }
-                                </div>
-                                @*<div class="col-xs-12">
-                                        <label>Avatar:</label>
-                                        <div class="input-text">
-                                            <input type="file" asp-for="Avatar" name="dob" class="form-control">
-                                        </div>
-                                    </div>*@
+        <div class="account-login">
+            <div class="col-md-3 col-sm-2"></div>
+            <div class="col-md-6 col-sm-8">
+                <div class="single-input p-bottom50 clearfix">
+                    @*<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">*@
+                    <form action="/accountsettings.html" method="post">
+                        @Html.AntiForgeryToken()
+                        <div class="row">
+                            <div class="col-sm-6" style="padding-top: 3%;">
+                                <label>Full Name:</label>
+                                @if (Model.AppUserViewModel != null)
+                                {
+                                    <div class="input-text">
+                                        <input type="text" asp-for="FullName" name="fullName" class="form-control" value=@Model.AppUserViewModel.FullName>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-text">
+                                        <input type="text" asp-for="FullName" name="fullName" class="form-control">
+                                    </div>
+                                }
+
+                            </div>
+                            <div class="col-sm-6" style="padding-top: 3%;">
+                                <label>Email:</label>
+                                @if (Model.AppUserViewModel != null)
+                                {
+                                    <div class="input-text">
+                                        <input type="text" asp-for="Email" name="email" class="form-control" value=@Model.AppUserViewModel.Email readonly="readonly">
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-text">
+                                        <input type="text" asp-for="Email" name="email" class="form-control">
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-sm-6" style="padding-top: 3%;">
+                                <label>Phone:</label>
+                                @if (Model.AppUserViewModel != null)
+                                {
+                                    <div class="input-text">
+                                        <input type="text" name="phoneNumber" asp-for="PhoneNumber" class="form-control" value=@Model.AppUserViewModel.PhoneNumber>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-text">
+                                        <input type="text" name="phoneNumber" asp-for="PhoneNumber" class="form-control">
+                                    </div>
+                                }
+                            </div>
+                            <div class="col-sm-6" style="padding-top: 3%;">
+                                <label>Day of birth:</label>
+                                @if (Model.AppUserViewModel != null)
+                                {
+                                    <div class="input-text">
+                                        <input type="datetime" asp-for="BirthDay" name="birthDay" class="form-control" value=@Model.AppUserViewModel.BirthDay>
+                                    </div>
+                                }
+                                else
+                                {
+                                    <div class="input-text">
+                                        <input type="date" asp-for="BirthDay" name="birthDay" class="form-control">
+                                    </div>
+                                }
+                            </div>
+                            @*<div class="col-xs-12">
+                                    <label>Avatar:</label>
+                                    <div class="input-text">
+                                        <input type="file" asp-for="Avatar" name="dob" class="form-control">
+                                    </div>
+                                </div>*@
 
                             <div class="col-xs-12" style="padding-top: 3%;">
                                 <label>Address:</label>
                                 @if (Model.AppUserViewModel != null)
                                 {
                                     <div class="input-text">
-                                        <input type="text" name="address" asp-for="Address" class="form-control value=@Model.AppUserViewModel.Address">
+                                        <input type="text" name="address" asp-for="Address" class="form-control" value=@Model.AppUserViewModel.Address>
                                     </div>
                                 }
                                 else
@@ -117,23 +117,23 @@
                                     </div>
                                 }
                             </div>
-                                <div class="col-xs-12" style="padding-top: 3%;">
-                                    <a href="/changepassword.html" style="color:#1A5EC9;text-decoration:underline; font-size:13px;">Change Password</a>
-                                </div>
-                                <div class="col-xs-12" style="padding-top: 3%;">
-                                    <div class="submit-text">
-                                        <button style="color:white; background-color:#222222; margin-top:3%;margin-bottom:20%;padding:2%; width:50%; float:right;" type="submit" class="btn btn-default">SAVE</button>
+                            <div class="col-xs-12" style="padding-top: 3%;">
+                                <a href="/changepassword.html" style="color:#1A5EC9;text-decoration:underline; font-size:13px;">Change Password</a>
+                            </div>
+                            <div class="col-xs-12" style="padding-top: 3%;">
+                                <div class="submit-text">
+                                    <button style="color:white; background-color:#222222; margin-top:3%;margin-bottom:20%;padding:2%; width:50%; float:right;" type="submit" class="btn btn-default">SAVE</button>
 
-                                        <button onclick="location.href='changepassword.html'" style="color:#222222; background-color:white; margin-top:3%;margin-bottom:20%;padding:2%; width:50%; float:right;border:solid 1px;" type="button" class="btn btn-default">CANCEL</button>
-                                    </div>
+                                    <button onclick="location.href='changepassword.html'" style="color:#222222; background-color:white; margin-top:3%;margin-bottom:20%;padding:2%; width:50%; float:right;border:solid 1px;" type="button" class="btn btn-default">CANCEL</button>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </section>
 <!-- service section -->
 <div class="jtv-service-area">
