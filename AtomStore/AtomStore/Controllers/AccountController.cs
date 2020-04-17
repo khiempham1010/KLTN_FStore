@@ -420,6 +420,7 @@ namespace AtomStore.Controllers
             return View();
         }
 
+
         [HttpGet]
         [AllowAnonymous]
         public IActionResult ResetPassword(string code = null)
@@ -429,6 +430,10 @@ namespace AtomStore.Controllers
                 throw new ApplicationException("A code must be supplied for password reset.");
             }
             var model = new ResetPasswordViewModel { Code = code };
+
+
+            var user = _userManager.FindByIdAsync(HttpContext.Request.Query["userId"].ToString());
+            model.Email = user.Result.Email;
             return View(model);
         }
 
