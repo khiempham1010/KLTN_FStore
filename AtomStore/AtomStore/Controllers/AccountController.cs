@@ -219,9 +219,9 @@ namespace AtomStore.Controllers
         [ValidateAntiForgeryToken]
  //       [ValidateRecaptcha]
         [Route("register.html")]
-        public async Task<IActionResult> Register(RegisterViewModel model, string returnUrl = null)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            ViewData["ReturnUrl"] = returnUrl;
+            //ViewData["ReturnUrl"] = returnUrl;
             if (!ModelState.IsValid)
             {
                 return View(model);
@@ -247,14 +247,21 @@ namespace AtomStore.Controllers
                 var callbackUrl = Url.EmailConfirmationLink(user.Id, code, Request.Scheme);
                 await _emailSender.SendEmailConfirmationAsync(model.Email, callbackUrl);
 
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                _logger.LogInformation("User created a new account with password.");
-                return RedirectToLocal(returnUrl);
+                //await _signInManager.SignInAsync(user, isPersistent: false);
+                //_logger.LogInformation("User created a new account with password.");
+                return RedirectToAction(nameof(RegisterConfirmation));
             }
             AddErrors(result);
 
             // If we got this far, something failed, redisplay form
             return View(model);
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult RegisterConfirmation()
+        {
+            return View();
         }
 
         [HttpPost]
@@ -334,7 +341,8 @@ namespace AtomStore.Controllers
                     Email = email,
                     FullName = model.FullName,
                     BirthDay = DateTime.Parse(model.DOB),
-                    PhoneNumber = model.PhoneNumber
+                    PhoneNumber = model.PhoneNumber,
+                    Address = model.Address
                 };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)

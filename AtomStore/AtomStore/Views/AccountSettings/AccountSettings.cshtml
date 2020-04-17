@@ -32,31 +32,68 @@
                     <div class="single-input p-bottom50 clearfix">
                         @*<form asp-route-returnUrl="@ViewData["ReturnUrl"]" method="post">*@
                         <form action="/accountsettings.html" method="post">
+                            @Html.AntiForgeryToken()
                             <div class="row">
                                 <div class="col-sm-6" style="padding-top: 3%;">
                                     <label>Full Name:</label>
-                                    <div class="input-text">
-                                        <input type="text" asp-for="FullName" name="fullName" class="form-control">
-                                    </div>
+                                    @if (Model.AppUserViewModel != null)
+                                    {
+                                        <div class="input-text">
+                                            <input type="text" asp-for="FullName" name="fullName" class="form-control value=@Model.AppUserViewModel.FullName">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-text">
+                                            <input type="text" asp-for="FullName" name="fullName" class="form-control">
+                                        </div>
+                                    }
 
                                 </div>
                                 <div class="col-sm-6" style="padding-top: 3%;">
                                     <label>Email:</label>
-                                    <div class="input-text">
-                                        <input type="text" asp-for="Email" name="email" class="form-control">
-                                    </div>
+                                    @if (Model.AppUserViewModel != null)
+                                    {
+                                        <div class="input-text">
+                                            <input type="text" asp-for="Email" name="email" class="form-control value=@Model.AppUserViewModel.Email">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-text">
+                                            <input type="text" asp-for="Email" name="email" class="form-control">
+                                        </div>
+                                    }
                                 </div>
                                 <div class="col-sm-6" style="padding-top: 3%;">
                                     <label>Phone:</label>
-                                    <div class="input-text">
-                                        <input type="text" name="phoneNumber" asp-for="PhoneNumber" class="form-control">
-                                    </div>
+                                    @if (Model.AppUserViewModel != null)
+                                    {
+                                        <div class="input-text">
+                                            <input type="text" name="phoneNumber" asp-for="PhoneNumber" class="form-control value=@Model.AppUserViewModel.PhoneNumber">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-text">
+                                            <input type="text" name="phoneNumber" asp-for="PhoneNumber" class="form-control">
+                                        </div>
+                                    }
                                 </div>
                                 <div class="col-sm-6" style="padding-top: 3%;">
                                     <label>Day of birth:</label>
-                                    <div class="input-text">
-                                        <input type="date" asp-for="BirthDay" name="birthDay" class="form-control">
-                                    </div>
+                                    @if (Model.AppUserViewModel != null)
+                                    {
+                                        <div class="input-text">
+                                            <input type="date" asp-for="BirthDay" name="birthDay" class="form-control value=@Model.AppUserViewModel.BirthDay">
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="input-text">
+                                            <input type="date" asp-for="BirthDay" name="birthDay" class="form-control">
+                                        </div>
+                                    }
                                 </div>
                                 @*<div class="col-xs-12">
                                         <label>Avatar:</label>
@@ -65,12 +102,21 @@
                                         </div>
                                     </div>*@
 
-                                <div class="col-xs-12" style="padding-top: 3%;">
-                                    <label>Address:</label>
+                            <div class="col-xs-12" style="padding-top: 3%;">
+                                <label>Address:</label>
+                                @if (Model.AppUserViewModel != null)
+                                {
+                                    <div class="input-text">
+                                        <input type="text" name="address" asp-for="Address" class="form-control value=@Model.AppUserViewModel.Address">
+                                    </div>
+                                }
+                                else
+                                {
                                     <div class="input-text">
                                         <input type="text" name="address" asp-for="Address" class="form-control">
                                     </div>
-                                </div>
+                                }
+                            </div>
                                 <div class="col-xs-12" style="padding-top: 3%;">
                                     <a href="/changepassword.html" style="color:#1A5EC9;text-decoration:underline; font-size:13px;">Change Password</a>
                                 </div>

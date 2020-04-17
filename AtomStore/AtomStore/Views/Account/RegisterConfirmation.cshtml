@@ -1,25 +1,38 @@
 ﻿
 @{
-    ViewData["Title"] = "ConfirmEmail";
+    ViewData["Title"] = "RegisterConfirmation";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home Page" href="/">Home</a><span>&raquo;</span></li>
+                    <li> <a asp-action="Login">Login</a><span>&raquo;</span></li>
+                    <li><strong>Register Comfirmation</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
 
-<!-- Main Container -->
 <div class="container">
     <div class="resetPassword">REGISTER</div>
-    <div class="successImg"><img src="~/client-side/images/success.png" alt="" style="text-align:center"></div>
-    <div class="resetPassword">Great job!</div>
-    <div class="subResetPassword">Your email has been confirmed.</div>
+    <div class="successImg"><img src="~/client-side/images/gmail.png" alt="" style="text-align:center"></div>
+    <div class="resetPassword">Please check your email!</div>
+    <div class="subResetPassword">Please check your registered email for email verification.</div>
     <div class="row">
         <form class="col-12 center-block">
             <div class="form-group center_div">
-                <button onclick="location.href='/login.html'" style="color:white; background-color:#222222; margin-top:3%;margin-bottom:20%;padding:2%; width:100%" type="button" class="btn btn-default">Create a Login now</button>
+                <button onclick="location.href='/login.html'" style="color:white; background-color:#222222; margin-top:3%;margin-bottom:20%;padding:2%; width:100%" type="button" class="btn btn-default">BACK TO LOGIN</button>
             </div>
+
         </form>
     </div>
 </div>
-<!-- Main Container End -->
+
 <!-- service section -->
 <div class="jtv-service-area">
     <div class="container">
@@ -71,5 +84,4 @@
         </div>
     </div>
 </div>
-
 
