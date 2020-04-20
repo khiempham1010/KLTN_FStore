@@ -1,6 +1,7 @@
 ﻿using AtomStore.Data.Enums;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AtomStore.Application.ViewModels.System
@@ -14,6 +15,8 @@ namespace AtomStore.Application.ViewModels.System
         public Guid? Id { set; get; }
         public string FullName { set; get; }
         public string BirthDay { set; get; }
+        //[DataType(DataType.Date)]
+        //public DateTime? BirthDay { set; get; }
         public string Email { set; get; }
         public string Password { set; get; }
         public string UserName { set; get; }
@@ -27,5 +30,7 @@ namespace AtomStore.Application.ViewModels.System
         public DateTime DateCreated { get; set; }
 
         public List<string> Roles { get; set; }
+
+        public string StatusMessage { get; set; }
     }
 }

@@ -72,6 +72,7 @@ namespace AtomStore.Application.Implementation
                 UserName = x.UserName,
                 Avatar = x.Avatar,
                 BirthDay = x.BirthDay.ToString(),
+                //BirthDay = x.BirthDay,
                 Email = x.Email,
                 FullName = x.FullName,
                 Id = x.Id,
@@ -122,6 +123,34 @@ namespace AtomStore.Application.Implementation
                 await _userManager.UpdateAsync(user);
             }
 
+        }
+        public async Task UpdateUserAsync(AppUserViewModel userVm)
+        {
+            var user = await _userManager.FindByEmailAsync(userVm.Email.ToString());
+
+            //Update user detail
+            user.FullName = userVm.FullName;
+            //user.BirthDay = userVm.BirthDay;
+            user.BirthDay = DateTime.Parse(userVm.BirthDay);
+            user.Address = userVm.Address;
+            user.Email = userVm.Email;
+            user.PhoneNumber = userVm.PhoneNumber;
+            user.Status = userVm.Status;                
+            await _userManager.UpdateAsync(user);
+        }
+
+        public async Task UpdateAsyncClient(AppUserViewModel userVm)
+        {
+            var user = await _userManager.FindByIdAsync(userVm.Id.ToString());
+            //Update user detail
+            user.FullName = userVm.FullName;
+            //user.BirthDay = userVm.BirthDay;
+            user.BirthDay = DateTime.Parse(userVm.BirthDay);
+            user.Address = userVm.Address;
+            user.Email = userVm.Email;
+            user.PhoneNumber = userVm.PhoneNumber;
+            user.Status = userVm.Status;
+            await _userManager.UpdateAsync(user);
         }
     }
 }

@@ -21,5 +21,8 @@ namespace AtomStore.Application.Interfaces
 
 
         Task UpdateAsync(AppUserViewModel userVm);
+
+        Task UpdateUserAsync(AppUserViewModel userVm);
+        Task UpdateAsyncClient(AppUserViewModel userVm);
     }
 }

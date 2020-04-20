@@ -31,5 +31,7 @@ namespace AtomStore.Models
 
         [Display(Name = "Avatar")]
         public string Avatar { get; set; }
+
+        public string StatusMessage { get; set; }
     }
 }
