@@ -8,7 +8,7 @@ namespace AtomStore.Models.AccountViewModels
 {
     public class RegisterViewModel
     {
-        [Required(ErrorMessage = "Full name required", AllowEmptyStrings = false)]
+        [Required(ErrorMessage = "Full name field is required", AllowEmptyStrings = false)]
         [Display(Name = "Full name")]
         public string FullName { set; get; }
 
