@@ -3,8 +3,13 @@
 @using AtomStore.Extensions
 @inject SignInManager<AppUser> SignInManager
 @inject UserManager<AppUser> UserManager
-
-
+@section Scripts{
+    @*<script src="~/app/controllers/home/manageaccount.js"></script>
+    <script>
+        var account = new manageaccount();
+        account.initialize();
+    </script>*@
+}
 
 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
     <div class="profile_img">
@@ -19,12 +24,15 @@
     </div>
 </a>
 <ul class="dropdown-menu drp-mnu">
-    <li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>
-    <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
-    <li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>
+    @*<li> <a href="#"><i class="fa fa-cog"></i> Settings</a> </li>*@
+    <li>
+        <button class="btn btn-link navbar-btn navbar-link" id="btnAccount"><i class=" fa fa-user"></i> My Account</button>
+    </li>
+    @*<li> <a href="#"><i class="fa fa-suitcase"></i> Profile</a> </li>*@
     <li>
         <form action="/Admin/Account/Logout" method="post" id="logoutForm" class="navbar-left">
-            <button type="submit" class="btn btn-link navbar-btn navbar-link">Log out</button>
+            <button type="submit" class="btn btn-link navbar-btn navbar-link "><i class="fa fa-power-off"></i>  Log out</button>
         </form>
     </li>
 </ul>
+

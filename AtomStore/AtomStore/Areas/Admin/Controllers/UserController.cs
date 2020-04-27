@@ -5,7 +5,11 @@ using System.Threading.Tasks;
 using AtomStore.Application.Interfaces;
 using AtomStore.Application.ViewModels.System;
 using AtomStore.Authorization;
+using AtomStore.Data.Entities;
+using AtomStore.Extensions;
+using AutoMapper;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -14,16 +18,18 @@ namespace AtomStore.Areas.Admin.Controllers
     public class UserController : BaseController
     {
         private readonly IUserService _userService;
+        private readonly UserManager<AppUser> _userManager;
         private readonly IAuthorizationService _authorizationService;
-        public UserController(IUserService userService, IAuthorizationService authorizationService)
+        public UserController(IUserService userService, IAuthorizationService authorizationService, UserManager<AppUser> userManager)
         {
             _userService = userService;
             _authorizationService = authorizationService;
+            _userManager = userManager;
         }
         public async Task<IActionResult> Index()
         {
             var result = await _authorizationService.AuthorizeAsync(User, "USER", Operations.Read);
-            if(result.Succeeded== false)
+            if (result.Succeeded == false)
             {
                 return new RedirectResult("Admin/login/index");
             }
@@ -87,5 +93,20 @@ namespace AtomStore.Areas.Admin.Controllers
                 return new OkObjectResult(id);
             }
         }
+        [HttpGet]
+        public IActionResult GetUser()
+        {
+            var user = _userManager.GetUserAsync(User).Result;
+            var userVm = Mapper.Map<AppUser, AppUserViewModel>(user);
+            return new OkObjectResult(userVm);
+        }
+
+        [HttpPost]
+        public IActionResult SaveUser(AppUserViewModel userVm)
+        {
+            _userService.UpdateUserAsync(userVm).Wait();
+            return new OkObjectResult(userVm);
+        }
+
     }
 }
