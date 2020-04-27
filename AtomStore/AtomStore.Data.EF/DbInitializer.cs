@@ -1,5 +1,6 @@
 ﻿using AtomStore.Data.Entities;
 using AtomStore.Data.Enums;
+using AtomStore.Utilities.Constants;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -46,6 +47,23 @@ namespace AtomStore.Data.EF
                     Description = "Customer"
                 });
             }
+
+            if (!_context.Contacts.Any())
+            {
+                _context.Contacts.Add(new Contact()
+                {
+                    Id = CommonConstants.DefaultContactId,
+                    Address = "01 Vo Van Ngan, Thu Duc Dist., Ho Chi Minh City",
+                    Email = "it.tunv98@gmail.com",
+                    Name = "ATOM Store",
+                    Phone = "1234567890",
+                    Status = Status.Active,
+                    Website = "http://atomstore.com",
+                    Lat = 10.852221,
+                    Lng = 106.772005
+                });
+            }
+
             if (!_userManager.Users.Any())
             {
                 await _userManager.CreateAsync(new AppUser()

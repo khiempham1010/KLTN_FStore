@@ -30,6 +30,9 @@ namespace AtomStore.Application.AutoMapper
 			//CreateMap<WholePrice, WholePriceViewModel>().MaxDepth(2);
 			CreateMap<SystemConfig, SystemConfigViewModel>().MaxDepth(2);
             CreateMap<SizeType, SizeTypeViewModel>();
+
+            CreateMap<Feedback, FeedbackViewModel>().MaxDepth(2);
+            CreateMap<Contact, ContactViewModel>().MaxDepth(2);
         }
     }
 }

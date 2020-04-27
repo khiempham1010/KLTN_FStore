@@ -163,6 +163,8 @@ namespace AtomStore
             services.AddTransient<IAuthorizationHandler, BaseResourceAuthorizationHandlerAuthorization>();
             services.AddTransient<IOrderService, OrderService>();
             services.AddTransient<ICommonService, CommonService>();
+            services.AddTransient<IFeedbackService, FeedbackService>();
+            services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IReportService, ReportService>();
 
 

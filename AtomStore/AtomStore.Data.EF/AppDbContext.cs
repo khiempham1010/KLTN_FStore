@@ -33,6 +33,7 @@ namespace AtomStore.Data.EF
         public DbSet<AppRole> AppRoles { get; set; }
         public DbSet<Color> Colors { set; get; }
         public DbSet<Feedback> Feedbacks { set; get; }
+        public DbSet<Contact> Contacts { set; get; }
         public DbSet<Product> Products { set; get; }
         public DbSet<ProductCategory> ProductCategories { set; get; }
         public DbSet<ProductImage> ProductImages { set; get; }
@@ -65,6 +66,7 @@ namespace AtomStore.Data.EF
             #endregion Identity Config
             builder.AddConfiguration(new AdvertistmentPageConfiguration());
             builder.AddConfiguration(new AdvertistmentPositionConfiguration());
+            builder.AddConfiguration(new ContactDetailConfiguration());
             builder.AddConfiguration(new TagConfiguration());
             builder.AddConfiguration(new ProductTagConfiguration());
             builder.AddConfiguration(new AdvertistmentPositionConfiguration());

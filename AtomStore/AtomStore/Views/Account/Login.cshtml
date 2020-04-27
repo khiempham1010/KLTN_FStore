@@ -29,17 +29,17 @@
                 <div class="box-authentication">
                     <form asp-route-returnurl="@ViewData["ReturnUrl"]" method="post">
                         <h4>Login</h4>
-                        @*<div asp-validation-summary="All" class="text-danger"></div>*@
+                        <div asp-validation-summary="All" class="text-danger"></div>
                         <p class="before-login-text">Welcome back! Sign in to your account</p>
                         <div>
                             <label asp-for="Email"></label>
                             <input type="text" asp-for="UserName" class="form-control">
-                            <span asp-validation-for="UserName" class="text-danger"></span>
+                            @*<span asp-validation-for="UserName" class="text-danger"></span>*@
                         </div>
                         <div style="padding-top:2%;">
                             <label asp-for="Password"></label>
                             <input id="password_login" asp-for="Password" type="password" class="form-control">
-                            <span asp-validation-for="Password" class="text-danger"></span>
+                            @*<span asp-validation-for="Password" class="text-danger"></span>*@
                         </div>
                         <p class="forgot-pass"><a asp-action="ForgotPassword">Lost your password?</a></p>
                         <button type="submit" class="button">

@@ -1,4 +1,5 @@
 ﻿using AtomStore.Application.Interfaces;
+using AtomStore.Application.ViewModels.Common;
 using AtomStore.Application.ViewModels.Product;
 using AtomStore.Application.ViewModels.System;
 using AtomStore.Data.Entities;
@@ -33,6 +34,13 @@ namespace AtomStore.Application.AutoMapper
             CreateMap<OrderDetailViewModel, OrderDetail>()
               .ConstructUsing(c => new OrderDetail(c.Id, c.OrderId, c.ProductId,
               c.Quantity, c.Price, c.ColorId, c.SizeId));
+
+
+            CreateMap<ContactViewModel, Contact>()
+               .ConstructUsing(c => new Contact(c.Id, c.Name, c.Phone, c.Email, c.Website, c.Address, c.Other, c.Lng, c.Lat, c.Status));
+
+            CreateMap<FeedbackViewModel, Feedback>()
+                .ConstructUsing(c => new Feedback(c.Id, c.Name, c.Email, c.Message, c.Status));
         }
     }
 }

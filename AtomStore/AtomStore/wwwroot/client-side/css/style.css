@@ -904,7 +904,7 @@ label {
 }
 
     #search button:hover {
-        background: #e83f33;
+        background: #fcd21b;
         border: none;
         color: #fff
     }
@@ -1412,8 +1412,8 @@ ul#cart-sidebar {
 }
 
 .mini-cart .actions .btn-checkout {
-    background: #333;
-    color: #999;
+    background: black;
+    color: white;
     font-size: 12px;
     padding: 8px 16px;
     border: none;
@@ -1426,12 +1426,12 @@ ul#cart-sidebar {
 }
 
     .mini-cart .actions .btn-checkout:hover {
-        background: #333333;
-        color: #fff;
+        background: #fcd21b;
+        color: black;
     }
 
 .mini-cart .actions .view-cart {
-    background: #e83f33;
+    background: black;
     color: #fff;
     font-size: 12px;
     padding: 8px 16px;
@@ -2942,15 +2942,16 @@ a.link {
 
 .product-item .item-inner:hover .item-info .add-to-cart {
     color: #fff;
-    background-color: #e83f33;
-    border: 1px #e83f33 solid;
+    background-color: black;
+    border: 1px black solid;
     width: 100%;
     transition: 0.5s all ease;
 }
 
 .product-item .item-inner .item-info .add-to-cart:hover {
-    background-color: #444;
-    border: 1px #444 solid;
+    background-color: #fcd21b;
+    border: 1px #fcd21b solid;
+    color:black;
     transition: 0.5s all ease;
 }
 
@@ -3639,9 +3640,9 @@ a.link {
     }
 
     #back-to-top:hover {
-        background: #e83f33;
+        background: black;
         color: #fff;
-        border: 1px #e83f33 solid;
+        border: 1px black solid;
     }
 
     #back-to-top.show {
@@ -5380,14 +5381,14 @@ a.ads1 {
             }
 
                 .pagination-area ul li a:hover {
-                    background: #e83f33;
-                    border: 1px solid #e83f33;
-                    color: #fff;
+                    background: #fcd21b;
+                    border: 1px solid #fcd21b;
+                    color: black;
                 }
 
                 .pagination-area ul li a.active {
-                    background: #e83f33;
-                    border: 1px solid #e83f33;
+                    background: black;
+                    border: 1px solid black;
                     color: #fff;
                     transition: all .4s ease-out .2s;
                 }
@@ -5483,12 +5484,12 @@ button.button {
 }
 
     button.button:hover {
-        background: #e83f33;
-        border: 1px solid #e83f33;
+        background: #fcd21b;
+        border: 1px solid #fcd21b;
         transition: all 0.3s linear;
         -moz-transition: all 0.3s linear;
         -webkit-transition: all 0.3s linear;
-        color: #fff
+        color: black
     }
 
 button span {
@@ -5504,7 +5505,7 @@ button span {
     padding: 8px 0px;
     margin: auto;
     font-size: 12px;
-    border-bottom: 1px #e5e5e5 solid;
+    border-bottom: 1px #eeeeee solid;
 }
 
     .breadcrumbs a {
@@ -5891,13 +5892,13 @@ button span {
     margin: auto;
     font-size: 14px;
     font-weight: 600;
-    border-bottom: 1px solid #e5e5e5;
+    border-bottom: 1px solid #eeeeee;
 }
 
     .sidebar-bar-title h3 {
         font-size: 14px;
         letter-spacing: 0.5px;
-        border-bottom: 2px solid #e83f33;
+        border-bottom: 2px solid black;
         display: inline-block;
         margin-bottom: -1px;
         padding-bottom: 8px;
@@ -5969,9 +5970,9 @@ button span {
     }
 
     .product-price-range .slider-range-price .ui-slider-handle {
-        border: 1px #e83f33 solid;
+        border: 1px black solid;
         border-radius: 100%;
-        background: #e83f33;
+        background: black;
         cursor: pointer
     }
 
@@ -6010,7 +6011,7 @@ button span {
         }
 
         .check-box-list input[type="checkbox"]:checked + label span.button {
-            background: #e83f33 url("../images/checked.png") no-repeat center center
+            background: black url("../images/checked.png") no-repeat center center
         }
 
         .check-box-list input[type="checkbox"]:checked + label {
@@ -6648,7 +6649,7 @@ ul.products-list {
     font-size: 14px;
     color: #000;
     white-space: nowrap !important;
-}
+}.regular-price .price
 
 .price-box {
     margin: 6px 0 2px;
@@ -6662,7 +6663,7 @@ ul.products-list {
     .regular-price .price {
         font-weight: 600;
         font-size: 14px;
-        color: #e83f33;
+        color: black;
     }
 
 .block .regular-price, .block .regular-price .price {
@@ -7038,7 +7039,7 @@ ul.products-list {
 
 .product-view-area .product-details-area .price {
     font-size: 28px;
-    color: #e74c3c;
+    color: black;
     font-weight: 600
 }
 
@@ -7130,10 +7131,10 @@ ul.products-list {
 }
 
 button.button.pro-add-to-cart {
-    background: #e83f33;
+    background: black;
     color: #fff;
     padding: 7px 22px;
-    border: 1px #e83f33 solid;
+    border: 1px black solid;
 }
 
     button.button.pro-add-to-cart:hover {
@@ -7652,7 +7653,7 @@ p.note {
             height: 3px;
             bottom: -2px;
             content: "";
-            background: #e83f33;
+            background: black;
             width: 130px;
         }
 
@@ -7727,9 +7728,9 @@ p.note {
 
 .page-order .cart_navigation a.checkout-btn {
     float: right;
-    background: #e83f33;
+    background: black;
     color: #fff;
-    border: 1px solid #e83f33;
+    border: 1px solid black;
     font-size: 16px;
     font-weight: 600;
     padding: 8px 30px;
@@ -7738,8 +7739,9 @@ p.note {
 }
 
     .page-order .cart_navigation a.checkout-btn:hover {
-        border: 1px solid #222;
-        background: #222;
+        border: 1px solid #fcd21b;
+        background: #fcd21b;
+        color:black;
     }
 
 .cart_summary > thead, .cart_summary > tfoot {
@@ -7748,7 +7750,7 @@ p.note {
 }
 
     .cart_summary > tfoot strong {
-        color: #e74c3c
+        color: black;
     }
 
     .cart_summary > thead > th {
@@ -9624,11 +9626,11 @@ label[for="rememberme"] {
     }
 
     .item-inner .item-info .add-to-cart {
-        background-color: #444;
+        background-color: black;
         padding: 8px 12px;
         font-size: 12px;
         border-radius: 2px;
-        color: #fff;
+        color: white;
     }
 
         .item-inner .item-info .add-to-cart i {
