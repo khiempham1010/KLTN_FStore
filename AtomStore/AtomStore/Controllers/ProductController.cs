@@ -5,12 +5,14 @@ using System.Threading.Tasks;
 using AtomStore.Application.Interfaces;
 using AtomStore.Models;
 using AtomStore.Models.ProductViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
 
 namespace AtomStore.Controllers
 {
+    [Authorize(Roles = "Admin, Staff")]
     public class ProductController : Controller
     {
         IProductService _productService;
