@@ -43,15 +43,8 @@ namespace AtomStore.Areas.Admin.Controllers
                 var result = await _signInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, lockoutOnFailure: false);
                 if (result.Succeeded)
                 {
-                    var user = await _userManager.FindByNameAsync(model.UserName);
-                    var currentRoles = await _userManager.GetRolesAsync(user);
-                    if(currentRoles.Count>0 && currentRoles[0] != "Customer")
-                    {
-                        _logger.LogInformation("User logged in.");
-                        return new OkObjectResult(new GenericResult(true));
-                    }
-                    _logger.LogWarning("Invalid login attempt.");
-                    return new ObjectResult(new GenericResult(false, "User account locked out!"));
+                    _logger.LogInformation("User logged in.");
+                    return new OkObjectResult(new GenericResult(true)); 
                 }
                 if (result.IsLockedOut)
                 {
