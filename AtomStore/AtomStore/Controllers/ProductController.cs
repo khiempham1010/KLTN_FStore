@@ -12,7 +12,6 @@ using Microsoft.Extensions.Configuration;
 
 namespace AtomStore.Controllers
 {
-    [Authorize(Roles = "Admin, Staff")]
     public class ProductController : Controller
     {
         IProductService _productService;
