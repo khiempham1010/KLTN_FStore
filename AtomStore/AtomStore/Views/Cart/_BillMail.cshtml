@@ -1,55 +1,201 @@
 ﻿@model OrderViewModel
-<h1>ATOM Store new bill</h1>
-<table>
-    <tr>
-        <td>Customer Name</td>
-        <td>@Model.CustomerName</td>
-    </tr>
-    <tr>
-        <td>Address</td>
-        <td>@Model.CustomerAddress</td>
-    </tr>
-    <tr>
-        <td>Phone</td>
-        <td>@Model.CustomerPhone</td>
-    </tr>
-    <tr>
-        <td>Date</td>
-        <td>@Model.DateCreated.ToString("dd/MM/yyyy hh:mm")</td>
-    </tr>
-    <tr>
-        <td>Details</td>
-        <td>
-            <table>
-                <thead>
-                <tr>
-                    <th></th>
-                    <th>Product</th>
-                    <th>Quantity</th>
-                    <th>Price</th>
-                    <th>Total</th>
-                </tr>
-                </thead>
-                <tbody>
-                @foreach (var item in Model.OrderDetails)
-                {
-                    <tr>
-                        <th><img src="@item.Product.Image" width=100 /></th>
-                        <td>@item.Product.Name</td>
-                        <td>@item.Quantity</td>
-                        <td>@item.Price</td>
-                        <td>@((item.Quantity * item.Price).ToString("F1"))</td>
-                    </tr>
+
+<!doctype html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Email invoice</title>
+
+    <style>
+        .invoice-box {
+            max-width: 800px;
+            margin: auto;
+            padding: 30px;
+            border: 1px solid black;
+            box-shadow: 0 0 10px rgba(0, 0, 0, .15);
+            font-size: 16px;
+            line-height: 24px;
+            font-family: 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+            color: black;
+        }
+
+            .invoice-box table {
+                width: 100%;
+                line-height: inherit;
+                text-align: left;
+            }
+
+                .invoice-box table td {
+                    padding: 5px;
+                    vertical-align: top;
                 }
-                </tbody>
-                <tfoot>
-                <tr>
-                    <td colspan="5">
-                        Total: @Model.OrderDetails.Sum(x => x.Quantity * x.Price).ToString("F1")
+
+                .invoice-box table tr td:nth-child(2) {
+                    text-align: right;
+                }
+
+                .invoice-box table tr.top table td {
+                    padding-bottom: 20px;
+                }
+
+                    .invoice-box table tr.top table td.title {
+                        font-size: 45px;
+                        line-height: 45px;
+                        color: #333;
+                    }
+
+                .invoice-box table tr.information table td {
+                    padding-bottom: 40px;
+                }
+
+                .invoice-box table tr.heading td {
+                    background: #555555;
+                    border-bottom: 1px solid #ddd;
+                    font-weight: bold;
+                    color:white;
+                }
+
+                .invoice-box table tr.details td {
+                    padding-bottom: 20px;
+                }
+
+                .invoice-box table tr.item td {
+                    border-bottom: 1px solid #eee;
+                }
+
+                .invoice-box table tr.item.last td {
+                    border-bottom: none;
+                }
+
+                .invoice-box table tr.total td:nth-child(2) {
+                    border-top: 2px solid #eee;
+                    font-weight: bold;
+                }
+
+        @@media only screen and (max-width: 600px) {
+            .invoice-box table tr.top table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+
+            .invoice-box table tr.information table td {
+                width: 100%;
+                display: block;
+                text-align: center;
+            }
+        }
+        a{
+            text-decoration: none;
+        }
+
+        /** RTL **/
+        .rtl {
+            direction: rtl;
+            font-family: Tahoma, 'Helvetica Neue', 'Helvetica', Helvetica, Arial, sans-serif;
+        }
+
+            .rtl table {
+                text-align: right;
+            }
+
+                .rtl table tr td:nth-child(2) {
+                    text-align: left;
+                }
+    </style>
+</head>
+
+<body>
+    <div class="invoice-box">
+        <table cellpadding="0" cellspacing="0">
+            <tr class="top">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td class="title">
+                                <img src="/client-side//images/logoAtom.jpg" style="width:100%; max-width:300px;">
+                            </td>
+
+                            <td style="float:right; padding-right:95px;"> 
+                                Invoice #: @Model.Id<br>
+                                Created: @Model.DateCreated.ToString("dd/MM/yyyy hh:mm")<br>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+            <tr class="information">
+                <td colspan="4">
+                    <table>
+                        <tr>
+                            <td>
+                                ATOM STORE.<br>
+                                01 Vo Van Ngan, Thu Duc Dist,<br>
+                                Ho Chi Minh City, Vietnam
+                            </td>
+
+                            <td style="float:right;">
+                                INVOICE TO<br>
+                                Name: @Model.CustomerName<br>
+                                Phone: @Model.CustomerPhone<br>
+                                Address: @Model.CustomerAddress<br />
+                                Email: @Model.CustomerEmail<a href="mailto:@Model.CustomerEmail"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+            </tr>
+
+
+            <tr class="heading">
+                <td>
+                    Item
+                </td>
+
+                <td>
+                    Price
+                </td>
+
+                <td>
+                    Quantity
+                </td>
+
+                <td>
+                    Amount
+                </td>
+            </tr>
+            @foreach (var item in Model.OrderDetails)
+            {
+                <tr class="item">
+                    <td>
+                        @item.Product.Name
+                    </td>
+
+                    <td>
+                        $@item.Price
+                    </td>
+
+                    <td>
+                        @item.Quantity
+                    </td>
+
+                    <td>
+                        $@((item.Quantity * item.Price).ToString("F1"))
                     </td>
                 </tr>
-                </tfoot>
-            </table>
-        </td>
-    </tr>
-</table>
+            }
+
+        <tr class="total" style="font-size:20px; font-weight:bold;">
+            <td></td>
+            <td></td>
+            <td></td>
+            <td>
+                Total: $@Model.OrderDetails.Sum(x => x.Quantity * x.Price).ToString("F1")
+            </td>
+        </tr>
+        </table>
+    </div>
+</body>
+</html>
+
