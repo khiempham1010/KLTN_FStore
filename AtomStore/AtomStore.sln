@@ -23,7 +23,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtomStore.Infrastructure", 
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtomStore.Utilities", "AtomStore_Utilities\AtomStore.Utilities.csproj", "{B0E14DD9-378E-412D-8759-91FDCCB75748}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtomStore.Aplication.Dapper", "AtomStore.Aplication.Dapper\AtomStore.Aplication.Dapper.csproj", "{586226FA-89AC-4672-902F-7093B9E7623B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AtomStore.Aplication.Dapper", "AtomStore.Aplication.Dapper\AtomStore.Aplication.Dapper.csproj", "{586226FA-89AC-4672-902F-7093B9E7623B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AtomStoreApp.WebApi", "AtomStoreApp.WebApi\AtomStoreApp.WebApi.csproj", "{36E8244E-8018-4C99-9616-C80CC16F85C0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -59,6 +61,10 @@ Global
 		{586226FA-89AC-4672-902F-7093B9E7623B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{586226FA-89AC-4672-902F-7093B9E7623B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{586226FA-89AC-4672-902F-7093B9E7623B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{36E8244E-8018-4C99-9616-C80CC16F85C0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{36E8244E-8018-4C99-9616-C80CC16F85C0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{36E8244E-8018-4C99-9616-C80CC16F85C0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{36E8244E-8018-4C99-9616-C80CC16F85C0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -71,6 +77,7 @@ Global
 		{24714AD7-D10D-48A9-B83E-02AC4CF04F67} = {4A82DE31-B961-4A46-B962-DEED83DB8E59}
 		{B0E14DD9-378E-412D-8759-91FDCCB75748} = {4A82DE31-B961-4A46-B962-DEED83DB8E59}
 		{586226FA-89AC-4672-902F-7093B9E7623B} = {50F1C18E-7C23-41E7-A2D9-52DD030E563B}
+		{36E8244E-8018-4C99-9616-C80CC16F85C0} = {07416BF7-8971-4CA2-A8AE-A72E46B040F6}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {400C7464-858D-4B35-98F5-641ED19EAD08}
