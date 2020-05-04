@@ -5559,7 +5559,7 @@ button span {
     margin-bottom: 25px;
     border: none;
     margin-top: 10px;
-    display: none;
+    display: block;
 }
 
     .category-sidebar .block-title:before {
