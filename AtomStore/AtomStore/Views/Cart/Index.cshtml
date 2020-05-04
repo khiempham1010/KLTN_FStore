@@ -24,22 +24,22 @@
                     <div class="order-detail-content">
                         <div class="table-responsive">
                             <table class="table table-bordered cart_summary">
-                                <thead >
+                                <thead style="background-color:black; color:white;">
                                     <tr>
-                                        <th class="cart_product"style="text-align: center">Product</th>
+                                        <th class="cart_product" style="text-align: center">Product</th>
                                         <th style="text-align: center">Description</th>
                                         @*<th>Avail</th>*@
                                         <th style="text-align: center">Unit price</th>
                                         <th style="text-align: center">Qty</th>
-                                        <th style="text-align: center">Total</th>
+                                        <th style="text-align: center">Amount</th>
                                         <th class="action" style="text-align: center"><i class="fa fa-trash-o"></i></th>
                                     </tr>
                                 </thead>
                                 <tbody id="table-cart-content"></tbody>
-                                <tfoot>
+                                <tfoot style="background-color:white;">
                                     <tr>
-                                        <td colspan="3"><strong style="float: right">Total</strong></td>
-                                        <td colspan="6"><strong style="float: right"><span id="lblTotalAmount"></span> </strong></td>
+                                        <td colspan="3"><strong style="float: right;">Total</strong></td>
+                                        <td colspan="6"><strong style="float: right; margin-right:30px;"><span id="lblTotalAmount"></span> </strong></td>
                                     </tr>
                                 </tfoot>
                             </table>
@@ -55,15 +55,15 @@
                                         <small><a href="#">Color : {{{Colors}}}</a></small>
                                         <small><a href="#">Size : {{{Sizes}}}</a></small>
                                     </td>
-                                    <td class="price"><span>{{Price}} </span></td>
+                                    <td class="price"><span>${{Price}} </span></td>
                                     <td class="qty"><input class="form-control input-sm txtQuantity" data-id="{{ProductId}}" type="text" value="{{Quantity}}"></td>
-                                    <td class="price"><span>{{Amount}}</span></td>
+                                    <td class="price"><span>${{Amount}}</span></td>
                                     <td class="action"><a href="#" data-id="{{ProductId}}" class="btn-delete"><i class="icon-close"></i></a></td>
                                 </tr>
                             </script>
                         </div>
                         <div class="cart_navigation">
-                            <a class="continue-btn" href="/"><i class="fa fa-arrow-left"> </i>&nbsp; Continue shopping</a>
+                            <a class="continue-btn" href="/" style="background-color:#fcd21b;"><i class="fa fa-arrow-left"> </i>&nbsp; Continue shopping</a>
                             <a id="btnClearAll" href="#"><i class="fa fa-remove"> </i>&nbsp; Clear cart</a>
                             <a class="checkout-btn" href="/checkout.html"><i class="fa fa-check"></i> Proceed to checkout</a>
                         </div>

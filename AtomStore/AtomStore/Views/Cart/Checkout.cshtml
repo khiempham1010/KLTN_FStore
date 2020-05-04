@@ -51,7 +51,7 @@
                                                 <div class="row">
                                                     <div class="col-xs-12" style="padding-top: 3%;">
                                                         <div class="submit-text">
-                                                            <button onclick="location.href='/'" style="color:white; background-color:#222222; margin-top:3%;padding:2%; width:100%" type="button" class="btn btn-default">GO TO HOME</button>
+                                                            <button onclick="location.href='/'" style="color:white; background-color:#222222; margin-top:3%;padding:2%; width:100%" type="button" class="btn btn-default">CONTINUE SHOPPING</button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -183,7 +183,7 @@
                             <div class="box-border">
                                 <div class="table-responsive">
                                     <table class="table table-bordered cart_summary">
-                                        <thead>
+                                        <thead style="background-color:black; color:white;">
                                             <tr>
                                                 <th class="cart_product">Product</th>
                                                 <th>Description</th>
@@ -204,17 +204,17 @@
                                                         <small><a href="#">Color : @item.Color.Name</a></small><br>
                                                         <small><a href="#">Size : @item.Size.Name</a></small>
                                                     </td>
-                                                    <td class="price"><span>@item.Price.ToString("N0") </span></td>
+                                                    <td class="price"><span>$@item.Price.ToString("F1") </span></td>
                                                     <td class="qty">@item.Quantity</td>
-                                                    <td class="price"><span>@((item.Price * item.Quantity).ToString("N0")) </span></td>
+                                                    <td class="price"><span>$@((item.Price * item.Quantity).ToString("")) </span></td>
                                                 </tr>
 
                                             }
                                         </tbody>
-                                        <tfoot>
+                                        <tfoot style="background-color:white;">
                                             <tr>
-                                                <td colspan="3"><strong>Total</strong></td>
-                                                <td colspan="2"><strong>@Model.Carts.Sum(x => x.Quantity * x.Price).ToString("F1") </strong></td>
+                                                <td colspan="3"><strong style="float: right;">Total</strong></td>
+                                                <td colspan="2"><strong style="float: right; margin-right:30px;">$@Model.Carts.Sum(x => x.Quantity * x.Price).ToString("F1") </strong></td>
                                             </tr>
                                         </tfoot>
                                     </table>
