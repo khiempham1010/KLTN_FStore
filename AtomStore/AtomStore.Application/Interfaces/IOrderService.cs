@@ -1,4 +1,5 @@
-﻿using AtomStore.Application.ViewModels.Product;
+﻿using AtomStore.Application.ViewModels.Common;
+using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Enums;
 using AtomStore.Utilities.Dtos;
 using System;
@@ -33,7 +34,7 @@ namespace AtomStore.Application.Interfaces
         ColorViewModel GetColor(int id);
 
         SizeViewModel GetSize(int id);
-
+        List<OrderHistoryViewModel> GetOrderHistory(String userEmail);
         void Save();
     }
 }

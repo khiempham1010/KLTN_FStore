@@ -1,4 +1,5 @@
 ﻿using AtomStore.Application.Interfaces;
+using AtomStore.Application.ViewModels.Common;
 using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Entities;
 using AtomStore.Data.Enums;
@@ -191,6 +192,31 @@ namespace AtomStore.Application.Implementation
             return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
         }
 
+
+        public List<OrderHistoryViewModel> GetOrderHistory(String userEmail)
+        {
+            var listUserOrder = _orderRepository.FindAll(x => x.CustomerEmail == userEmail);
+            List<OrderHistoryViewModel> orderHistory = new List<OrderHistoryViewModel>();
+            foreach (var item in listUserOrder)
+            {
+                orderHistory.Add(GetOneOrderHistory(item.Id));
+            }
+            return orderHistory;
+        }
+
+        public OrderHistoryViewModel GetOneOrderHistory(int orderId)
+        {
+            OrderHistoryViewModel orderHistory=new OrderHistoryViewModel();
+            orderHistory.Order = Mapper.Map<Order,OrderViewModel>(_orderRepository.FindById(orderId));
+            orderHistory.OrderDetail = _orderDetailRepository.FindAll(x => x.OrderId == orderHistory.Order.Id).ProjectTo<OrderDetailViewModel>().ToList();
+            orderHistory.Product = new List<ProductViewModel>();
+            foreach (var item in orderHistory.OrderDetail)
+            {
+                var a = _productRepository.FindById(item.ProductId);
+                orderHistory.Product.Add(Mapper.Map<Product, ProductViewModel>(_productRepository.FindById(item.ProductId)));
+            }
+            return orderHistory;
+        }
 
     }
 }

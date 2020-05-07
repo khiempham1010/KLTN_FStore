@@ -15,30 +15,29 @@
                         <div class="welcome-msg hidden-xs hidden-sm">Hi! Welcome to ATOM Store </div>
                         <!-- Language &amp; Currency wrapper -->
                         @*<div class="language-currency-wrapper">
-                            <div class="inner-cl">
-                                <div class="block block-language form-language">
-                                    <div class="lg-cur"><span><img src="/client-side/images/flag-default.jpg" alt="French"><span class="lg-fr">French</span><i class="fa fa-angle-down"></i></span></div>
-                                    <ul>
-                                        <li><a class="selected" href="#"><img src="/client-side/images/flag-english.jpg" alt="english"><span>English</span></a></li>
-                                        <li><a href="#"><img src="/client-side/images/flag-default.jpg" alt="French"><span>French</span></a></li>
-                                        <li><a href="#"><img src="/client-side/images/flag-german.jpg" alt="German"><span>German</span></a></li>
-                                        <li><a href="#"><img src="/client-side/images/flag-brazil.jpg" alt="Brazil"><span>Brazil</span></a></li>
-                                        <li><a href="#"><img src="/client-side/images/flag-chile.jpg" alt="Chile"><span>Chile</span></a></li>
-                                        <li><a href="#"><img src="/client-side/images/flag-spain.jpg" alt="Spain"><span>Spain</span></a></li>
-                                    </ul>
+                                <div class="inner-cl">
+                                    <div class="block block-language form-language">
+                                        <div class="lg-cur"><span><img src="/client-side/images/flag-default.jpg" alt="French"><span class="lg-fr">French</span><i class="fa fa-angle-down"></i></span></div>
+                                        <ul>
+                                            <li><a class="selected" href="#"><img src="/client-side/images/flag-english.jpg" alt="english"><span>English</span></a></li>
+                                            <li><a href="#"><img src="/client-side/images/flag-default.jpg" alt="French"><span>French</span></a></li>
+                                            <li><a href="#"><img src="/client-side/images/flag-german.jpg" alt="German"><span>German</span></a></li>
+                                            <li><a href="#"><img src="/client-side/images/flag-brazil.jpg" alt="Brazil"><span>Brazil</span></a></li>
+                                            <li><a href="#"><img src="/client-side/images/flag-chile.jpg" alt="Chile"><span>Chile</span></a></li>
+                                            <li><a href="#"><img src="/client-side/images/flag-spain.jpg" alt="Spain"><span>Spain</span></a></li>
+                                        </ul>
+                                    </div>
                                 </div>
-                            </div>
-                        </div>*@
+                            </div>*@
                     </div>
 
                     <!-- top links -->
                     <div class="headerlinkmenu col-md-8 col-sm-8 col-xs-12">
-                        <span class="phone  hidden-xs hidden-sm">Call Us: +123.456.789</span>
+                        <span class="phone  hidden-xs hidden-sm">Call Us: (+84) 0793699821</span>
                         <ul class="links">
 
                             <!-- MODIFIED HELP CENTER -->
                             <!-- MODIFIED STORE LOCATOR -->
-
                             @*<li><a title="Checkout" href="/checkout.html"><span>Checkout</span></a></li>*@
                             @if (User.Identity.IsAuthenticated)
                             {
@@ -48,8 +47,9 @@
                                         <a class="current-open" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" href="#"><span>@User.GetSpecificClaim("FullName")</span> <i class="fa fa-angle-down"></i></a>
                                         <ul class="dropdown-menu" role="menu">
                                             <li><a href="/accountsettings.html">Account Settings</a></li>
+                                            <li><a href="/history.html">Order History</a></li>
                                             @*<li><a href="#">Wishlist</a></li>
-                                            <li><a href="#">Order Tracking</a></li>*@
+                                                <li><a href="#">Order Tracking</a></li>*@
                                         </ul>
                                     </div>
                                 </li>
