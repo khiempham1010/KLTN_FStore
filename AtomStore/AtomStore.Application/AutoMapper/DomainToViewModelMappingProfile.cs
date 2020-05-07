@@ -29,7 +29,7 @@ namespace AtomStore.Application.AutoMapper
             CreateMap<ProductImage, ProductImageViewModel>().MaxDepth(2);
 			//CreateMap<WholePrice, WholePriceViewModel>().MaxDepth(2);
 			CreateMap<SystemConfig, SystemConfigViewModel>().MaxDepth(2);
-            CreateMap<SizeType, SizeTypeViewModel>();
+            CreateMap<SizeType, SizeTypeViewModel>().MaxDepth(2);
 
             CreateMap<Feedback, FeedbackViewModel>().MaxDepth(2);
             CreateMap<Contact, ContactViewModel>().MaxDepth(2);

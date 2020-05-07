@@ -2,62 +2,8 @@
 @model List<ProductCategoryViewModel>
 
 <aside class="sidebar col-sm-3 col-xs-12 col-sm-pull-9">
+   
     <div class="block category-sidebar">
-        <div class="sidebar-title">
-            <h3>Categories</h3>
-        </div>
-        <ul class="product-categories">
-            <li class="cat-item current-cat cat-parent">
-                <a href="shop_grid.html">Women</a>
-                <ul class="children">
-                    <li class="cat-item cat-parent">
-                        <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Accessories</a>
-                        <ul class="children">
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Dresses</a></li>
-                            <li class="cat-item cat-parent">
-                                <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Handbags</a>
-                                <ul class="children">
-                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Beaded Handbags</a></li>
-                                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Sling bag</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="cat-item cat-parent">
-                        <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Handbags</a>
-                        <ul class="children">
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; backpack</a></li>
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Beaded Handbags</a></li>
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Fabric Handbags</a></li>
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Sling bag</a></li>
-                        </ul>
-                    </li>
-                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Jewellery</a> </li>
-                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Swimwear</a> </li>
-                </ul>
-            </li>
-            <li class="cat-item cat-parent">
-                <a href="shop_grid.html">Men</a>
-                <ul class="children">
-                    <li class="cat-item cat-parent">
-                        <a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Dresses</a>
-                        <ul class="children">
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Casual</a></li>
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Designer</a></li>
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Evening</a></li>
-                            <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Hoodies</a></li>
-                        </ul>
-                    </li>
-                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Jackets</a> </li>
-                    <li class="cat-item"><a href="shop_grid.html"><i class="fa fa-angle-right"></i>&nbsp; Shoes</a> </li>
-                </ul>
-            </li>
-            <li class="cat-item"><a href="shop_grid.html">Electronics</a></li>
-            <li class="cat-item"><a href="shop_grid.html">Furniture</a></li>
-            <li class="cat-item"><a href="shop_grid.html">KItchen</a></li>
-        </ul>
-    </div>
-    <div class="block shop-by-side">
         <div class="sidebar-bar-title">
             <h3>Shop By</h3>
         </div>
@@ -67,22 +13,40 @@
                 <h2 class="saider-bar-title">Categories</h2>
                 <div class="layered-content">
                     <ul class="check-box-list">
-                        @foreach (var item in Model)
+                        @foreach (var item in Model.Where(x => x.ParentId == null))
                         {
                             <li>
                                 <input type="checkbox" id="jtv@(item.Id)" name="jtvc">
-                                <label for="jtv@(item.Id)"> <span class="button" onclick="window.location.href='/@item.SeoAlias-c.@(item.Id).html'"></span> @item.Name</label>
-                                @*@if (Model.Any(x => x.ParentId == item.Id))
-                                {
-                                    @foreach (var subItem in Model.Where(x => x.ParentId == item.Id))
+                                <label for="jtv@(item.Id) " style="font-size:larger"> <span class="button " onclick="window.location.href='/@item.SeoAlias-c.@(item.Id).html'"></span> @item.Name</label>
+                                <ul >
+                                    @foreach (var subitem in Model.Where(x => x.ParentId == item.Id))
                                     {
-                                        <input type="checkbox" id="jtv1" name="jtvc">
-                                        <label for="jtv1"> <span class="button" onclick="window.location.href='/@subItem.SeoAlias-c.@(subItem.Id).html'"></span> @subItem.Name</label>
+                                        @if (Model.Any(x => x.ParentId == item.Id))
+                                        {
+                                            <li>
+                                                <input type="checkbox" id="jtv@(subitem.Id)" name="jtvc">
+                                                <label for="jtv@(subitem.Id)"  style="margin-left:20px"> <span class="button" onclick="window.location.href='/@subitem.SeoAlias-c.@(subitem.Id).html'"></span> @subitem.Name</label>
+
+                                                @if (Model.Any(x => x.ParentId == item.Id))
+                                                {
+                                                    <ul>
+                                                        @foreach (var subOfSubItem in Model.Where(x => x.ParentId == subitem.Id))
+                                                        {
+                                                            <li>
+                                                                <input type="checkbox" id="jtv@(subOfSubItem.Id)" name="jtvc">
+                                                                <label for="jtv@(subOfSubItem.Id)" style="margin-left:40px"> <span class="button" onclick="window.location.href='/@subOfSubItem.SeoAlias-c.@(subOfSubItem.Id).html'"></span> @subOfSubItem.Name</label>
+
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                }
+                                            </li>
+
+                                        }
                                     }
-                                }*@
+                                </ul>
 
                             </li>
-
                         }
                     </ul>
                 </div>
@@ -136,19 +100,28 @@
                 <div class="amount-range-price">Range: $10 - $550</div>
                 <ul class="check-box-list">
                     <li>
+                        <input type="checkbox" id="p0" name="cc" />
+                        <label for="p0"> <span class="button" onclick="window.location.href='@Context.Request.Path.ToString()'"></span> All<span class="count">(0)</span> </label>
+                    </li>
+                    <li>
                         <input type="checkbox" id="p1" name="cc" />
-                        <label for="p1"> <span class="button"></span> $20 - $50<span class="count">(0)</span> </label>
+                        <label for="p1"> <span class="button" onclick="window.location.href='@Context.Request.Path.ToString()?minPrice=0&maxPrice=50'"> </span> 0 - $50<span class="count">(0)</span> </label>
                     </li>
                     <li>
                         <input type="checkbox" id="p2" name="cc" />
-                        <label for="p2"> <span class="button"></span> $50 - $100<span class="count">(0)</span> </label>
+                        <label for="p2"> <span class="button" onclick="window.location.href='@Context.Request.Path.ToString()?minPrice=50&maxPrice=100'"></span> $50 - $100<span class="count">(0)</span> </label>
                     </li>
                     <li>
                         <input type="checkbox" id="p3" name="cc" />
-                        <label for="p3"> <span class="button"></span> $100 - $250<span class="count">(0)</span> </label>
+                        <label for="p3"> <span class="button" onclick="window.location.href='@Context.Request.Path.ToString()?minPrice=100&maxPrice=250'"></span> $100 - $250<span class="count">(0)</span> </label>
+                    </li>
+                    <li>
+                        <input type="checkbox" id="p3" name="cc" />
+                        <label for="p3"> <span class="button" onclick="window.location.href='@Context.Request.Path.ToString()?minPrice=100&maxPrice=100000'"></span> Over $250<span class="count">(0)</span> </label>
                     </li>
                 </ul>
             </div>
         </div>
     </div>
+    <button>Filter</button>
 </aside>

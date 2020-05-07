@@ -14,6 +14,6 @@ namespace AtomStore.Data.Entities
         }
         [StringLength(250)]
         public string Name { get; set; }
-        public virtual ICollection<Size> Sizes { get; set; }
+        public ICollection<Size> Sizes { get; set; }
     }
 }

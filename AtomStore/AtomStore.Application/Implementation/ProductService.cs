@@ -50,15 +50,19 @@ namespace AtomStore.Application.Implementation
         private IRepository<ProductImage, int> _productImageRepository;
         private IRepository<Product, int> _productRepository;
         private IRepository<ProductCategory, int> _productCategoryRepository;
+        private readonly IRepository<Color, int> _colorRepository;
+        private readonly IRepository<Size, int> _sizeRepository;
         private IUnitOfWork _unitOfWork;
 
         public ProductService(IRepository<Product, int> productRepository,
             IRepository<Tag, string> tagRepository,
             IRepository<ProductQuantity, int> productQuantityRepository,
             IRepository<ProductImage, int> productImageRepository,
-        IUnitOfWork unitOfWork,
-        IRepository<ProductTag, int> productTagRepository,
-        IRepository<ProductCategory, int> productCategoryRepository)
+            IUnitOfWork unitOfWork,
+            IRepository<ProductTag, int> productTagRepository,
+            IRepository<ProductCategory, int> productCategoryRepository,
+            IRepository<Color, int> colorRepository,
+            IRepository<Size, int> sizeRepository)
         {
 
             _productRepository = productRepository;
@@ -68,6 +72,8 @@ namespace AtomStore.Application.Implementation
             _productImageRepository = productImageRepository;
             _unitOfWork = unitOfWork;
             _productCategoryRepository = productCategoryRepository;
+            _colorRepository = colorRepository;
+            _sizeRepository = sizeRepository;
         }
 
         public ProductViewModel Add(ProductViewModel productVM)
@@ -136,11 +142,15 @@ namespace AtomStore.Application.Implementation
             return _productRepository.FindAll(x => x.ProductCategory).ProjectTo<ProductViewModel>().ToList();
         }
 
-        public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize)
+        public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, int? minPrice, int? maxPrice, string keyword, int page, int pageSize)
         {
             var query = _productRepository.FindAll(x => x.Status == Status.Active);
             if (!string.IsNullOrEmpty(keyword))
                 query = query.Where(x => x.Name.Contains(keyword));
+            if (minPrice.HasValue || maxPrice.HasValue)
+            {
+                query = query.Where(x => x.Price >= minPrice && x.Price <= maxPrice);
+            }
             if (categoryId.HasValue)
             {
 
@@ -371,12 +381,39 @@ namespace AtomStore.Application.Implementation
             return query.ToList();
         }
 
-        public bool CheckAvailability(int productId, int size, int color)
+        public bool CheckAvailability(int productId, int size, int color, int quantity)
         {
-            var quantity = _productQuantityRepository.FindSingle(x => x.ColorId == color && x.SizeId == size && x.ProductId == productId);
-            if (quantity == null)
+            var productQuantity = _productQuantityRepository.FindSingle(x => x.ColorId == color && x.SizeId == size && x.ProductId == productId);
+            if (productQuantity == null)
                 return false;
-            return quantity.Quantity > 0;
+            return productQuantity.Quantity >= quantity;
+        }
+
+        public List<ColorViewModel> GetAvailableColor(int productId)
+        {
+            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId).ToList();
+            List<Color> colors = _colorRepository.FindAll().ToList();
+
+            var query =
+                from q in quantitys
+                group q by q.ColorId into a
+                join c in colors on a.Key equals c.Id
+                select c;
+
+            return Mapper.Map<List<Color>,List<ColorViewModel>>(query.ToList());
+        }
+
+        public List<SizeViewModel> GetAvailableSize(int productId)
+        {
+            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId).ToList();
+            List<Size> sizes = _sizeRepository.FindAll().ToList();
+            var query =
+                from q in quantitys
+                group q by q.SizeId into a
+                join s in sizes on a.Key equals s.Id
+                select s;
+
+            return Mapper.Map<List<Size>, List<SizeViewModel>>(query.ToList());
         }
     }
 }

@@ -140,9 +140,19 @@ namespace AtomStore.Controllers
         public IActionResult GetCart()
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
-            
+
             if (session == null)
+            {
                 session = new List<ShoppingCartViewModel>();
+                
+            }
+
+            foreach(var item in session)
+            {
+                item.Colors = _productService.GetAvailableColor(item.Product.Id);
+                item.Sizes = _productService.GetAvailableSize(item.Product.Id);
+            }
+
             return new OkObjectResult(session);
         }
 
@@ -272,17 +282,37 @@ namespace AtomStore.Controllers
                 {
                     if (item.Product.Id == productId)
                     {
-                        var product = _productService.GetById(productId);
-                        item.Product = product;
-                        item.Size = _orderService.GetSize(size);
-                        item.Color = _orderService.GetColor(color);
-                        item.Quantity = quantity;
-                        item.Price = product.PromotionPrice ?? product.Price;
-                        hasChanged = true;
+                        if (quantity > 0 && color > 0 && size > 0)
+                        {
+                            if (_productService.CheckAvailability(productId, size, color, quantity))
+                            {
+                                var product = _productService.GetById(productId);
+                                item.Product = product;
+                                item.Size = _orderService.GetSize(size);
+                                item.Color = _orderService.GetColor(color);
+                                item.Quantity = quantity;
+                                item.Price = product.PromotionPrice ?? product.Price;
+                                hasChanged = true;
+                            }
+                            else
+                            {
+                                return BadRequest();
+                            }
+                        }
+                        else
+                        {
+                            var product = _productService.GetById(productId);
+                            item.Product = product;
+                            item.Size = _orderService.GetSize(size);
+                            item.Color = _orderService.GetColor(color);
+                            item.Quantity = quantity;
+                            item.Price = product.PromotionPrice ?? product.Price;
+                            hasChanged = true;
+                        }
                     }
                 }
                 if (hasChanged)
-                {
+                {                   
                     HttpContext.Session.Set(CommonConstants.CartSession, session);
                 }
                 return new OkObjectResult(productId);
@@ -303,7 +333,14 @@ namespace AtomStore.Controllers
             var sizes = _orderService.GetSizes();
             return new OkObjectResult(sizes);
         }
+
         #endregion
+
+        SizeTypeViewModel getSizeType(int sizeId)
+        {
+            var sizeType = _orderService.GetSizeType(sizeId);
+            return sizeType;
+        }
 
     }
 }

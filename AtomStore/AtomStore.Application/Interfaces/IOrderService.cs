@@ -34,6 +34,8 @@ namespace AtomStore.Application.Interfaces
 
         SizeViewModel GetSize(int id);
 
+        SizeTypeViewModel GetSizeType(int sizeId);
+
         void Save();
     }
 }

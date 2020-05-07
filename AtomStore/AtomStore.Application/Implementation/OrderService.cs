@@ -14,13 +14,14 @@ using System.Text;
 
 namespace AtomStore.Application.Implementation
 {
-    public class OrderService:IOrderService
+    public class OrderService : IOrderService
     {
         private readonly IRepository<Order, int> _orderRepository;
         private readonly IRepository<OrderDetail, int> _orderDetailRepository;
         private readonly IRepository<Color, int> _colorRepository;
         private readonly IRepository<Size, int> _sizeRepository;
         private readonly IRepository<Product, int> _productRepository;
+        private readonly IRepository<SizeType, int> _sizeTypeRepository;
         private readonly IUnitOfWork _unitOfWork;
 
 
@@ -29,12 +30,14 @@ namespace AtomStore.Application.Implementation
             IRepository<Color, int> colorRepository,
             IRepository<Product, int> productRepository,
             IRepository<Size, int> sizeRepository,
+            IRepository<SizeType, int> sizeTypeRepository,
             IUnitOfWork unitOfWork)
         {
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
             _colorRepository = colorRepository;
             _sizeRepository = sizeRepository;
+            _sizeTypeRepository = sizeTypeRepository;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
         }
@@ -100,7 +103,7 @@ namespace AtomStore.Application.Implementation
 
         public List<SizeViewModel> GetSizes()
         {
-            return _sizeRepository.FindAll().ProjectTo<SizeViewModel>().ToList();
+            return _sizeRepository.FindAll().OrderBy(x=>x.SizeType).ProjectTo<SizeViewModel>().ToList();
         }
 
         public List<SizeViewModel> GetSizes(int sizeType)
@@ -191,6 +194,26 @@ namespace AtomStore.Application.Implementation
             return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
         }
 
+        public SizeTypeViewModel GetSizeType(int sizeId)
+        {
+            var size = _sizeRepository.FindById(sizeId);
+            if (size.SizeType!=null)
+            {
+                return Mapper.Map<SizeType, SizeTypeViewModel>(size.SizeType);
+            }
+            var sizeType = _sizeTypeRepository.FindAll().ToList();
+            foreach (var item in sizeType)
+            {
+                foreach (var subitem in item.Sizes)
+                {
+                    if (subitem.Id == sizeId)
+                    {
+                        return Mapper.Map<SizeType, SizeTypeViewModel>(item);
+                    }
+                }
+            }
+            return null;
+        }
 
     }
 }

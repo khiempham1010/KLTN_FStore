@@ -17,5 +17,9 @@ namespace AtomStore.Models
         public ColorViewModel Color { get; set; }
 
         public SizeViewModel Size { get; set; }
+
+        public ICollection<ColorViewModel> Colors { get; set; }
+
+        public ICollection<SizeViewModel> Sizes { get; set; }
     }
 }
