@@ -336,11 +336,5 @@ namespace AtomStore.Controllers
 
         #endregion
 
-        SizeTypeViewModel getSizeType(int sizeId)
-        {
-            var sizeType = _orderService.GetSizeType(sizeId);
-            return sizeType;
-        }
-
     }
 }

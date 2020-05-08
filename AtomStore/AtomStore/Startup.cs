@@ -32,6 +32,7 @@ using Microsoft.AspNetCore.Mvc.Razor;
 using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using AtomStore.Aplication.Dapper.Interfaces;
 using AtomStore.Aplication.Dapper.Implimentation;
+using AtomStore.Hubs;
 
 namespace AtomStore
 {
@@ -167,6 +168,8 @@ namespace AtomStore
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IReportService, ReportService>();
 
+            services.AddSignalR();
+
 
             services.AddMvc().AddJsonOptions(options=>options.SerializerSettings.ContractResolver =new DefaultContractResolver());
         }
@@ -192,6 +195,10 @@ namespace AtomStore
             app.UseCookiePolicy();
             app.UseSession();
             app.UseAuthentication();
+            app.UseSignalR(route=>
+            {
+                route.MapHub<ChatHub>("/Chat/Index");
+            });
 
             app.UseMvc(routes =>
             {

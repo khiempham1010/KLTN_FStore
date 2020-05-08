@@ -71,13 +71,13 @@
                 <div class="jtv-best-sale-list">
                     <div class="wpb_wrapper">
                         <div class="best-title text-left">
-                            <h2>Special Offers</h2>
+                            <h2>Latest Products</h2>
                         </div>
                     </div>
                     <div class="slider-items-products">
                         <div id="jtv-best-sale-slider" class="product-flexslider">
                             <div class="slider-items">
-                                @foreach (var item in Model.TopSellProducts)
+                                @foreach (var item in Model.TopLatestProducts)
                                 {
                                     <div class="product-item">
                                         <div class="item-inner">
@@ -139,7 +139,7 @@
                     <div class="slider-items-products">
                         <div id="computer-slider" class="product-flexslider hidden-buttons">
                             <div class="slider-items slider-width-col4">
-                                @foreach (var item in Model.TopSellProducts)
+                                @foreach (var item in Model.HotProducts)
                                 {
                                     <div class="product-item">
                                         <div class="item-inner">

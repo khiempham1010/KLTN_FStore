@@ -46,6 +46,7 @@ namespace AtomStore.Data.EF
         public DbSet<AdvertistmentPage> AdvertistmentPages { get; set; }
         public DbSet<Advertistment> Advertistments { get; set; }
         public DbSet<AdvertistmentPosition> AdvertistmentPositions { get; set; }
+        public DbSet<Message> Messages { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config
@@ -71,6 +72,7 @@ namespace AtomStore.Data.EF
             builder.AddConfiguration(new ProductTagConfiguration());
             builder.AddConfiguration(new AdvertistmentPositionConfiguration());
             builder.AddConfiguration(new FunctionConfiguration());
+            builder.AddConfiguration(new MessageConfiguration());
             //base.OnModelCreating(builder);
         }
         public override int SaveChanges()

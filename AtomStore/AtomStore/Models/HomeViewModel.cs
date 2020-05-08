@@ -9,7 +9,7 @@ namespace AtomStore.Models
     public class HomeViewModel
     {
         public List<ProductViewModel> HotProducts { get; set; }
-        public List<ProductViewModel> TopSellProducts { get; set; }
+        public List<ProductViewModel> TopLatestProducts { get; set; }
 
         public List<ProductCategoryViewModel> HomeCategories { set; get; }
 

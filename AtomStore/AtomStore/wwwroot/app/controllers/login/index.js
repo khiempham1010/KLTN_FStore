@@ -17,6 +17,16 @@
                 }
             }
         });
+        $('#txtPassword').on('keypress', function (e) {
+            if (e.which == 13) {
+                if ($('#frmLogin').valid()) {
+                    e.preventDefault();
+                    var user = $('#txtUserName').val();
+                    var pass = $('#txtPassword').val();
+                    login(user, pass);
+                }
+            }
+        })
         $('#btnLogin').on('click', function (e) {
             if ($('#frmLogin').valid()) {
                 e.preventDefault();

@@ -194,26 +194,5 @@ namespace AtomStore.Application.Implementation
             return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
         }
 
-        public SizeTypeViewModel GetSizeType(int sizeId)
-        {
-            var size = _sizeRepository.FindById(sizeId);
-            if (size.SizeType!=null)
-            {
-                return Mapper.Map<SizeType, SizeTypeViewModel>(size.SizeType);
-            }
-            var sizeType = _sizeTypeRepository.FindAll().ToList();
-            foreach (var item in sizeType)
-            {
-                foreach (var subitem in item.Sizes)
-                {
-                    if (subitem.Id == sizeId)
-                    {
-                        return Mapper.Map<SizeType, SizeTypeViewModel>(item);
-                    }
-                }
-            }
-            return null;
-        }
-
     }
 }

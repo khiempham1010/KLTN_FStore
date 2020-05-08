@@ -35,8 +35,8 @@ namespace AtomStore.Controllers
             //ViewData["BodyClass"] = "cms-index-index cms-home-page";
             var homeVm = new HomeViewModel();
             homeVm.HomeCategories = _productCategoryService.GetHomeCategories(8);
-            //homeVm.HotProducts = _productService.GetHotProduct(10);
-            homeVm.TopSellProducts = _productService.GetLastest(10);
+            homeVm.HotProducts = _productService.GetHotProduct(10);
+            homeVm.TopLatestProducts = _productService.GetLastest(10);
             //homeVm.LastestBlogs = _blogService.GetLastest(5);
             //homeVm.HomeSlides = _commonService.GetSlides("top");
             return View(homeVm);

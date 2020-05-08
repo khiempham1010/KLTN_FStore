@@ -32,5 +32,7 @@ namespace AtomStore.Application.ViewModels.System
         public List<string> Roles { get; set; }
 
         public string StatusMessage { get; set; }
+
+        public ICollection<MessageViewModel> messages { get; set; }
     }
 }
