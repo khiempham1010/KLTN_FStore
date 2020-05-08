@@ -13,6 +13,6 @@ namespace AtomStore.Application.ViewModels.Product
         {
             get; set;
         }
-        public SizeTypeViewModel sizetype{ get; set; }
+        public virtual SizeTypeViewModel SizeType{ get; set; }
     }
 }

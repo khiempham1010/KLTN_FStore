@@ -11,7 +11,7 @@ namespace AtomStore.Application.Interfaces
     {
         List<ProductViewModel> GetAll();
 
-        PagedResult<ProductViewModel> GetAllPaging(int? categoryId, string keyword, int page, int pageSize);
+        PagedResult<ProductViewModel> GetAllPaging(int? categoryId, int? minPrice, int? maxPrice, string keyword, int page, int pageSize);
 
         PagedResult<ProductViewModel> GetAllPagingAdmin(int? categoryId, string keyword, int page, int pageSize);
 
@@ -44,6 +44,10 @@ namespace AtomStore.Application.Interfaces
 
         List<TagViewModel> GetProductTags(int productId);
 
-        bool CheckAvailability(int productId, int size, int color);
+        bool CheckAvailability(int productId, int size, int color, int quantity);
+
+        List<ColorViewModel> GetAvailableColor(int peoductId);
+
+        List<SizeViewModel> GetAvailableSize(int peoductId);
     }
 }

@@ -14,6 +14,7 @@
     }
 
     function registerEvents() {
+        enter_pressed = false;
         $('body').on('click', '.btn-delete', function (e) {
             e.preventDefault();
             var id = $(this).data('id');
@@ -30,28 +31,73 @@
                 }
             });
         });
-        $('body').on('keyup', '.txtQuantity', function (e) {
-            e.preventDefault();
-            var id = $(this).data('id');
-            var q = $(this).val();
-            if (q > 0) {
-                $.ajax({
-                    url: '/Cart/UpdateCart',
-                    type: 'post',
-                    data: {
-                        productId: id,
-                        quantity: q
-                    },
-                    success: function () {
-                        atom.notify('Update quantity is successful', 'success');
-                        loadHeaderCart();
-                        loadData();
-                    }
-                });
-            } else {
-                atom.notify('Your quantity is invalid', 'error');
+        $('body').on('keypress', '.txtQuantity', function (e) {
+            if (e.which == 13) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                var q = $(this).val();
+                var sizeId = $(this).closest('tr').find('.ddlSizeId').first().val();
+                var colorId = parseInt($(this).closest('tr').find('.ddlColorId').first().val());
+                if (q > 0) {
+                    $.ajax({
+                        url: '/Cart/UpdateCart',
+                        type: 'post',
+                        data: {
+                            productId: id,
+                            quantity: q,
+                            color: colorId,
+                            size: sizeId
+                        },
+                        success: function () {
+                            atom.notify('Update quantity is successful', 'success');
+                            loadHeaderCart();
+                            loadData();
+                        },
+                        error: function () {
+                            atom.notify('Your quantity is invalid', 'error');
+                            loadData();
+                        }
+                    });
+                } else {
+                    atom.notify('Your quantity is invalid', 'error');
+                    loadData();
+                }
             }
-
+        }).on('focusout', '.txtQuantity', function (e) {
+            if (!enter_pressed) {
+                e.preventDefault();
+                var id = $(this).data('id');
+                var q = $(this).val();
+                var sizeId = $(this).closest('tr').find('.ddlSizeId').first().val();
+                var colorId = parseInt($(this).closest('tr').find('.ddlColorId').first().val());
+                if (q > 0) {
+                    $.ajax({
+                        url: '/Cart/UpdateCart',
+                        type: 'post',
+                        data: {
+                            productId: id,
+                            quantity: q,
+                            color: colorId,
+                            size: sizeId
+                        },
+                        success: function () {
+                            atom.notify('Update quantity is successful', 'success');
+                            loadHeaderCart();
+                            loadData();
+                        },
+                        error: function () {
+                            atom.notify('Your quantity is invalid', 'error');
+                            loadData();
+                        }
+                    });
+                } else {
+                    atom.notify('Your quantity is invalid', 'error');
+                    loadData();
+                }
+            }
+            else {
+                enter_pressed = false;
+            }
         });
 
         $('body').on('change', '.ddlColorId', function (e) {
@@ -150,10 +196,11 @@
             }
         });
     }
-    function getColorOptions(selectedId) {
+    function getColorOptions(selectedId, listColor) {
         var colors = "<select class='form-control ddlColorId'><option value='0'></option>";
-        $.each(cachedObj.colors, function (i, color) {
-            if (selectedId === color.Id)
+
+        $.each(listColor, function (i, color) {
+            if (selectedId == color.Id)
                 colors += '<option value="' + color.Id + '" selected="select">' + color.Name + '</option>';
             else
                 colors += '<option value="' + color.Id + '">' + color.Name + '</option>';
@@ -162,9 +209,9 @@
         return colors;
     }
 
-    function getSizeOptions(selectedId) {
+    function getSizeOptions(selectedId, listSize) {
         var sizes = "<select class='form-control ddlSizeId'> <option value='0'></option>";
-        $.each(cachedObj.sizes, function (i, size) {
+        $.each(listSize, function (i, size) {
             if (selectedId === size.Id)
                 sizes += '<option value="' + size.Id + '" selected="select">' + size.Name + '</option>';
             else
@@ -193,8 +240,8 @@
                             Image: item.Product.Image,
                             Price: atom.formatNumber(item.Price, 0),
                             Quantity: item.Quantity,
-                            Colors: getColorOptions(item.Color == null ? 0 : item.Color.Id),
-                            Sizes: getSizeOptions(item.Size == null ? "" : item.Size.Id),
+                            Colors: getColorOptions(item.Color == null ? 0 : item.Color.Id, item.Colors),
+                            Sizes: getSizeOptions(item.Size == null ? "" : item.Size.Id, item.Sizes),
                             Amount: atom.formatNumber(item.Price * item.Quantity, 0),
                             Url: '/' + item.Product.SeoAlias + "-p." + item.Product.Id + ".html"
                         });
@@ -208,6 +255,10 @@
                     $('#btnClearAll').hide();
                     $('.checkout-btn').hide();
                 }
+            },
+            error: function (e) {
+                console.log(e);
+                atom.notify('Has an error in progress', 'error');
             }
         });
         return false;
