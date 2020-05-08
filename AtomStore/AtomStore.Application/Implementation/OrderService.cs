@@ -1,4 +1,5 @@
 ﻿using AtomStore.Application.Interfaces;
+using AtomStore.Application.ViewModels.Common;
 using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Entities;
 using AtomStore.Data.Enums;
@@ -193,6 +194,5 @@ namespace AtomStore.Application.Implementation
         {
             return Mapper.Map<Size, SizeViewModel>(_sizeRepository.FindById(id));
         }
-
     }
 }

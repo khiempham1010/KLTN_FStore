@@ -78,6 +78,45 @@
 1. Common styles
 ******************************************/
 
+/******************************************/
+/*Chat box*/
+#chat-box {
+    position: fixed;
+    bottom: 70px;
+    right: 5px;
+    z-index: 9999;
+    width: 50px;
+    height: 50px;
+    text-align: center;
+    line-height: 32px;
+    background: black;
+    color: white;
+    cursor: pointer;
+    border: 0;
+    text-decoration: none;
+    transition: opacity 0.2s ease-out;
+    /*opacity: 0;*/
+    border: 1px black solid;
+    border-radius: 100px;
+}
+
+    #chat-box i {
+        font-size: 20px;
+        padding-top: 12px;
+    }
+
+    #chat-box:hover {
+        background: black;
+        color: #fff;
+        border: 3px black solid;
+    }
+
+    #chat-box.show {
+        opacity: 2;
+    }
+/******************************************/
+
+
 @font-face {
     src: url(Dosis-Light.ttf);
     font-family: Dosis;
@@ -3648,6 +3687,8 @@ a.link {
     #back-to-top.show {
         opacity: 1;
     }
+
+
 /******************************************
 17. footer
 ******************************************/
@@ -3663,7 +3704,7 @@ footer {
     footer p {
         color: #ffffff;
         line-height: 20px;
-        font-family: Dosis;
+        font-family: Roboto;
     }
 
     footer h3 {
@@ -4040,6 +4081,72 @@ ul.footer-company-links {
         ul.footer-company-links li:first-child {
             border: none;
         }
+
+
+
+footer address {
+    display: block;
+    margin: auto;
+    font-style: normal;
+    line-height: 35px;
+    color: #777;
+    padding-top: 5px;
+    margin-top: 20px;
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 14px;
+    border: none;
+    letter-spacing: 0.5px;
+    font-family: 'Poppins', sans-serif;
+}
+
+    footer address p {
+        display: inline-block;
+        padding: 0px;
+        color: #fff;
+        font-weight: 400;
+        margin-right: 8px;
+    }
+
+    footer address i {
+        display: inline-block !important;
+        text-align: center;
+        margin-left: 10px !important;
+        margin-right: 5px !important;
+        font-size: 32px;
+        font-weight: 500;
+        vertical-align: -8px;
+    }
+
+    footer address .fa {
+        font-size: 16px
+    }
+
+    footer address .fa-envelope {
+        font-size: 14px
+    }
+
+    footer address .fa-mobile {
+        font-size: 19px
+    }
+
+    footer address .icon-location-arrow:before {
+        margin-left: 0px;
+        margin-right: 0px;
+        color: #fff
+    }
+
+    footer address .icon-mobile-phone:before {
+        margin-left: 0px;
+        margin-right: 0px;
+        color: #fff
+    }
+
+    footer address .icon-envelope:before {
+        margin-left: 0px;
+        margin-right: 0px;
+        color: #fff
+    }
 /******************************************
 18. Main menu
 ******************************************/
@@ -7078,7 +7185,7 @@ ul.products-list {
 }
 
     .dec.qtybutton:hover, .inc.qtybutton:hover {
-        background-color: #e83f33;
+        background-color: black;
         color: #fff
     }
 
@@ -7140,9 +7247,9 @@ button.button.pro-add-to-cart {
 }
 
     button.button.pro-add-to-cart:hover {
-        background: #333;
-        border: 1px #333 solid;
-        color: #fff;
+        background: #fcd21b;
+        border: 1px #fcd21b solid;
+        color: black;
     }
 
     button.button.pro-add-to-cart span {
@@ -7340,16 +7447,16 @@ button.button.pro-add-to-cart {
 .nav-tabs > li.active > a, .nav-tabs > li.active > a:hover, .nav-tabs > li.active > a:focus {
     background: #fff;
     border: none;
-    border-bottom: 2px solid #e83f33;
+    border-bottom: 2px solid black;
     border-right: 0px solid #eee;
-    color: #e83f33
+    color: black
 }
 
 .nav-tabs > li > a:hover {
     background: #fff;
     color: #e83f33;
     border: none;
-    border-bottom: 2px solid #e83f33;
+    border-bottom: 2px solid black;
     border-right: 0px solid #eee;
 }
 
@@ -7593,7 +7700,7 @@ p.note {
         height: 3px;
         bottom: -2px;
         content: "";
-        background: #e83f33;
+        background: black;
         width: 130px;
     }
 
@@ -7728,7 +7835,7 @@ p.note {
     margin-bottom: 10px;
     border-radius: 3px;
     text-transform: uppercase;
-    color:white;
+    color: white;
 }
 
     #btnClearAll:hover {
