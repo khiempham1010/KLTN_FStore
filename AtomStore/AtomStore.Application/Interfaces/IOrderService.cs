@@ -34,6 +34,8 @@ namespace AtomStore.Application.Interfaces
         ColorViewModel GetColor(int id);
 
         SizeViewModel GetSize(int id);
+
+        List<OrderHistoryViewModel> GetOrderHistory(String userEmail);
         void Save();
     }
 }
