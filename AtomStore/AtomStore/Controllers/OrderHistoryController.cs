@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AtomStore.Application.Interfaces;
+using AtomStore.Application.ViewModels.Common;
 using AtomStore.Data.Entities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -35,6 +36,23 @@ namespace AtomStore.Controllers
                 item.Total = total;
             }
             return View(orderHistory);
+        }
+
+        [HttpGet]
+        [Route("o-{id}.html", Name = "OrderDetail")]
+        public IActionResult HistoryDetails(int id)
+        {
+            var orderDetailsHistory = _orderService.GetOneOrderHistory(id);
+            decimal total = 0;
+            foreach (var item in orderDetailsHistory.OrderDetail)
+            {
+              
+                    total += item.Price * item.Quantity;
+
+            }
+            orderDetailsHistory.Total = total;
+
+            return View(orderDetailsHistory);
         }
     }
 }

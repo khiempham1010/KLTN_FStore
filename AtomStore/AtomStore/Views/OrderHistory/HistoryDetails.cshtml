@@ -1,0 +1,173 @@
+﻿@model AtomStore.Application.ViewModels.Common.OrderHistoryViewModel
+@{
+    ViewData["Title"] = "HistoryDetails";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<head>
+    <meta charset="utf-8">
+    <style>
+        .information {
+            width: 100%;
+            margin: 30px 0;
+            font-size: 14px;
+            line-height: 20px;
+            font-family: 'Poppins', sans-serif;
+            color: black;
+        }
+    </style>
+</head>
+
+<div class="breadcrumbs">
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12">
+                <ul>
+                    <li class="home"> <a title="Go to Home Page" href="/">Home</a><span>&raquo;</span></li>
+                    <li class="home"> <a title="Go to Home Page" href="/history.html">Order History</a><span>&raquo;</span></li>
+                    <li><strong>History Details</strong></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Breadcrumbs End -->
+<!-- Main Container -->
+
+
+
+
+<section class="main-container col1-layout">
+    <div class="main container">
+        <div class="page-title">
+            <h2>Order details: #@Model.Order.Id</h2>
+        </div>
+        <div class="order-date">
+            <p>Order date: @Model.Order.DateCreated</p>
+        </div>
+        <div class="jtv-service-area">
+
+            <div class="container">
+                <div class="row">
+                    <div class="col col-md-3 col-sm-6 col-xs-12"style="padding-left:0px;">
+                        <div style="font-size:14px; padding-bottom:10px;">Receiver's address</div>
+                        <div class="block-wrapper ship">
+                            <div class="text-des">
+                                <div class="service-wrapper">
+                                    <h3>@Model.Order.CustomerName</h3>
+                                    <p style="text-align:justify;">Address: @Model.Order.CustomerAddress</p>
+                                    <p>Phone: @Model.Order.CustomerPhone</p>
+                                    <p>Message: @Model.Order.CustomerMessage</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col col-md-3 col-sm-6 col-xs-12 ">
+                        <div style="font-size:14px; padding-bottom:10px;">Payments</div>
+                        <div class="block-wrapper return">
+                            <div class="text-des">
+                                <div class="service-wrapper">
+                                    <p>Method: @Model.Order.PaymentMethod </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-main">
+            <div class="cart">
+                <div class="page-content page-order">
+                    <div class="order-detail-content">
+                        <div class="table-responsive">
+                            <table class="table table-bordered cart_summary" style="border: 1px solid #ddd;">
+                                <thead style="background-color:black; color:white;">
+                                    <tr>
+                                        <th class="cart_product" style="text-align: center">Product</th>
+                                        <th style="text-align: center">Description</th>
+                                        @*<th>Avail.</th>*@
+                                        <th style="text-align: center">Unit price</th>
+                                        <th style="text-align: center">Qty</th>
+                                        <th style="text-align: center">Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model.OrderDetail)
+                                    {
+                                        <tr>
+                                            <td class="cart_product" style="text-align: center"><a href="/@item.Product.SeoAlias-p.@(item.Product.Id).html"><img src="@item.Product.Image" alt="@item.Product.Name"></a></td>
+                                            <td class="cart_description" style="text-align: center">
+                                                <p class="product-name"><a href="/@item.Product.SeoAlias-p.@(item.Product.Id).html">@item.Product.Name </a></p>
+                                            </td>
+                                            <td class="price" style="text-align: center"><span>$@item.Price.ToString("F1") </span></td>
+                                            <td class="qty" style="text-align: center">@item.Quantity</td>
+                                            <td class="price" style="text-align: center"><span>$@((item.Price * item.Quantity).ToString("F1")) </span></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                                <tfoot style="background-color:white;">
+                                    <tr>
+                                        <td colspan="3"><strong style="float: right;">Total</strong></td>
+                                        <td colspan="2"><strong style="float: right; margin-right:30px;">$@Model.Total.ToString("F1") </strong></td>
+                                    </tr>
+                                </tfoot>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- service section -->
+<div class="jtv-service-area">
+    <div class="container">
+        <div class="row">
+            <div class="col col-md-3 col-sm-6 col-xs-12">
+                <div class="block-wrapper ship">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-paper-plane"></i></div>
+                        <div class="service-wrapper">
+                            <h3>World-Wide Shipping</h3>
+                            <p>On order over $99</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-6 col-xs-12 ">
+                <div class="block-wrapper return">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-rotate-right"></i></div>
+                        <div class="service-wrapper">
+                            <h3>30 Days Return</h3>
+                            <p>Moneyback guarantee </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-6 col-xs-12">
+                <div class="block-wrapper support">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-umbrella"></i></div>
+                        <div class="service-wrapper">
+                            <h3>Support 24/7</h3>
+                            <p>Call us: (+84) 0793699821</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col col-md-3 col-sm-6 col-xs-12">
+                <div class="block-wrapper user">
+                    <div class="text-des">
+                        <div class="icon-wrapper"><i class="fa fa-tags"></i></div>
+                        <div class="service-wrapper">
+                            <h3>Member Discount</h3>
+                            <p>25% on order over $199</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
