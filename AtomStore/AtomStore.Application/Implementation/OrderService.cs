@@ -46,7 +46,7 @@ namespace AtomStore.Application.Implementation
         public void Create(OrderViewModel OrderVm)
         {
             var order = Mapper.Map<OrderViewModel, Order>(OrderVm);
-            var orderDetails = Mapper.Map<List<OrderDetailViewModel>, List<OrderDetail>>(OrderVm.OrderDetails);
+            var orderDetails = Mapper.Map<ICollection<OrderDetailViewModel>, ICollection<OrderDetail>>(OrderVm.OrderDetails);
             foreach (var detail in orderDetails)
             {
                 var product = _productRepository.FindById(detail.ProductId);
@@ -110,6 +110,11 @@ namespace AtomStore.Application.Implementation
         public List<SizeViewModel> GetSizes(int sizeType)
         {
             return _sizeRepository.FindAll(x => x.SizeType.Id == sizeType).ProjectTo<SizeViewModel>().ToList();
+        }
+
+        public OrderViewModel GetById(int id)
+        {
+            return Mapper.Map<Order,OrderViewModel>( _orderRepository.FindById(id));
         }
 
         public void Save()

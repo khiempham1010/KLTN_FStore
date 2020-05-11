@@ -105,18 +105,7 @@ namespace AtomStore.Controllers
                     _orderService.Create(orderViewModel);
                     try
                     {
-
                         _orderService.Save();
-
-                        //Send mail
-                        //await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "New bill from ATOM Store", content);
-                        if (orderViewModel.CustomerEmail!=null)
-                        {
-                            
-                            var content = await _viewRenderService.RenderToStringAsync("Cart/_BillMail", orderViewModel);
-                            //Send mail
-                            await _emailSender.SendEmailAsync(orderViewModel.CustomerEmail.ToString(), "New order from Atom Store", content);
-                        }
                         HttpContext.Session.Remove(CommonConstants.CartSession);
                         ViewData["Success"] = true;
                     }

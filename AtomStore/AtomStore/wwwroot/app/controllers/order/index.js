@@ -109,6 +109,162 @@
                 }
             });
         });
+        $('#btnConfirm').on('click', function (e) {
+            if ($('#frmMaintainance').valid()) {
+                var id = $('#hidId').val();
+                var customerName = $('#txtCustomerName').val();
+                var customerAddress = $('#txtCustomerAddress').val();
+                var customerId = $('#ddlCustomerId').val();
+                var customerPhone = $('#txtCustomerPhone').val();
+                var customerMessage = $('#txtCustomerMessage').val();
+                var paymentMethod = $('#ddlPaymentMethod').val();
+                var orderStatus = $('#ddlOrderStatus').val();
+                //order detail
+
+                var orderDetails = [];
+                $.each($('#tbl-order-details tr'), function (i, item) {
+                    orderDetails.push({
+                        Id: $(item).data('id'),
+                        ProductId: $(item).find('select.ddlProductId').first().val(),
+                        Quantity: $(item).find('input.txtQuantity').first().val(),
+                        ColorId: $(item).find('select.ddlColorId').first().val(),
+                        SizeId: $(item).find('select.ddlSizeId').first().val(),
+                        OrderId: id
+                    });
+                });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Order/SendMail",
+                    data: {
+                        Id: id,
+                        OrderStatus: 1,
+                        CustomerAddress: customerAddress,
+                        CustomerId: customerId,
+                        CustomerMessage: customerMessage,
+                        CustomerPhone: customerPhone,
+                        CustomerName: customerName,
+                        PaymentMethod: paymentMethod,
+                        Status: 1,
+                        OrderDetails: orderDetails
+                    },
+                    dataType: "json",
+                    beforeSend: function () {
+                        atom.startLoading();
+                    },
+                    success: function (response) {
+                        atom.notify('Save order successful', 'success');
+                        $('#modal-detail').modal('hide');
+                        resetFormMaintainance();
+
+                        atom.stopLoading();
+                        loadData(true);
+                    },
+                    error: function () {
+                        atom.notify('Has an error in progress', 'error');
+                        atom.stopLoading();
+                    }
+                });
+                return false;
+            }
+
+        });
+        $('#btnCompleted').on('click', function (e) {
+            if ($('#frmMaintainance').valid()) {
+                var id = $('#hidId').val();
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Order/ChangeOrderStatus",
+                    data: {
+                        Id: id,
+                        OrderStatus: 4
+                    },
+                    dataType: "json",
+                    beforeSend: function () {
+                        atom.startLoading();
+                    },
+                    success: function (response) {
+                        atom.notify('Save order successful', 'success');
+                        $('#modal-detail').modal('hide');
+                        resetFormMaintainance();
+
+                        atom.stopLoading();
+                        loadData(true);
+                    },
+                    error: function () {
+                        atom.notify('Has an error in progress', 'error');
+                        atom.stopLoading();
+                    }
+                });
+                return false;
+            }
+
+        });
+
+        $('#btnCancelOrder').on('click', function (e) {
+            if ($('#frmMaintainance').valid()) {
+                var id = $('#hidId').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Order/ChangeOrderStatus",
+                    data: {
+                        Id: id,
+                        OrderStatus: 3
+                    },
+                    dataType: "json",
+                    beforeSend: function () {
+                        atom.startLoading();
+                    },
+                    success: function (response) {
+                        atom.notify('Save order successful', 'success');
+                        $('#modal-detail').modal('hide');
+                        resetFormMaintainance();
+
+                        atom.stopLoading();
+                        loadData(true);
+                    },
+                    error: function () {
+                        atom.notify('Has an error in progress', 'error');
+                        atom.stopLoading();
+                    }
+                });
+                return false;
+            }
+
+        });
+        $('#btnReturned').on('click', function (e) {
+            if ($('#frmMaintainance').valid()) {
+                var id = $('#hidId').val();
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Admin/Order/ChangeOrderStatus",
+                    data: {
+                        Id: id,
+                        OrderStatus: 2
+                    },
+                    dataType: "json",
+                    beforeSend: function () {
+                        atom.startLoading();
+                    },
+                    success: function (response) {
+                        atom.notify('Save order successful', 'success');
+                        $('#modal-detail').modal('hide');
+                        resetFormMaintainance();
+
+                        atom.stopLoading();
+                        loadData(true);
+                    },
+                    error: function () {
+                        atom.notify('Has an error in progress', 'error');
+                        atom.stopLoading();
+                    }
+                });
+                return false;
+            }
+
+        });
 
         $('#btnSave').on('click', function (e) {
             if ($('#frmMaintainance').valid()) {

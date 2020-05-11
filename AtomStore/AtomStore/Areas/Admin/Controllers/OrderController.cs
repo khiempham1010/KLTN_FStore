@@ -7,6 +7,7 @@ using AtomStore.Application.Interfaces;
 using AtomStore.Application.ViewModels.Common;
 using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Enums;
+using AtomStore.Services;
 using AtomStore.Utilities.Extensions;
 using AtomStore.Utilities.Helpers;
 using Microsoft.AspNetCore.Hosting;
@@ -20,10 +21,18 @@ namespace AtomStore.Areas.Admin.Controllers
     {
         private readonly IOrderService _orderService;
         private readonly IHostingEnvironment _hostingEnvironment;
-        public OrderController(IOrderService orderService, IHostingEnvironment hostingEnvironment)
+        private readonly IViewRenderService _viewRenderService;
+        private readonly IEmailSender _emailSender;
+        public OrderController(
+            IOrderService orderService, 
+            IHostingEnvironment hostingEnvironment, 
+            IViewRenderService viewRenderService,
+            IEmailSender emailSender )
         {
             _orderService = orderService;
             _hostingEnvironment = hostingEnvironment;
+            _viewRenderService = viewRenderService;
+            _emailSender = emailSender;
         }
 
         public IActionResult Index()
@@ -70,6 +79,60 @@ namespace AtomStore.Areas.Admin.Controllers
             _orderService.Save();
             return new OkObjectResult(orderVm);
         }
+        [HttpPost]
+        public async Task<IActionResult> SendMail(OrderViewModel orderVm)
+        {
+            var order = _orderService.GetDetail(orderVm.Id);
+            orderVm.CustomerEmail = order.CustomerEmail;
+            orderVm.DateCreated = order.DateCreated;
+            orderVm.DateModified = order.DateModified;
+            if (order.CustomerId != null)
+            {
+                orderVm.CustomerId = order.CustomerId;
+            }
+            orderVm.OrderDetails = order.OrderDetails;
+            if (!ModelState.IsValid)
+            {
+                IEnumerable<ModelError> allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                return new BadRequestObjectResult(allErrors);
+            }
+            if (orderVm.Id == 0)
+            {
+                
+            }
+            else
+            {
+                try
+                {
+                    //Send mail
+                    //await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "New bill from ATOM Store", content);
+                    if (orderVm.CustomerEmail != null)
+                    {
+
+                        var content = await _viewRenderService.RenderToStringAsync("Cart/_BillMail", orderVm);
+                        //Send mail
+                        await _emailSender.SendEmailAsync(orderVm.CustomerEmail.ToString(), "New order from Atom Store", content);
+                    }
+
+                    _orderService.UpdateStatus(orderVm.Id,orderVm.OrderStatus);
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
+            }
+            _orderService.Save();
+            return new OkObjectResult(orderVm);
+        }
+
+        [HttpPost]
+        public IActionResult ChangeOrderStatus(OrderViewModel orderVm)
+        {
+            _orderService.UpdateStatus(orderVm.Id , orderVm.OrderStatus);
+            _orderService.Save();
+            return new OkObjectResult(orderVm);
+        }
+
         [HttpGet]
         public IActionResult GetPaymentMethod()
         {
