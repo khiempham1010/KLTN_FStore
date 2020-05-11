@@ -1,13 +1,13 @@
 ﻿class Message {
     constructor(username, text, when) {
-        this.userName = username;
+        this.Name = username;
         this.text = text;
         this.when = when;
     }
 }
 
 // userName is declared in razor page.
-const username = userName;
+const username = this.Name;
 const textInput = document.getElementById('messageText');
 const whenInput = document.getElementById('when');
 const chat = document.getElementById('chat');
@@ -37,14 +37,14 @@ function sendMessage() {
 }
 
 function addMessageToChat(message) {
-    let isCurrentUserMessage = message.userName === username;
+    let isCurrentUserMessage = message.Name === username;
 
     let container = document.createElement('div');
     container.className = isCurrentUserMessage ? "container darker" : "container";
 
     let sender = document.createElement('p');
     sender.className = "sender";
-    sender.innerHTML = message.userName;
+    sender.innerHTML = message.Name;
     let text = document.createElement('p');
     text.innerHTML = message.text;
 

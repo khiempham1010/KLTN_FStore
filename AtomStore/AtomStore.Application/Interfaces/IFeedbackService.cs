@@ -1,4 +1,5 @@
 ﻿using AtomStore.Application.ViewModels.Common;
+using AtomStore.Utilities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -16,7 +17,7 @@ namespace AtomStore.Application.Interfaces
 
         List<FeedbackViewModel> GetAll();
 
-        //PagedResult<FeedbackViewModel> GetAllPaging(string keyword, int page, int pageSize);
+        PagedResult<FeedbackViewModel> GetAllPaging(string keyword, int page, int pageSize);
 
         FeedbackViewModel GetById(int id);
 

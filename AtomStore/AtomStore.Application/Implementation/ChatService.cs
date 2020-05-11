@@ -22,7 +22,7 @@ namespace AtomStore.Application.Implementation
         }
         public ICollection<MessageViewModel> GetMessages()
         {
-            var message = _messageRepository.FindAll().ProjectTo<MessageViewModel>().ToList();
+            var message = Mapper.Map<List< Message>,List<MessageViewModel>>( _messageRepository.FindAll().ToList());
             return message;
         }
 

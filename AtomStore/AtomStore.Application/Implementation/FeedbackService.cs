@@ -2,6 +2,7 @@
 using AtomStore.Application.ViewModels.Common;
 using AtomStore.Data.Entities;
 using AtomStore.Infrastructure.Interfaces;
+using AtomStore.Utilities.Dtos;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using System;
@@ -44,27 +45,27 @@ namespace AtomStore.Application.Implementation
             return _feedbackRepository.FindAll().ProjectTo<FeedbackViewModel>().ToList();
         }
 
-        //public PagedResult<FeedbackViewModel> GetAllPaging(string keyword, int page, int pageSize)
-        //{
-        //    var query = _feedbackRepository.FindAll();
-        //    if (!string.IsNullOrEmpty(keyword))
-        //        query = query.Where(x => x.Name.Contains(keyword));
+        public PagedResult<FeedbackViewModel> GetAllPaging(string keyword, int page, int pageSize)
+        {
+            var query = _feedbackRepository.FindAll();
+            if (!string.IsNullOrEmpty(keyword))
+                query = query.Where(x => x.Name.Contains(keyword));
 
-        //    int totalRow = query.Count();
-        //    var data = query.OrderByDescending(x => x.DateCreated)
-        //        .Skip((page - 1) * pageSize)
-        //        .Take(pageSize);
+            int totalRow = query.Count();
+            var data = query.OrderByDescending(x => x.DateCreated)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize);
 
-        //    var paginationSet = new PagedResult<FeedbackViewModel>()
-        //    {
-        //        Results = data.ProjectTo<FeedbackViewModel>().ToList(),
-        //        CurrentPage = page,
-        //        RowCount = totalRow,
-        //        PageSize = pageSize
-        //    };
+            var paginationSet = new PagedResult<FeedbackViewModel>()
+            {
+                Results = data.ProjectTo<FeedbackViewModel>().ToList(),
+                CurrentPage = page,
+                RowCount = totalRow,
+                PageSize = pageSize
+            };
 
-        //    return paginationSet;
-        //}
+            return paginationSet;
+        }
 
         public FeedbackViewModel GetById(int id)
         {

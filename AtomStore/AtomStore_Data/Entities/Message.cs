@@ -1,11 +1,12 @@
-﻿using System;
+﻿using AtomStore.Infrastructure.SharedKernel;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace AtomStore.Data.Entities
 {
-    public class Message
+    public class Message: DomainEntity<int>
     {
         public Message()
         {
@@ -19,7 +20,6 @@ namespace AtomStore.Data.Entities
             When = when;
             UserId = userId;
         }
-        public int Id { get; set; }
         [Required]
         public string Name { get; set; }
         [Required]

@@ -167,6 +167,7 @@ namespace AtomStore
             services.AddTransient<IFeedbackService, FeedbackService>();
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IReportService, ReportService>();
+            services.AddTransient<IChatService, ChatService>();
 
             services.AddSignalR();
 
@@ -197,7 +198,7 @@ namespace AtomStore
             app.UseAuthentication();
             app.UseSignalR(route=>
             {
-                route.MapHub<ChatHub>("/Chat/Index");
+                route.MapHub<ChatHub>("/Chatter");
             });
 
             app.UseMvc(routes =>

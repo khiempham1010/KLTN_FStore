@@ -33,7 +33,6 @@
                 txtCustomerName: { required: true },
                 txtCustomerAddress: { required: true },
                 txtCustomerPhone: { required: true },
-                txtCustomerMessage: { required: true },
                 ddlOrderStatus: { required: true }
             }
         });
