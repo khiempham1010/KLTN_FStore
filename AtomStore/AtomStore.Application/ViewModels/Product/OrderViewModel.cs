@@ -41,6 +41,6 @@ namespace AtomStore.Application.ViewModels.Product
 
         public Guid? CustomerId { set; get; }
 
-        public List<OrderDetailViewModel> OrderDetails { set; get; }
+        public ICollection<OrderDetailViewModel> OrderDetails { set; get; }
     }
 }
