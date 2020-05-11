@@ -53,10 +53,10 @@ namespace AtomStore.Data.EF
                 _context.Contacts.Add(new Contact()
                 {
                     Id = CommonConstants.DefaultContactId,
-                    Address = "01 Vo Van Ngan, Thu Duc Dist., Ho Chi Minh City",
+                    Address = "01 Vo Van Ngan, Thu Duc Dist., Ho Chi Minh City, Vietnam",
                     Email = "atomstore.ecommerce@gmail.com",
                     Name = "ATOM Store",
-                    Phone = "0793699821",
+                    Phone = "(+84) 0793699821",
                     Status = Status.Active,
                     Website = "https://atomstore.net",
                     Lat = 10.852221,
