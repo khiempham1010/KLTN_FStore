@@ -19,6 +19,14 @@
                                         {
                                             <li class="menu-item">
                                                 <div class="title"onclick="window.location.href='/@subItem1.SeoAlias-c.@(subItem1.Id).html'">@subItem1.Name</div>
+                                                <ul class="submenu">
+                                                    @foreach (var subItem2 in Model.Where(x => x.ParentId == subItem1.Id))
+                                                    {
+                                                    <li class="menu-item">
+                                                        <div class="title" onclick="window.location.href='/@subItem2.SeoAlias-c.@(subItem2.Id).html'">@subItem2.Name</div>
+                                                    </li>
+                                                    }
+                                                </ul>
                                             </li>
                                         }
                                     </ul>
