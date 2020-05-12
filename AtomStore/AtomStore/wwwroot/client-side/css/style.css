@@ -2884,9 +2884,9 @@ a.link {
 }
 
 .pr-button .mt-button a:hover {
-    background: #e83f33;
-    color: #fff;
-    border: 0px #e83f33 solid;
+    background: #fcd21b;
+    color: black;
+    border: 0px #fcd21b solid;
 }
 
 .pr-button .mt-button {

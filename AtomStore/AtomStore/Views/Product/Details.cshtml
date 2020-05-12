@@ -102,7 +102,13 @@
                                 <button class="button pro-add-to-cart" id="btnAddToCart" data-id="@Model.Product.Id" title="Add to Cart" type="button"><span><i class="fa fa-shopping-basket"></i> Add to Cart</span></button>
                             </form>
                         </div>
-
+                        <div class="pr-info-area">
+                            <div class="pr-button">
+                                <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart-o"></i> </a> </div>
+                                @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                    <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
+                            </div>
+                        </div>
                         @if (Model.Tags.Count > 0)
                         {
                             <div class="pro-tags">
@@ -164,6 +170,13 @@
                                                     <a title="@item.Name" href="@url">
                                                         <figure> <img class="first-img" src="@item.Image" alt="@item.Name"> <img class="hover-img" src="@item.Image" alt="@item.Name"></figure>
                                                     </a>
+                                                </div>
+                                                <div class="pr-info-area">
+                                                    <div class="pr-button">
+                                                        <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart-o"></i> </a> </div>
+                                                        @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                                        <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
+                                                    </div>
                                                 </div>
                                             </div>
                                             <div class="item-info">
