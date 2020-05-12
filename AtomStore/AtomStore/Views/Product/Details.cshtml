@@ -102,12 +102,12 @@
                                 <button class="button pro-add-to-cart" id="btnAddToCart" data-id="@Model.Product.Id" title="Add to Cart" type="button"><span><i class="fa fa-shopping-basket"></i> Add to Cart</span></button>
                             </form>
                         </div>
-                        <div class="pr-info-area">
-                            <div class="pr-button">
-                                <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart-o"></i> </a> </div>
-                                @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
-                                    <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
-                            </div>
+                        <div class="product-cart-option">
+                            <ul>
+                                <li><a href="#"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a></li>
+                                @*<li><a href="#"><i class="fa fa-link"></i><span>Add to Compare</span></a></li>
+                                <li><a href="#"><i class="fa fa-envelope"></i><span>Email to a Friend</span></a></li>*@
+                            </ul>
                         </div>
                         @if (Model.Tags.Count > 0)
                         {
@@ -175,7 +175,7 @@
                                                     <div class="pr-button">
                                                         <div class="mt-button add_to_wishlist"> <a href="wishlist.html"> <i class="fa fa-heart-o"></i> </a> </div>
                                                         @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
-                                                        <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
+                                                            <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
                                                     </div>
                                                 </div>
                                             </div>
