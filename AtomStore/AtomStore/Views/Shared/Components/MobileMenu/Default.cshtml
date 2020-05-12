@@ -21,6 +21,14 @@
                                         {
                                             <li>
                                                 <a href="/@subItem1.SeoAlias-c.@(subItem1.Id).html">@subItem1.Name </a>
+                                                <ul>
+                                                    @foreach (var subItem2 in Model.Where(x => x.ParentId == subItem1.Id))
+                                                    {
+                                                        <li>
+                                                            <a href="/@subItem2.SeoAlias-c.@(subItem2.Id).html">@subItem2.Name </a>
+                                                        </li>
+                                                    }
+                                                </ul>
                                             </li>
                                         }
                                     </ul>
