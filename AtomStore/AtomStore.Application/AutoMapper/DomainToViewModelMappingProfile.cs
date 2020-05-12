@@ -34,6 +34,7 @@ namespace AtomStore.Application.AutoMapper
             CreateMap<Feedback, FeedbackViewModel>().MaxDepth(2);
             CreateMap<Contact, ContactViewModel>().MaxDepth(2);
             CreateMap<Message, MessageViewModel>();
+            CreateMap<WishList, WishlistViewModel>();
             
         }
     }
