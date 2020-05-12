@@ -47,6 +47,7 @@ namespace AtomStore.Data.EF
         public DbSet<Advertistment> Advertistments { get; set; }
         public DbSet<AdvertistmentPosition> AdvertistmentPositions { get; set; }
         public DbSet<Message> Messages { get; set; }
+        public DbSet<WishList> Wishlists { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config

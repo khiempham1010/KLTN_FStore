@@ -95,6 +95,7 @@ namespace AtomStore.Controllers
                         CustomerName = model.CustomerName,
                         CustomerMessage = model.CustomerMessage,
                         OrderDetails = details,
+                        PaymentMethod = model.PaymentMethod,
                         DateCreated=DateTime.Now
                     };
                     if (User.Identity.IsAuthenticated == true)
