@@ -29,5 +29,7 @@ namespace AtomStore.Models.ProductViewModels
         public List<SelectListItem> Colors { set; get; }
 
         public List<SelectListItem> Sizes { set; get; }
+
+        public WishlistViewModel Wishlist { get; set; }
     }
 }

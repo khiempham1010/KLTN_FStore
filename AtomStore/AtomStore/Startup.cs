@@ -168,6 +168,7 @@ namespace AtomStore
             services.AddTransient<IContactService, ContactService>();
             services.AddTransient<IReportService, ReportService>();
             services.AddTransient<IChatService, ChatService>();
+            services.AddTransient<IWishlistService, WishlistService>();
 
             services.AddSignalR();
 

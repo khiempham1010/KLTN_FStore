@@ -3,10 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AtomStore.Application.Interfaces;
+using AtomStore.Application.ViewModels.Product;
+using AtomStore.Data.Entities;
 using AtomStore.Models;
 using AtomStore.Models.ProductViewModels;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Configuration;
@@ -20,14 +23,20 @@ namespace AtomStore.Controllers
         IOrderService _orderService;
         IProductCategoryService _productCategoryService;
         IConfiguration _configuration;
+        IWishlistService _wishlistService;
+        public readonly UserManager<AppUser> _userManager;
         public ProductController(IProductService productService, IConfiguration configuration,
             IOrderService orderService,
-            IProductCategoryService productCategoryService)
+            IProductCategoryService productCategoryService,
+            IWishlistService wishlistService,
+            UserManager<AppUser> userManager)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
             _configuration = configuration;
             _orderService = orderService;
+            _wishlistService = wishlistService;
+            _userManager = userManager;
         }
         [Route("products.html")]
         public IActionResult Index()
@@ -83,6 +92,7 @@ namespace AtomStore.Controllers
         [Route("{alias}-p.{id}.html", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
+            
             var model = new DetailViewModel();
             model.Product = _productService.GetById(id);
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
@@ -90,44 +100,55 @@ namespace AtomStore.Controllers
             model.UpsellProducts = _productService.GetUpsellProducts(6);
             model.ProductImages = _productService.GetImages(id);
             model.Tags = _productService.GetProductTags(id);
-            //model.Colors = _orderService.GetColors().Select(x => new SelectListItem()
-            //{
-            //    Text = x.Name,
-            //    Value = x.Id.ToString()
-            //}).ToList();
             model.Colors = _productService.GetAvailableColor(id).Select(x => new SelectListItem()
             {
                 Text = x.Name,
                 Value = x.Id.ToString()
             }).ToList();
-
-
-
-            //if (model.Category.Id == 1022 || model.Category.Id == 1021)
-            //    model.Sizes = _orderService.GetSizes(3).Select(x => new SelectListItem()
-            //    {
-            //        Text = x.Name,
-            //        Value = x.Id.ToString()
-            //    }).ToList();
-            //else if (model.Category.Id == 1014 || model.Category.Id == 1023 || model.Category.Id == 1025 || model.Category.Id == 1027)
-            //    model.Sizes = _orderService.GetSizes(1).Select(x => new SelectListItem()
-            //    {
-            //        Text = x.Name,
-            //        Value = x.Id.ToString()
-            //    }).ToList();
-            //else
-            //    model.Sizes = _orderService.GetSizes(2).Select(x => new SelectListItem()
-            //    {
-            //        Text = x.Name,
-            //        Value = x.Id.ToString()
-            //    }).ToList();
             model.Sizes = _productService.GetAvailableSize(id).Select(x => new SelectListItem()
             {
                 Text = x.Name,
                 Value = x.Id.ToString()
             }).ToList();
-
+            var currentUser = _userManager.GetUserAsync(User).Result;
+            if (currentUser != null) {
+                var wishlist = _wishlistService.GetByProductAndUserId(model.Product.Id, currentUser.Id);
+                model.Wishlist = wishlist;
+            }
             return View(model);
+        }
+        [HttpPost]
+        public IActionResult AddWishlist(int productId)
+        {
+            var currentUser = _userManager.GetUserAsync(User).Result;
+            
+            var wishList = new WishlistViewModel();
+            if (currentUser != null)
+            {
+                var wish = _wishlistService.GetByProductAndUserId(productId, currentUser.Id);
+                if (wish != null)
+                {
+                    _wishlistService.Delete(wish.Id);
+                    _wishlistService.Save();
+                    return new OkObjectResult(productId);
+                }
+                else
+                {
+                    wishList.ProductId = productId;
+                    wishList.Product = _productService.GetById(productId);
+                    wishList.UserId = currentUser.Id;
+                    wishList.ProductName = wishList.Product.Name;
+                    wishList.Email = currentUser.Email;
+                    _wishlistService.Create(wishList);
+                    _wishlistService.Save();
+                    return new OkObjectResult(productId);
+                }
+            }
+            else
+            {
+                return new BadRequestObjectResult(currentUser);
+            }
+            
         }
     }
 }

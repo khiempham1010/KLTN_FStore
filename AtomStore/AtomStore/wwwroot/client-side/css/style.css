@@ -2835,9 +2835,9 @@ a.link {
     transition: all .5s ease-out 0s
 }
 
-    .pr-info-area .product-name a:hover, .pr-button .mt-button a:hover {
+    /*.pr-info-area .product-name a:hover, .pr-button .mt-button a:hover {
         color: #F47E1E
-    }
+    }*/
 
     .pr-button .mt-button {
         border-right: 1px solid #e5e5e5;
@@ -2856,10 +2856,10 @@ a.link {
             border-radius: 2px;
         }
 
-.pr-info-area .pr-button .s-button a:hover {
+/*.pr-info-area .pr-button .s-button a:hover {
     background: #e83f33;
     color: #fff;
-}
+}*/
 
 .pr-button .s-button a {
     color: #fff
@@ -2883,11 +2883,11 @@ a.link {
     opacity: 1;
 }
 
-.pr-button .mt-button a:hover {
+/*.pr-button .mt-button a:hover {
     background: #fcd21b;
     color: black;
     border: 0px #fcd21b solid;
-}
+}*/
 
 .pr-button .mt-button {
     border-right: 0 none;
@@ -7294,9 +7294,9 @@ button.button.pro-add-to-cart {
             text-decoration: none;
         }
 
-            .product-cart-option ul li a:hover, .product-cart-option ul li a:hover i {
+            /*.product-cart-option ul li a:hover, .product-cart-option ul li a:hover i {
                 color: #e83f33
-            }
+            }*/
 
         .product-cart-option ul li:last-child {
             border: none

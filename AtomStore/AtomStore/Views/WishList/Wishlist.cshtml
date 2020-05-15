@@ -3,6 +3,13 @@
     ViewData["Title"] = "Wishlist";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts{ 
+    <script src="~/client-app/controllers/wishlist/wishlist.js"></script>
+    <script>
+        var wishlistObj = new WishlistController();
+        wishlistObj.initialize();
+    </script>
+}
 
 <div class="breadcrumbs">
     <div class="container">
@@ -36,37 +43,30 @@
                                     <th class="th-total th-add-to-cart">Add to Cart </th>
                                 </tr>
                             </thead>
-                            <tbody>
-                                <tr>
-                                    <td class="th-delate"><a href="#">X</a></td>
-                                    <td class="th-product"><a href="#"><img src="images/products/product-1.jpg" alt="cart"></a></td>
-                                    <td class="th-details"><h2><a href="#">Lorem Ipsum is simply</a></h2></td>
-                                    <td class="th-price">$125.00</td>
-                                    <th class="td-add-to-cart"><a href="#"> Add to Cart</a></th>
-                                </tr>
-                                <tr>
-                                    <td class="th-delate"><a href="#">X</a></td>
-                                    <td class="th-product"><a href="#"><img src="images/products/product-1.jpg" alt="cart"></a></td>
-                                    <td class="th-details"><h2><a href="#">Leo quis molestie</a></h2></td>
-                                    <td class="th-price">$99.00</td>
-                                    <th class="td-add-to-cart"><a href="#"> Add to Cart</a></th>
-                                </tr>
-                                <tr>
-                                    <td class="th-delate"><a href="#">X</a></td>
-                                    <td class="th-product"><a href="#"><img src="images/products/product-1.jpg" alt="cart"></a></td>
-                                    <td class="th-details"><h2><a href="#">Lorem Ipsum is simply</a></h2></td>
-                                    <td class="th-price">$179.89</td>
-                                    <th class="td-add-to-cart"><a href="#"> Add to Cart</a></th>
-                                </tr>
-                                <tr>
-                                    <td class="th-delate"><a href="#">X</a></td>
-                                    <td class="th-product"><a href="#"><img src="images/products/product-1.jpg" alt="cart"></a></td>
-                                    <td class="th-details"><h2><a href="#">Leo quis molestie</a></h2></td>
-                                    <td class="th-price">$199.00</td>
-                                    <th class="td-add-to-cart"><a href="#"> Add to Cart</a></th>
-                                </tr>
+                            <tbody id="table-wishlist-content">
+                                @*@foreach (var item in Model)
+                                {
+                                    var url = "/" + item.Product.SeoAlias + "-p." + item.Id + ".html";
+                                    <tr>
+                                        <td class="th-delate"><a id="btnRemove" data-id="@item.Id">X</a></td>
+                                        <td class="th-product"><a href="@url"><img src="@item.Product.Image" alt="@item.Product.Name"></a></td>
+                                        <td class="th-details"><h2><a href="#">@item.ProductName</a></h2></td>
+                                        <td class="th-price">@item.Product.Price</td>
+                                        <th class="td-add-to-cart"><a class="add-to-cart" data-id="@item.ProductId" id="btnAddToCart" style="cursor:pointer"><span> Add to Cart</span> </a></th>
+                                    </tr>
+                                }*@
+
                             </tbody>
                         </table>
+                        <script id="template-wishlist" type="x-tmpl-mustache">
+                            <tr>
+                                <td class="th-delate"><a id="btnRemove" style="cursor:pointer" data-id="{{Id}}">X</a></td>
+                                <td class="th-product"><a href="{{Url}}"><img src="{{Image}}" alt="{{ProductName}}"></a></td>
+                                <td class="th-details"><h2><a href="{{Url}}">{{ProductName}}</a></h2></td>
+                                <td class="price"><span>${{Price}} </span></td>
+                                <th class="td-add-to-cart"><a class="add-to-cart" data-id="{{ProductId}}" id="btnAddToCart" style="cursor:pointer"><span> Add to Cart</span> </a></th>
+                            </tr>
+                        </script>
                         <a href="checkout.html" class="all-cart">Add all to cart</a>
                     </div>
                 </div>

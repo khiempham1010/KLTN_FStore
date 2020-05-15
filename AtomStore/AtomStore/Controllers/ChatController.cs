@@ -36,7 +36,7 @@ namespace AtomStore.Controllers
                 ViewBag.CurrentUserName = currentUser.UserName;
             }
             var messages = _chatService.GetMessages();
-            return View();
+            return View(messages);
         }
         public async Task<IActionResult> Create(MessageViewModel message)
         {

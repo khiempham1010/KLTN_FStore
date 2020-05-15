@@ -33,7 +33,7 @@ namespace AtomStore.Application.Implementation
         }
         public void Create(WishlistViewModel wishlistVm)
         {
-            var wishlist = Mapper.Map<WishlistViewModel,WishList>(wishlistVm);
+            var wishlist = Mapper.Map<WishlistViewModel, WishList>(wishlistVm);
             _wishlistRepository.Add(wishlist);
         }
 
@@ -49,8 +49,8 @@ namespace AtomStore.Application.Implementation
 
         public PagedResult<WishlistViewModel> GetAllPaging(Guid userId, int page, int pageSize)
         {
-            var wishlist= _wishlistRepository.FindAll(x => x.UserId == userId);
-            
+            var wishlist = _wishlistRepository.FindAll(x => x.UserId == userId);
+
             int totalRow = wishlist.Count();
 
             wishlist = wishlist.OrderByDescending(x => x.DateCreated)
@@ -72,5 +72,12 @@ namespace AtomStore.Application.Implementation
         {
             _unitOfWork.Commit();
         }
+
+        public WishlistViewModel GetByProductAndUserId(int productId, Guid userId)
+        {
+            return Mapper.Map<WishList, WishlistViewModel>(_wishlistRepository.FindSingle(x => x.ProductId == productId&&x.UserId==userId));
+        }
+
+
     }
 }

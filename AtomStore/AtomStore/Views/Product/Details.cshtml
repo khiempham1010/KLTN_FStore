@@ -9,7 +9,7 @@
     var product = Model.Product;
 }
 @section Scripts{
-    <script src="~/client-app/controllers/product/details.js"></script>
+    <script src="~/client-app/controllers/product/details.js" asp-append-version="true"></script>
     <script>
         var productObj = new ProductDetailController();
         productObj.initialize();
@@ -104,9 +104,18 @@
                         </div>
                         <div class="product-cart-option">
                             <ul>
-                                <li><a href="#"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a></li>
+                                <li>
+                                    @if (Model.Wishlist != null)
+                                    {
+                                        <a id="btnAddToWishlist" data-id="@Model.Product.Id" style="color:red"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a>
+                                    }
+                                    else
+                                    {
+                                        <a id="btnAddToWishlist" data-id="@Model.Product.Id"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a>
+                                    }
+                                </li>
                                 @*<li><a href="#"><i class="fa fa-link"></i><span>Add to Compare</span></a></li>
-                                <li><a href="#"><i class="fa fa-envelope"></i><span>Email to a Friend</span></a></li>*@
+        <li><a href="#"><i class="fa fa-envelope"></i><span>Email to a Friend</span></a></li>*@
                             </ul>
                         </div>
                         @if (Model.Tags.Count > 0)

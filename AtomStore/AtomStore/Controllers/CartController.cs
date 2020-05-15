@@ -65,7 +65,7 @@ namespace AtomStore.Controllers
         [Route("checkout.html", Name = "Checkout")]
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public async Task<IActionResult> Checkout(CheckoutViewModel model)
+        public IActionResult Checkout(CheckoutViewModel model)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
 
@@ -96,7 +96,7 @@ namespace AtomStore.Controllers
                         CustomerMessage = model.CustomerMessage,
                         OrderDetails = details,
                         PaymentMethod = model.PaymentMethod,
-                        DateCreated=DateTime.Now
+                        DateCreated = DateTime.Now
                     };
                     if (User.Identity.IsAuthenticated == true)
                     {

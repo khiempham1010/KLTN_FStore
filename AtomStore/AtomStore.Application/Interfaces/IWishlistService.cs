@@ -8,6 +8,7 @@ namespace AtomStore.Application.Interfaces
 {
     public interface IWishlistService
     {
+        WishlistViewModel GetByProductAndUserId(int productId, Guid userId);
         List<WishlistViewModel> GetAll(Guid userId);
         PagedResult<WishlistViewModel> GetAllPaging(Guid userId, int page, int pageSize);
         void Create(WishlistViewModel wishlistVm);
