@@ -1,6 +1,11 @@
 ﻿@*<link href="~/client-side/css/bootstrap.min.css" rel="stylesheet">*@
 <script src="~/admin-side/js/jquery-1.11.1.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
+
+@model IList<AtomStore.Application.ViewModels.System.MessageViewModel>
+@{
+    var userName = User.Identity.Name;
+}
 <head>
     <style>
         /*@@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
@@ -216,6 +221,13 @@
             color: #1f2121;
         }
 
+        .popup-messages .direct-chat-text2 {
+            background: #dfece7 none repeat scroll 0 0;
+            border: 1px solid #dfece7;
+            border-radius: 2px;
+            color: #1f2121;
+        }
+
         .popup-messages .direct-chat-timestamp {
             color: #fff;
             opacity: 0.6;
@@ -224,7 +236,7 @@
         .popup-messages .direct-chat-name {
             font-size: 15px;
             font-weight: 600;
-            margin: 0 0 0 49px !important;
+            /*margin: 0 0 0 49px !important;*/
             color: #fff;
             opacity: 0.9;
         }
@@ -273,7 +285,7 @@
 
         .popup-messages .doted-border::after {
             background: transparent none repeat scroll 0 0 !important;
-            border-right: 2px dotted #fff !important;
+            /*border-right: 2px dotted #fff !important;*/
             bottom: 0;
             content: "";
             left: 17px;
@@ -303,7 +315,11 @@
             border-color: transparent #dfece7 transparent transparent;
         }
 
-        .direct-chat-text::after, .direct-chat-text::before {
+        .direct-chat-text2::after, .direct-chat-text2::before {
+            border-color: transparent #dfece7 transparent transparent;
+        }
+
+        /*.direct-chat-text::after, .direct-chat-text::before {
             -moz-border-bottom-colors: none;
             -moz-border-left-colors: none;
             -moz-border-right-colors: none;
@@ -319,15 +335,27 @@
             right: 100%;
             top: 15px;
             width: 0;
-        }
+        }*/
 
         .direct-chat-text::after {
             border-width: 5px;
             margin-top: -5px;
         }
 
+        .direct-chat-text2::after {
+            border-width: 5px;
+            margin-top: -5px;
+        }
+
         .popup-messages .direct-chat-text {
-            background: #dfece7 none repeat scroll 0 0;
+            background: wheat none repeat scroll 0 0;
+            border: 1px solid #dfece7;
+            border-radius: 2px;
+            color: #1f2121;
+        }
+
+        .popup-messages .direct-chat-text2 {
+            background: white none repeat scroll 0 0;
             border: 1px solid #dfece7;
             border-radius: 2px;
             color: #1f2121;
@@ -342,6 +370,18 @@
             padding: 5px 10px;
             position: relative;
         }
+
+        .direct-chat-text2 {
+            background: #d2d6de none repeat scroll 0 0;
+            border: 1px solid #d2d6de;
+            border-radius: 5px;
+            color: #444;
+            margin: 5px 50px 0 0;
+            padding: 5px 10px;
+            position: relative;
+        }
+
+
 
         /*Chat box*/
         #addClass {
@@ -385,7 +425,7 @@
 
 <div class="popup-box chat-popup" id="qnimate">
     <div class="popup-head">
-        <div class="popup-head-left pull-left"><img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" alt="iamgurdeeposahan"> Gurdeep Osahan</div>
+        @*<div class="popup-head-left pull-left"><img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" alt="iamgurdeeposahan"> Gurdeep Osahan</div>*@
         <div class="popup-head-right pull-right">
             <div class="btn-group">
                 <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
@@ -402,79 +442,112 @@
             <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i class="glyphicon glyphicon-off"></i></button>
         </div>
     </div>
-    <div class="popup-messages">
+    <div class="popup-messages" id="chatbody">
+        <div class="direct-chat-messages" id="chat">
+            @if (Model != null)
+            {
+                @foreach (var message in Model.OrderBy(m => m.When))
+                {
+                    string classa, color;
+                    if (userName == message.Name)
+                    {
+                        classa = "pull-right";
+                        color = "direct-chat-text";
+                    }
+                    else
+                    {
+                        classa = "pull-left";
+                        color = "direct-chat-text2";
+                    }
+                    @*<div class="addClass-single-line">
+                            <abbr class="timestamp">@message.When.ToString()</abbr>
+                        </div>*@
+                    <div class="direct-chat-msg doted-border">
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name @classa">@message.Name</span>
+                        </div>
+                        <!-- /.direct-chat-info -->
+                        <div class="@color">
+                            @message.Text
+                        </div>
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-timestamp pull-right">@message.When.ToString()</span>
+                        </div>
+                    </div>
+                }
+            }
 
+            @*<!-- Message. Default to the left -->
+                    <div class="direct-chat-msg doted-border">
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-name pull-left">Osahan</span>
+                        </div>
+                        <!-- /.direct-chat-info -->
+                        <img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img"><!-- /.direct-chat-img -->
+                        <div class="direct-chat-text">
+                            Hey bro, how’s everything going ?
+                        </div>
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-timestamp pull-right">3.36 PM</span>
+                        </div>
+                        <div class="direct-chat-info clearfix">
+                            <span class="direct-chat-img-reply-small pull-left">
 
+                            </span>
+                            <span class="direct-chat-reply-name">Singh</span>
+                        </div>
 
+                        <!-- /.direct-chat-text -->
+                    </div>
 
-        <div class="direct-chat-messages">
+                <!-- Message. Default to the left -->
+                <div class="direct-chat-msg doted-border">
+                    <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-left">Osahan</span>
+                    </div>
+                    <!-- /.direct-chat-info -->
+                    <div class="direct-chat-text">
+                        Hey bro, how’s everything going ?
+                    </div>
+                    <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-timestamp pull-right">3.36 PM</span>
+                    </div>
+                    <div class="direct-chat-info clearfix">
+                        <span class="direct-chat-name pull-right">Khiem</span>
+                    </div>
+                    <div class="direct-chat-text">
+                        Hey bro, how’s everything going ?
+                    </div>
+                    <!-- /.direct-chat-text -->
+                </div>*@
 
-
-            <div class="addClass-single-line">
-                <abbr class="timestamp">October 8th, 2015</abbr>
-            </div>
-
-
-            <!-- Message. Default to the left -->
-            <div class="direct-chat-msg doted-border">
-                <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-name pull-left">Osahan</span>
-                </div>
-                <!-- /.direct-chat-info -->
-                <img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img"><!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                    Hey bro, how’s everything going ?
-                </div>
-                <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-timestamp pull-right">3.36 PM</span>
-                </div>
-                <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-img-reply-small pull-left">
-
-                    </span>
-                    <span class="direct-chat-reply-name">Singh</span>
-                </div>
-                <!-- /.direct-chat-text -->
-            </div>
-            <!-- /.direct-chat-msg -->
-
-
-            <div class="addClass-single-line">
-                <abbr class="timestamp">October 9th, 2015</abbr>
-            </div>
-
-
-
-            <!-- Message. Default to the left -->
-            <div class="direct-chat-msg doted-border">
-                <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-name pull-left">Osahan</span>
-                </div>
-                <!-- /.direct-chat-info -->
-                <img alt="iamgurdeeposahan" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img"><!-- /.direct-chat-img -->
-                <div class="direct-chat-text">
-                    Hey bro, how’s everything going ?
-                </div>
-                <div class="direct-chat-info clearfix">
-                    <span class="direct-chat-timestamp pull-right">3.36 PM</span>
-                </div>
-                <div class="direct-chat-info clearfix">
-                    <img alt="iamgurdeeposahan" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img big-round">
-                    <span class="direct-chat-reply-name">Singh</span>
-                </div>
-                <!-- /.direct-chat-text -->
-            </div>
             <!-- /.direct-chat-msg -->
         </div>
     </div>
     <div class="popup-messages-footer">
-        <textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>
-        <div class="btn-footer">
-            <button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button>
-            <button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button>
-            <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button>
-            <button class="bg_none pull-right"><i class="glyphicon glyphicon-thumbs-up"></i> </button>
-        </div>
+
+        <form asp-action="Create" asp-controller="Chat"
+              data-ajax-begin="clearInputField" data-ajax-complete=""
+              data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
+              data-ajax="true" data-ajax-method="POST">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <input name="Text" class="form-control" id="messageText" placeholder="Type a message..." />
+                <input type="hidden" id="userName" value="@User.Identity.Name" name="name" />
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Send" id="submitButton" class="btn btn-primary" />
+            </div>
+            
+        </form>
+
+        @*<textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>
+            <div class="btn-footer">
+                <button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button>
+                <button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button>
+                <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button>
+                <button class="bg_none pull-right"><i class="glyphicon glyphicon-thumbs-up"></i> </button>
+            </div>*@
     </div>
 </div>
 
@@ -488,4 +561,9 @@
             $('#qnimate').removeClass('popup-box-on');
         });
     })
+
 </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+<script src="~/js/chat.js" asp-append-version="true"></script>
+<script src="~/js/signalrReqHandler.js" asp-append-version="true"></script>

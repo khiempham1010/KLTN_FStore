@@ -5,6 +5,14 @@
     ViewData["MetaDescription"] = "Search results of " + (Model.Data.CurrentPage == 1 ? Model.Keyword : Model.Keyword + " - Page " + Model.Data.CurrentPage);
 }
 
+@section Scripts{
+
+    <script src="~/client-app/controllers/home/index.js" asp-append-version="true"></script>
+    <script>
+        var homeObj = new HomeController();
+        homeObj.initialize();
+    </script>
+}
 
 <!-- Breadcrumbs -->
 
@@ -81,13 +89,13 @@
                                                         <figure> <img height="255" class="first-img" src="@item.Image" alt="@item.Name"> <img height="255" class="hover-img" src="@item.Image" alt="@item.Name"></figure>
                                                     </a>
                                                 </div>
-                                                @*<div class="pr-info-area">
+                                                <div class="pr-info-area">
                                                     <div class="pr-button">
-                                                        <div class="mt-button add_to_wishlist"> <a href="#"> <i class="fa fa-heart"></i> </a> </div>
-                                                        <div class="mt-button add_to_compare"> <a href="#"> <i class="fa fa-signal"></i> </a> </div>
-                                                        <div class="mt-button quick-view"> <a href="#"> <i class="fa fa-search"></i> </a> </div>
+                                                        <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart"></i> </a> </div>
+                                                        @*<div class="mt-button add_to_compare"> <a href="#"> <i class="fa fa-signal"></i> </a> </div>
+                                                            <div class="mt-button quick-view"> <a href="#"> <i class="fa fa-search"></i> </a> </div>*@
                                                     </div>
-                                                </div>*@
+                                                </div>
                                             </div>
                                             <div class="item-info">
                                                 <div class="info-inner">

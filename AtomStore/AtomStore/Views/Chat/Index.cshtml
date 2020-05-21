@@ -47,7 +47,7 @@
         <div class="col-md-12">
             <form asp-action="Create"
                   data-ajax-begin="clearInputField" data-ajax-complete=""
-                  data-ajax-failure="alert(Fail)" data-ajax-success="senMessage"
+                  data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
                   data-ajax="true" data-ajax-method="POST">
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
@@ -69,7 +69,9 @@
 }
 @section scripts{
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
     <script src="~/js/chat.js"></script>
     <script src="~/js/signalrReqHandler.js"></script>
+
+
 }

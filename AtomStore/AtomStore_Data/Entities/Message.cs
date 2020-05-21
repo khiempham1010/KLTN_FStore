@@ -12,13 +12,14 @@ namespace AtomStore.Data.Entities
         {
 
         }
-        public Message(int id, string name, string text, DateTime when,Guid? userId)
+        public Message(int id, string name, string text, DateTime when,Guid userId,Guid receiverId)
         {
             Id = id;
             Name = name;
             Text = text;
             When = when;
             UserId = userId;
+            ReceiverId = receiverId;
         }
         [Required]
         public string Name { get; set; }
@@ -26,9 +27,10 @@ namespace AtomStore.Data.Entities
         public string Text { get; set; }
         public DateTime When { get; set; }
 
-        public Guid? UserId { set; get; }
+        public Guid UserId { set; get; }
 
         public virtual AppUser AppUser { get; set; }
+        public Guid? ReceiverId { set; get; }
 
     }
 }

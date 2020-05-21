@@ -12,9 +12,8 @@ namespace AtomStore.Application.ViewModels.System
         public string Name { get; set; }
         public string Text { get; set; }
         public DateTime When { get; set; }
-
-        public Guid? UserId { set; get; }
-
+        public Guid UserId { set; get; }
         public virtual AppUserViewModel AppUser { get; set; }
+        public Guid ReceiverId { set; get; }
     }
 }

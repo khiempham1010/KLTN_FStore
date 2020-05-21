@@ -42,7 +42,7 @@ namespace AtomStore.Application.AutoMapper
             CreateMap<FeedbackViewModel, Feedback>()
                 .ConstructUsing(c => new Feedback(c.Id, c.Name, c.Email, c.Message, c.Status));
             CreateMap<MessageViewModel, Message>()
-                .ConstructUsing(c => new Message(c.Id, c.Name, c.Text, c.When, c.UserId));
+                .ConstructUsing(c => new Message(c.Id, c.Name, c.Text, c.When, c.UserId, c.ReceiverId));
             CreateMap<WishlistViewModel, WishList>()
                 .ConstructUsing(c => new WishList(c.Id, c.UserId, c.ProductId, c.Email, c.ProductName, c.DateCreated, c.DateModified));
         }

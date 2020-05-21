@@ -107,11 +107,11 @@
                                 <li>
                                     @if (Model.Wishlist != null)
                                     {
-                                        <a id="btnAddToWishlist" data-id="@Model.Product.Id" style="color:red"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a>
+                                        <a id="btnAddToWishlist" data-id="@Model.Product.Id" style="color:red;cursor:pointer"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a>
                                     }
                                     else
                                     {
-                                        <a id="btnAddToWishlist" data-id="@Model.Product.Id"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a>
+                                        <a id="btnAddToWishlist" data-id="@Model.Product.Id" style="cursor:pointer"><i class="fa fa-heart-o"></i><span>Add to Wishlist</span></a>
                                     }
                                 </li>
                                 @*<li><a href="#"><i class="fa fa-link"></i><span>Add to Compare</span></a></li>

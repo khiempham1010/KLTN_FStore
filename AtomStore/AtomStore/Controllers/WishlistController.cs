@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AtomStore.Application.Interfaces;
 using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Entities;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
@@ -28,6 +29,7 @@ namespace AtomStore.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public IActionResult GetWishlist()
         {
             var curUser = _userManager.GetUserAsync(User).Result;

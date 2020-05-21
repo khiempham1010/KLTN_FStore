@@ -1,25 +1,19 @@
 ﻿class Message {
     constructor(username, text, when) {
         this.Name = username;
-        this.text = text;
-        this.when = when;
+        this.Text = text;
+        this.When = when;
     }
 }
 
 // userName is declared in razor page.
-const username = this.Name;
+const username = document.getElementById('userName');
 const textInput = document.getElementById('messageText');
-const whenInput = document.getElementById('when');
 const chat = document.getElementById('chat');
 const messagesQueue = [];
 
 document.getElementById('submitButton').addEventListener('click', () => {
-    var currentdate = new Date();
-    when.innerHTML =
-        (currentdate.getMonth() + 1) + "/"
-        + currentdate.getDate() + "/"
-        + currentdate.getFullYear() + " "
-        + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    $("#qnimate").stop().animate({ scrollTop: $("#qnimate")[0].scrollHeight }, 1000);
 });
 
 function clearInputField() {
@@ -32,33 +26,45 @@ function sendMessage() {
     if (text.trim() === "") return;
     
     let when = new Date();
-    let message = new Message(username, text);
+    let message = new Message(username.value, text,when);
     sendMessageToHub(message);
 }
 
 function addMessageToChat(message) {
-    let isCurrentUserMessage = message.Name === username;
+    let isCurrentUserMessage = message.name === username.value;
 
     let container = document.createElement('div');
-    container.className = isCurrentUserMessage ? "container darker" : "container";
+    container.className =  "direct-chat-msg doted-border";
 
-    let sender = document.createElement('p');
-    sender.className = "sender";
-    sender.innerHTML = message.Name;
-    let text = document.createElement('p');
+    let senderContainer = document.createElement('div');
+    senderContainer.className = "direct-chat-info clearfix";
+
+    let sender = document.createElement('span');
+    sender.className = isCurrentUserMessage ? "direct-chat-name pull-right" : "direct-chat-name pull-left";
+    sender.innerHTML = message.name;
+    senderContainer.appendChild(sender);
+
+
+    let text = document.createElement('div');
+    text.className = isCurrentUserMessage ? "direct-chat-text" : "direct-chat-text2";
     text.innerHTML = message.text;
 
+
+    let whenContainer = document.createElement('div');
+    whenContainer.className = "direct-chat-info clearfix";
+
     let when = document.createElement('span');
-    when.className = isCurrentUserMessage ? "time-left" : "time-right";
+    when.className = "direct-chat-timestamp pull-right";
     var currentdate = new Date();
     when.innerHTML = 
         (currentdate.getMonth() + 1) + "/"
         + currentdate.getDate() + "/"
         + currentdate.getFullYear() + " "
         + currentdate.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    whenContainer.appendChild(when);
 
-    container.appendChild(sender);
+    container.appendChild(senderContainer);
     container.appendChild(text);
-    container.appendChild(when);
+    container.appendChild(whenContainer);
     chat.appendChild(container);
 }

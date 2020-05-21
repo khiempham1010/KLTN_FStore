@@ -1,5 +1,5 @@
 ﻿var connection = new signalR.HubConnectionBuilder()
-    .withUrl('/chatter')
+    .withUrl('/Chatter')
     .build();
 
 connection.on('receiveMessage', addMessageToChat);
@@ -9,6 +9,7 @@ connection.start()
         console.log(error.message);
     });
 
+
 function sendMessageToHub(message) {
-    connection.invoke('sendMessage', message);
+    connection.invoke('sendMessage', message).catch(err => console.error(err.toString()));
 }

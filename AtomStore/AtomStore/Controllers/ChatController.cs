@@ -44,11 +44,11 @@ namespace AtomStore.Controllers
             {
                 message.Name = User.Identity.Name;
                 var appUser = Mapper.Map<AppUser,AppUserViewModel >(await _userManager.GetUserAsync(User));
-                message.UserId = appUser.Id;
+                message.UserId = appUser.Id.Value;
+                message.When = DateTime.Now;
                 _chatService.Add(message);
                 _chatService.Save();
                 return Ok();
-
             }
             return BadRequest();
         }

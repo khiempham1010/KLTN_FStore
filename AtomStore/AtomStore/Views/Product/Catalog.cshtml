@@ -5,7 +5,14 @@
     ViewData["MetaDescription"] = Model.Data.CurrentPage == 1 ? Model.Category.SeoDescription : Model.Category.SeoDescription + " - Page " + Model.Data.CurrentPage;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@section Scripts{
 
+    <script src="~/client-app/controllers/home/index.js" asp-append-version="true"></script>
+    <script>
+        var homeObj = new HomeController();
+        homeObj.initialize();
+    </script>
+}
 
 <!-- Breadcrumbs -->
 
@@ -82,9 +89,9 @@
                                                 </div>
                                                 <div class="pr-info-area">
                                                     <div class="pr-button">
-                                                        <div class="mt-button add_to_wishlist"> <a href="#x"> <i class="fa fa-heart"></i> </a> </div>
+                                                        <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart"></i> </a> </div>
                                                         @*<div class="mt-button add_to_compare"> <a href="#x"> <i class="fa fa-signal"></i> </a> </div>
-                                                        <div class="mt-button quick-view"> <a href="#x"> <i class="fa fa-search"></i> </a> </div>*@
+                                                            <div class="mt-button quick-view"> <a href="#x"> <i class="fa fa-search"></i> </a> </div>*@
                                                     </div>
                                                 </div>
                                             </div>
