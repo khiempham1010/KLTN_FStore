@@ -448,32 +448,35 @@
             {
                 @foreach (var message in Model.OrderBy(m => m.When))
                 {
-                    string classa, color;
-                    if (userName == message.Name)
+                    if (message.Name==userName||message.ReceiverName==userName)
                     {
-                        classa = "pull-right";
-                        color = "direct-chat-text";
+                        string classa, color;
+                        if (userName == message.Name)
+                        {
+                            classa = "pull-right";
+                            color = "direct-chat-text";
+                        }
+                        else
+                        {
+                            classa = "pull-left";
+                            color = "direct-chat-text2";
+                        }
+                        @*<div class="addClass-single-line">
+                                <abbr class="timestamp">@message.When.ToString()</abbr>
+                            </div>*@
+                        <div class="direct-chat-msg doted-border">
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-name @classa">@message.Name</span>
+                            </div>
+                            <!-- /.direct-chat-info -->
+                            <div class="@color">
+                                @message.Text
+                            </div>
+                            <div class="direct-chat-info clearfix">
+                                <span class="direct-chat-timestamp pull-right">@message.When.ToString()</span>
+                            </div>
+                        </div>
                     }
-                    else
-                    {
-                        classa = "pull-left";
-                        color = "direct-chat-text2";
-                    }
-                    @*<div class="addClass-single-line">
-                            <abbr class="timestamp">@message.When.ToString()</abbr>
-                        </div>*@
-                    <div class="direct-chat-msg doted-border">
-                        <div class="direct-chat-info clearfix">
-                            <span class="direct-chat-name @classa">@message.Name</span>
-                        </div>
-                        <!-- /.direct-chat-info -->
-                        <div class="@color">
-                            @message.Text
-                        </div>
-                        <div class="direct-chat-info clearfix">
-                            <span class="direct-chat-timestamp pull-right">@message.When.ToString()</span>
-                        </div>
-                    </div>
                 }
             }
 
@@ -538,7 +541,7 @@
             <div class="form-group">
                 <input type="submit" value="Send" id="submitButton" class="btn btn-primary" />
             </div>
-            
+
         </form>
 
         @*<textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>

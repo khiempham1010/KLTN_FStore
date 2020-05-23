@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@model List<AtomStore.Application.ViewModels.System.MessageViewModel>
+@using Newtonsoft.Json
+@{
+    var userName = User.Identity.Name;
+}
+
+<!DOCTYPE html>
 <html>
 <head>
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
@@ -349,204 +355,157 @@
             </div>
             <div class="headRight-section">
                 <div class="headRight-sub">
-                    <h3>Lajy Ion</h3>
-                    <small>Lorem ipsum dolor sit amet...</small>
+                    <h3 id="name">@Model.OrderByDescending(x => x.When).FirstOrDefault().Name</h3>
                 </div>
             </div>
         </div>
         <div class="body-section">
             <div class="left-section mCustomScrollbar" data-mcs-theme="minimal-dark">
                 <ul>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <i class="fa fa-circle"></i>
-                                <img src="/demo/man01.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">05:30 am</small>
-                                <h5>Luis Yankee</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <i class="fa fa-circle"></i>
-                                <img src="/demo/man02.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">3 day</small>
-                                <h5>Joi Chak</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="active">
-                        <div class="chatList">
-                            <div class="img">
-                                <img src="/demo/man03.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">4 day</small>
-                                <h5>Lajy Ion</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <img src="/demo/man04.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">18 day</small>
-                                <h5>Lod Kine</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <i class="fa fa-circle"></i>
-                                <img src="/demo/man01.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">11:50 am</small>
-                                <h5>Nik Minaj</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <img src="/demo/man02.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">20 day</small>
-                                <h5>Win Sina</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <img src="/demo/man03.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">18 day</small>
-                                <h5>Jack Clerk</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <img src="/demo/man02.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">20 day</small>
-                                <h5>Win Sina</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="chatList">
-                            <div class="img">
-                                <img src="/demo/man03.png">
-                            </div>
-                            <div class="desc">
-                                <small class="time">18 day</small>
-                                <h5>Jack Clerk</h5>
-                                <small>Lorem ipsum dolor sit amet...</small>
-                            </div>
-                        </div>
-                    </li>
+                    @{
+                        var isfirst = true;
+                    }
+                    @foreach (var item in Model.OrderByDescending(x => x.When).GroupBy(x => x.Name))
+                    {
+                        var newMessage = Model.OrderByDescending(x => x.When).Where(x => x.Name == item.Key).Take(1).SingleOrDefault();
+                        if (newMessage.Name != userName)
+                        {
+                            if (isfirst)
+                            {
+                                <li class="messager active">
+                                    <div class="chatList">
+                                        <div class="img">
+                                            @*<i class="fa fa-circle"></i>*@
+                                            <img src="/demo/man01.png">
+                                        </div>
+                                        <div class="desc">
+                                            @if (newMessage.When.Day == DateTime.Now.Day)
+                                            {
+                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute</small>
+                                            }
+                                            else
+                                            {
+                                                <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
+                                            }
+                                            <h5 class="messagerName">@item.Key</h5>
+                                            <small>@newMessage.Text</small>
+                                        </div>
+                                    </div>
+                                </li>
+                                isfirst = false;
+                            }
+                            else
+                            {
+                                <li class="messager">
+                                    <div class="chatList">
+                                        <div class="img">
+                                            @*<i class="fa fa-circle"></i>*@
+                                            <img src="/demo/man01.png">
+                                        </div>
+                                        <div class="desc">
+                                            @if (newMessage.When.Day == DateTime.Now.Day)
+                                            {
+                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute</small>
+                                            }
+                                            else
+                                            {
+                                                <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
+                                            }
+                                            <h5 class="messagerName">@item.Key</h5>
+                                            <small>@newMessage.Text</small>
+                                        </div>
+                                    </div>
+                                </li>
+                            }
+                        }
+                    }
                 </ul>
             </div>
+
             <div class="right-section">
                 <div class="message mCustomScrollbar" data-mcs-theme="minimal-dark">
-                    <ul>
-                        <li class="msg-left">
-                            <div class="msg-left-sub">
-                                <img src="/demo/man03.png">
-                                <div class="msg-desc">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
-                                </div>
-                                <small>05:25 am</small>
-                            </div>
-                        </li>
-                        <li class="msg-right">
-                            <div class="msg-left-sub">
-                                <img src="/demo/man04.png">
-                                <div class="msg-desc">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
-                                </div>
-                                <small>05:25 am</small>
-                            </div>
-                        </li>
-                        <li class="msg-day"><small>Wednesday</small></li>
-                        <li class="msg-left">
-                            <div class="msg-left-sub">
-                                <img src="/demo/man03.png">
-                                <div class="msg-desc">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                </div>
-                                <small>05:25 am</small>
-                            </div>
-                        </li>
-                        <li class="msg-right">
-                            <div class="msg-left-sub">
-                                <img src="/demo/man04.png">
-                                <div class="msg-desc">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
-                                </div>
-                                <small>05:25 am</small>
-                            </div>
-                        </li>
-                        <li class="msg-left">
-                            <div class="msg-left-sub">
-                                <img src="/demo/man03.png">
-                                <div class="msg-desc">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit
-                                </div>
-                                <small>05:25 am</small>
-                            </div>
-                        </li>
-                        <li class="msg-right">
-                            <div class="msg-left-sub">
-                                <img src="/demo/man04.png">
-                                <div class="msg-desc">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                                    tempor incididunt ut labore et dolore magna aliqua.
-                                </div>
-                                <small>05:25 am</small>
-                            </div>
-                        </li>
+                    <ul class="messageList">
+                        @{ 
+                            var firstMessage = Model.OrderByDescending(x => x.When).Where(x=>x.Name!="admin").FirstOrDefault();
+                        }
+                        @foreach (var item in Model.OrderBy(x => x.When))
+                        {
+                            
+                            if(item.Name==firstMessage.Name||(item.ReceiverName!=null && item.ReceiverName==firstMessage.Name)){
+                                if (item.Name == userName)
+                                {
+                                <li class="msg-right">
+                                    <div class="msg-desc">@item.Text</div>
+                                    <small>@item.When</small>
+                                </li>
+                                }
+                                else
+                                {
+                                <li class="msg-left">
+                                    <div class="msg-desc">@item.Text</div>
+                                    <small>@item.When</small>
+                                </li>
+                                }
+                            }
+                        }
                     </ul>
                 </div>
                 <div class="right-section-bottom">
-                    <form>
-                        <div class="upload-btn">
-                            <button class="btn"><i class="fa fa-photo"></i></button>
-                            <input type="file" name="myfile" />
+                    <form asp-action="Create" asp-controller="Chat"
+                          data-ajax-begin="clearInputField" data-ajax-complete=""
+                          data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
+                          data-ajax="true" data-ajax-method="POST">
+                        <div asp-validation-summary="ModelOnly"></div>
+                        <div class="form-group">
+                            <input name="Text" type="text" id="messageText" placeholder="type here..." />
+                            <input id="userName" type="hidden" value="@userName" name="Name" />
+                            <input id="receiverId" type="hidden" value="@firstMessage.UserId" name="ReceiverId"/>
+                            <button type="submit" value="Send" id="submitButton" class="btn-send"><i class="fa fa-send"></i></button>
                         </div>
-                        <input type="text" name="" placeholder="type here...">
-                        <button class="btn-send"><i class="fa fa-send"></i></button>
+                        
                     </form>
+                    @*<form>
+                            <div class="upload-btn">
+                                <button class="btn"><i class="fa fa-photo"></i></button>
+                                <input type="file" name="myfile" />
+                            </div>
+                            <input type="text" name="" placeholder="type here...">
+                            <button class="btn-send"><i class="fa fa-send"></i></button>
+                        </form>*@
                 </div>
             </div>
         </div>
     </div>
+    @if (User.Identity.IsAuthenticated)
+    {
+        <script>
+            const userName = "@ViewBag.CurrentuserName";
+        </script>
+    }
+    <script>
+        $('.messager').click(function () {
+            var a = $(this).find('.messagerName').text();
+            $('.messager').removeClass('active');
+            $('#name').text(a);
+            $(this).toggleClass('active');
+            var message = @Html.Raw(JsonConvert.SerializeObject(this.Model.OrderBy(x=>x.When)));
+                    $('.messageList').empty();
+
+            $.each(message, function (i, item)
+            {
+                if (item.Name == a) {
+                    $('#receiverId').val(item.UserId)
+                }
+                if (item.Name == a||item.ReceiverName == a) {
+                    addMessage(item);
+                }
+            })
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/js/chatadmin.js" asp-append-version="true"></script>
+    <script src="~/js/signalrReqHandler.js"></script>
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- custom scrollbar plugin -->
