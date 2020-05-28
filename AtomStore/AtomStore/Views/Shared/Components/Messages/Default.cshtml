@@ -17,13 +17,13 @@
 
         .popup-box {
             background-color: #ffffff;
-            border: 1px solid #b0b0b0;
+            border: 1px solid black;
             bottom: 0;
             display: none;
             height: 415px;
             position: fixed;
             right: 70px;
-            width: 300px;
+            width: 320px;
             font-family: 'Open Sans', sans-serif;
             z-index: 10000;
             float: left;
@@ -60,7 +60,7 @@
         }
 
         .popup-box .popup-head {
-            background-color: #fff;
+            background-color: black;
             clear: both;
             color: #7b7b7b;
             display: inline-table;
@@ -68,6 +68,7 @@
             padding: 7px 10px;
             width: 100%;
             font-family: Oswald;
+            border-bottom: 1px #E5E5E5 solid;
         }
 
         .bg_none i {
@@ -96,7 +97,7 @@
         }
 
         .popup-box .popup-head .popup-head-right {
-            margin: 11px 7px 0;
+            margin: 0px 0px 15px 0px;
         }
 
         .popup-box .popup-messages {
@@ -122,6 +123,7 @@
             bottom: 0;
             position: absolute;
             width: 100%;
+            border-top: 1px solid black;
         }
 
             .popup-messages-footer .btn-footer {
@@ -139,13 +141,9 @@
             width: 21px;
         }
 
-
-
-
-
         .popup-box .popup-messages {
-            background: #3f9684 none repeat scroll 0 0;
-            height: 275px;
+            background: white none repeat scroll 0 0;
+            height: 285px;
             overflow: auto;
         }
 
@@ -177,11 +175,12 @@
 
         .chat-header-button {
             background: transparent none repeat scroll 0 0;
-            border: 1px solid #636364;
-            border-radius: 50%;
+            border: 1px solid white;
+            /*border-radius: 50%;*/
             font-size: 14px;
-            height: 30px;
-            width: 30px;
+            height: 25px;
+            width: 25px;
+            color: white;
         }
 
         .popup-head-right .btn-group .dropdown-menu {
@@ -234,11 +233,11 @@
         }
 
         .popup-messages .direct-chat-name {
-            font-size: 15px;
+            font-size: 11px;
             font-weight: 600;
             /*margin: 0 0 0 49px !important;*/
-            color: #fff;
-            opacity: 0.9;
+            color: black;
+            /*opacity: 0.9;*/
         }
 
         .popup-messages .direct-chat-info {
@@ -348,27 +347,34 @@
         }
 
         .popup-messages .direct-chat-text {
-            background: wheat none repeat scroll 0 0;
-            border: 1px solid #dfece7;
-            border-radius: 2px;
-            color: #1f2121;
+            background: #0099FF none repeat scroll 0 0;
+            border: 1px solid #0099FF;
+            border-radius: 10px;
+            color: white;
+            font-family: Roboto;
         }
 
         .popup-messages .direct-chat-text2 {
-            background: white none repeat scroll 0 0;
-            border: 1px solid #dfece7;
-            border-radius: 2px;
-            color: #1f2121;
+            background: #F1F0F0 none repeat scroll 0 0;
+            border: 1px solid #F1F0F0;
+            border-radius: 10px;
+            color: black;
+            font-family: Roboto;
         }
 
         .direct-chat-text {
             background: #d2d6de none repeat scroll 0 0;
-            border: 1px solid #d2d6de;
+            /*border: 1px solid #d2d6de;*/
             border-radius: 5px;
             color: #444;
-            margin: 5px 0 0 50px;
+            margin: 5px 0 0 0;
             padding: 5px 10px;
             position: relative;
+            word-wrap: break-word;
+            display: inline-block;
+            float: right;
+            /*width:170px;*/
+            width:
         }
 
         .direct-chat-text2 {
@@ -376,9 +382,10 @@
             border: 1px solid #d2d6de;
             border-radius: 5px;
             color: #444;
-            margin: 5px 50px 0 0;
+            margin: 5px 80px 0 0;
             padding: 5px 10px;
             position: relative;
+            word-wrap: break-word;
         }
 
 
@@ -418,6 +425,22 @@
             #addClass.show {
                 opacity: 2;
             }
+
+        #messageText {
+            border: none;
+            width: 318px;
+            height: 38px;
+            resize: none;
+        }
+
+        #submitButton {
+            background-color: transparent;
+            font-size: 19px;
+            float: right;
+            margin: 0px 10px 10px 10px;
+            border: none;
+            color: #0099FF;
+        }
     </style>
 </head>
 <a id="addClass" title="Chat with us"><i class="fa fa-comments"></i></a>
@@ -427,19 +450,19 @@
     <div class="popup-head">
         @*<div class="popup-head-left pull-left"><img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" alt="iamgurdeeposahan"> Gurdeep Osahan</div>*@
         <div class="popup-head-right pull-right">
-            <div class="btn-group">
-                <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
-                    <i class="glyphicon glyphicon-cog"></i>
-                </button>
-                <ul role="menu" class="dropdown-menu pull-right">
-                    <li><a href="#">Media</a></li>
-                    <li><a href="#">Block</a></li>
-                    <li><a href="#">Clear Chat</a></li>
-                    <li><a href="#">Email Chat</a></li>
-                </ul>
-            </div>
+            @*<div class="btn-group">
+                    <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
+                        <i class="glyphicon glyphicon-cog"></i>
+                    </button>
+                    <ul role="menu" class="dropdown-menu pull-right">
+                        <li><a href="#">Media</a></li>
+                        <li><a href="#">Block</a></li>
+                        <li><a href="#">Clear Chat</a></li>
+                        <li><a href="#">Email Chat</a></li>
+                    </ul>
+                </div>*@
 
-            <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i class="glyphicon glyphicon-off"></i></button>
+            <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i class="glyphicon glyphicon-remove"></i></button>
         </div>
     </div>
     <div class="popup-messages" id="chatbody">
@@ -448,7 +471,7 @@
             {
                 @foreach (var message in Model.OrderBy(m => m.When))
                 {
-                    if (message.Name==userName||message.ReceiverName==userName)
+                    if (message.Name == userName || message.ReceiverName == userName)
                     {
                         string classa, color;
                         if (userName == message.Name)
@@ -526,6 +549,13 @@
 
             <!-- /.direct-chat-msg -->
         </div>
+        <div class="direct-chat-messages" id="chat-login" style="text-align:center; margin-top:70px;">
+            <div class="sub-login-chat">
+                <span>Login to chat with a counselor</span>
+            </div>
+            <button type="button" onclick="location.href='/login.html'" id="button-login-chat" class="btn btn-success" style="width:80px; height:40px; border:none;">Login</button>
+
+        </div>
     </div>
     <div class="popup-messages-footer">
 
@@ -534,13 +564,12 @@
               data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
               data-ajax="true" data-ajax-method="POST">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <input name="Text" class="form-control" id="messageText" placeholder="Type a message..." />
-                <input type="hidden" id="userName" value="@User.Identity.Name" name="name" />
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Send" id="submitButton" class="btn btn-primary" />
-            </div>
+            @*<input name="Text" id="messageText" placeholder="Type a message..." />*@
+            <textarea name="Text" id="messageText" placeholder="Type a message..."></textarea>
+            <input type="hidden" id="userName" value="@User.Identity.Name" name="name" />
+            @*<input type="submit" value="Send" id="submitButton" class="btn btn-primary" />*@
+
+            <button type="submit" value="Send" id="submitButton" class="fa fa-paper-plane"></button>
 
         </form>
 
