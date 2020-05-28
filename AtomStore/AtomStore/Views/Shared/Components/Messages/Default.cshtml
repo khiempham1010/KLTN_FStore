@@ -11,13 +11,13 @@
         /*@@import url(https://fonts.googleapis.com/css?family=Oswald:400,300);
         @@import url(https://fonts.googleapis.com/css?family=Open+Sans);*/
 
-        body {
+        /*body {
             font-family: 'Open Sans', sans-serif;
-        }
+        }*/
 
         .popup-box {
             background-color: #ffffff;
-            border: 1px solid black;
+            /*border: 1px solid black;*/
             bottom: 0;
             display: none;
             height: 415px;
@@ -143,7 +143,7 @@
 
         .popup-box .popup-messages {
             background: white none repeat scroll 0 0;
-            height: 285px;
+            height: 316px;
             overflow: auto;
         }
 
@@ -237,7 +237,7 @@
             font-weight: 600;
             /*margin: 0 0 0 49px !important;*/
             color: black;
-            /*opacity: 0.9;*/
+            opacity: 0.5;
         }
 
         .popup-messages .direct-chat-info {
@@ -367,14 +367,14 @@
             /*border: 1px solid #d2d6de;*/
             border-radius: 5px;
             color: #444;
-            margin: 5px 0 0 0;
+            margin: 5px 15px 0 0;
             padding: 5px 10px;
             position: relative;
             word-wrap: break-word;
             display: inline-block;
             float: right;
-            /*width:170px;*/
-            width:
+            max-width: 170px;
+            font-size: 13px;
         }
 
         .direct-chat-text2 {
@@ -382,10 +382,13 @@
             border: 1px solid #d2d6de;
             border-radius: 5px;
             color: #444;
-            margin: 5px 80px 0 0;
+            margin: 5px 0 0 15px;
             padding: 5px 10px;
             position: relative;
             word-wrap: break-word;
+            max-width: 170px;
+            display: inline-block;
+            font-size: 13px;
         }
 
 
@@ -428,16 +431,17 @@
 
         #messageText {
             border: none;
-            width: 318px;
+            width: 270px;
             height: 38px;
             resize: none;
+            font-size: 13px;
         }
 
         #submitButton {
             background-color: transparent;
             font-size: 19px;
             float: right;
-            margin: 0px 10px 10px 10px;
+            margin: 14px 10px 10px 10px;
             border: none;
             color: #0099FF;
         }
@@ -448,7 +452,7 @@
 
 <div class="popup-box chat-popup" id="qnimate">
     <div class="popup-head">
-        @*<div class="popup-head-left pull-left"><img src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" alt="iamgurdeeposahan"> Gurdeep Osahan</div>*@
+        <div class="popup-head-left pull-left"><i class="fa fa-comment" style="font-size:22px;"></i> Chatbox</div>
         <div class="popup-head-right pull-right">
             @*<div class="btn-group">
                     <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">

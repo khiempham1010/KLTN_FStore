@@ -11,11 +11,11 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css">
     <style>
-        body {
+        /*body {
             font-family: 'Raleway', sans-serif;
             background-color: #ACCEDC;
             margin: 50px 0px;
-        }
+        }*/
 
         .main-section small {
             font-size: 12px;
@@ -26,7 +26,7 @@
         }
 
         .main-section {
-            width: 960px;
+            /*width: 960px;*/
             background-color: #fff;
             margin: auto;
         }
@@ -45,8 +45,10 @@
         }
 
         .headLeft-sub {
-            padding: 15px;
-            text-align: center;
+            padding: 3px;
+            /*text-align: center;*/
+            margin-left: 10px;
+            font-size: 36px;
         }
 
             .headLeft-sub input {
@@ -69,7 +71,7 @@
         }
 
         .headRight-sub {
-            padding: 10px 15px 0px 15px;
+            padding: 20px 15px 0px 15px;
         }
 
         .body-section {
@@ -188,21 +190,21 @@
 
         .message {
             height: calc(100% - 68px);
-            font-family: sans-serif;
+            font-family: Roboto;
         }
 
             .message ul {
                 padding: 0px;
                 list-style: none;
                 margin: 0px auto;
-                width: 90%;
+                width: 672px;
                 overflow: hidden;
             }
 
                 .message ul li {
                     position: relative;
-                    width: 80%;
-                    padding: 15px 0px;
+                    /*width: 80%;*/
+                    padding: 10px 0px 0 0;
                     clear: both;
                 }
 
@@ -218,21 +220,26 @@
 
                         .message ul li.msg-left .msg-desc {
                             margin-left: 70px;
-                            font-size: 12px;
-                            background: #E8E8E8;
+                            background: #F1F0F0;
                             padding: 5px 10px;
                             border-radius: 5px 5px 5px 0px;
                             position: relative;
+                            display: inline-block;
+                            font-size: 15px;
+                            max-width: 300px;
+                            word-wrap: break-word;
+                            font-family:Roboto;
+                            color:black;
                         }
 
-                            .message ul li.msg-left .msg-desc:before {
+                        /*.message ul li.msg-left .msg-desc:before {
                                 position: absolute;
                                 content: '';
                                 border: 10px solid transparent;
                                 border-bottom-color: #E8E8E8;
                                 bottom: 0px;
                                 left: -10px;
-                            }
+                            }*/
 
                         .message ul li.msg-left small {
                             float: right;
@@ -253,21 +260,27 @@
                         .message ul li.msg-right .msg-desc {
                             margin-right: 70px;
                             font-size: 12px;
-                            background: #cce5ff;
-                            color: #004085;
+                            background: #009EF7;
+                            color: white;
                             padding: 5px 10px;
                             border-radius: 5px 5px 5px 0px;
                             position: relative;
+                            display: inline-block;
+                            font-size: 15px;
+                            float: right;
+                            max-width: 300px;
+                            word-wrap: break-word;
+                            font-family: Roboto;
                         }
 
-                            .message ul li.msg-right .msg-desc:before {
+                        /*.message ul li.msg-right .msg-desc:before {
                                 position: absolute;
                                 content: '';
                                 border: 10px solid transparent;
                                 border-bottom-color: #cce5ff;
                                 bottom: 0px;
                                 right: -10px;
-                            }
+                            }*/
 
                         .message ul li.msg-right small {
                             float: right;
@@ -312,11 +325,12 @@
                 border: 0px;
                 padding: 8px 10px;
                 float: right;
-                margin-right: 30px;
+                margin-right: 3px;
                 color: #009EF7;
-                font-size: 18px;
+                font-size: 25px;
                 background: #fff;
                 cursor: pointer;
+                font-family:Roboto;
             }
 
         .upload-btn {
@@ -342,6 +356,15 @@
                 top: 0;
                 opacity: 0;
             }
+
+        #messageText {
+            border: none;
+            width: 680px;
+            height: 50px;
+            resize: none;
+            font-size: 15px;
+            margin-left: 52px;
+        }
     </style>
 </head>
 <body>
@@ -349,13 +372,13 @@
         <div class="head-section">
             <div class="headLeft-section">
                 <div class="headLeft-sub">
-                    <input type="text" name="search" placeholder="Search...">
-                    <button> <i class="fa fa-search"></i> </button>
+                    <img src="/client-side/images/conversation.png" />  Chat                 
                 </div>
             </div>
             <div class="headRight-section">
                 <div class="headRight-sub">
-                    <h3 id="name">@Model.OrderByDescending(x => x.When).FirstOrDefault().Name</h3>
+                    <img src="/demo/man01.png" />
+                    <div id="name">@Model.OrderByDescending(x => x.When).FirstOrDefault().Name</div>
                 </div>
             </div>
         </div>
@@ -388,7 +411,7 @@
                                                 <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
                                             }
                                             <h5 class="messagerName">@item.Key</h5>
-                                            <small>@newMessage.Text</small>
+                                            <small style="margin-top:5px;">@newMessage.Text</small>
                                         </div>
                                     </div>
                                 </li>
@@ -424,27 +447,28 @@
 
             <div class="right-section">
                 <div class="message mCustomScrollbar" data-mcs-theme="minimal-dark">
-                    <ul class="messageList">
-                        @{ 
-                            var firstMessage = Model.OrderByDescending(x => x.When).Where(x=>x.Name!="admin").FirstOrDefault();
+                    <ul class="messageList" style="background: white; height: 414px; overflow-y: auto; width:auto;">
+                        @{
+                            var firstMessage = Model.OrderByDescending(x => x.When).Where(x => x.Name != "admin").FirstOrDefault();
                         }
                         @foreach (var item in Model.OrderBy(x => x.When))
                         {
-                            
-                            if(item.Name==firstMessage.Name||(item.ReceiverName!=null && item.ReceiverName==firstMessage.Name)){
+
+                            if (item.Name == firstMessage.Name || (item.ReceiverName != null && item.ReceiverName == firstMessage.Name))
+                            {
                                 if (item.Name == userName)
                                 {
-                                <li class="msg-right">
-                                    <div class="msg-desc">@item.Text</div>
-                                    <small>@item.When</small>
-                                </li>
+                                    <li class="msg-right" style="word-wrap:break-word;">
+                                        <div class="msg-desc">@item.Text</div>
+                                        <small>@item.When</small>
+                                    </li>
                                 }
                                 else
                                 {
-                                <li class="msg-left">
-                                    <div class="msg-desc">@item.Text</div>
-                                    <small>@item.When</small>
-                                </li>
+                                    <li class="msg-left">
+                                        <div class="msg-desc">@item.Text</div>
+                                        <small>@item.When</small>
+                                    </li>
                                 }
                             }
                         }
@@ -456,13 +480,14 @@
                           data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
                           data-ajax="true" data-ajax-method="POST">
                         <div asp-validation-summary="ModelOnly"></div>
-                        <div class="form-group">
-                            <input name="Text" type="text" id="messageText" placeholder="type here..." />
+                        <div class="form-group" style="margin-bottom:0px;">
+                            @*<input name="Text" type="text" id="messageText" placeholder="Type a message..." />*@
+                            <textarea name="Text" id="messageText" placeholder="Type a message..."></textarea>
                             <input id="userName" type="hidden" value="@userName" name="Name" />
-                            <input id="receiverId" type="hidden" value="@firstMessage.UserId" name="ReceiverId"/>
+                            <input id="receiverId" type="hidden" value="@firstMessage.UserId" name="ReceiverId" />
                             <button type="submit" value="Send" id="submitButton" class="btn-send"><i class="fa fa-send"></i></button>
                         </div>
-                        
+
                     </form>
                     @*<form>
                             <div class="upload-btn">
@@ -509,6 +534,6 @@
 
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- custom scrollbar plugin -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>*@
 </body>
 </html>
