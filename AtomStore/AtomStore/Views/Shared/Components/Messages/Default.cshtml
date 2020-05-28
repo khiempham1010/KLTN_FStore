@@ -465,122 +465,86 @@
             <button data-widget="remove" id="removeClass" class="chat-header-button pull-right" type="button"><i class="glyphicon glyphicon-remove"></i></button>
         </div>
     </div>
-    <div class="popup-messages" id="chatbody">
-        <div class="direct-chat-messages" id="chat">
-            @if (Model != null)
-            {
-                @foreach (var message in Model.OrderBy(m => m.When))
+    @if (!User.Identity.IsAuthenticated)
+    {
+        <div class="popup-messages" id="chatbody">
+
+            <div class="direct-chat-messages" id="chat-login" style="text-align:center; margin-top:140px;">
+                <div class="sub-login-chat">
+                    <span>Login to chat with a counselor</span>
+                </div>
+                <button type="button" onclick="location.href='/login.html'" id="button-login-chat" class="btn btn-success" style="width:80px; height:40px; border:none;">Login</button>
+            </div>
+        </div>
+    }
+    else
+    {
+        <div class="popup-messages" id="chatbody">
+            <div class="direct-chat-messages" id="chat">
+                @if (Model != null)
                 {
-                    if (message.Name == userName || message.ReceiverName == userName)
+                    @foreach (var message in Model.OrderBy(m => m.When))
                     {
-                        string classa, color;
-                        if (userName == message.Name)
+                        if (message.Name == userName || message.ReceiverName == userName)
                         {
-                            classa = "pull-right";
-                            color = "direct-chat-text";
+                            string classa, color;
+                            if (userName == message.Name)
+                            {
+                                classa = "pull-right";
+                                color = "direct-chat-text";
+                            }
+                            else
+                            {
+                                classa = "pull-left";
+                                color = "direct-chat-text2";
+                            }
+                            @*<div class="addClass-single-line">
+                                    <abbr class="timestamp">@message.When.ToString()</abbr>
+                                </div>*@
+                            <div class="direct-chat-msg doted-border">
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-name @classa">@message.Name</span>
+                                </div>
+                                <!-- /.direct-chat-info -->
+                                <div class="@color">
+                                    @message.Text
+                                </div>
+                                <div class="direct-chat-info clearfix">
+                                    <span class="direct-chat-timestamp pull-right">@message.When.ToString()</span>
+                                </div>
+                            </div>
                         }
-                        else
-                        {
-                            classa = "pull-left";
-                            color = "direct-chat-text2";
-                        }
-                        @*<div class="addClass-single-line">
-                                <abbr class="timestamp">@message.When.ToString()</abbr>
-                            </div>*@
-                        <div class="direct-chat-msg doted-border">
-                            <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-name @classa">@message.Name</span>
-                            </div>
-                            <!-- /.direct-chat-info -->
-                            <div class="@color">
-                                @message.Text
-                            </div>
-                            <div class="direct-chat-info clearfix">
-                                <span class="direct-chat-timestamp pull-right">@message.When.ToString()</span>
-                            </div>
-                        </div>
                     }
                 }
-            }
-
-            @*<!-- Message. Default to the left -->
-                    <div class="direct-chat-msg doted-border">
-                        <div class="direct-chat-info clearfix">
-                            <span class="direct-chat-name pull-left">Osahan</span>
-                        </div>
-                        <!-- /.direct-chat-info -->
-                        <img alt="message user image" src="http://bootsnipp.com/img/avatars/bcf1c0d13e5500875fdd5a7e8ad9752ee16e7462.jpg" class="direct-chat-img"><!-- /.direct-chat-img -->
-                        <div class="direct-chat-text">
-                            Hey bro, how’s everything going ?
-                        </div>
-                        <div class="direct-chat-info clearfix">
-                            <span class="direct-chat-timestamp pull-right">3.36 PM</span>
-                        </div>
-                        <div class="direct-chat-info clearfix">
-                            <span class="direct-chat-img-reply-small pull-left">
-
-                            </span>
-                            <span class="direct-chat-reply-name">Singh</span>
-                        </div>
-
-                        <!-- /.direct-chat-text -->
-                    </div>
-
-                <!-- Message. Default to the left -->
-                <div class="direct-chat-msg doted-border">
-                    <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-left">Osahan</span>
-                    </div>
-                    <!-- /.direct-chat-info -->
-                    <div class="direct-chat-text">
-                        Hey bro, how’s everything going ?
-                    </div>
-                    <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-timestamp pull-right">3.36 PM</span>
-                    </div>
-                    <div class="direct-chat-info clearfix">
-                        <span class="direct-chat-name pull-right">Khiem</span>
-                    </div>
-                    <div class="direct-chat-text">
-                        Hey bro, how’s everything going ?
-                    </div>
-                    <!-- /.direct-chat-text -->
-                </div>*@
-
-            <!-- /.direct-chat-msg -->
-        </div>
-        <div class="direct-chat-messages" id="chat-login" style="text-align:center; margin-top:70px;">
-            <div class="sub-login-chat">
-                <span>Login to chat with a counselor</span>
             </div>
-            <button type="button" onclick="location.href='/login.html'" id="button-login-chat" class="btn btn-success" style="width:80px; height:40px; border:none;">Login</button>
 
         </div>
-    </div>
-    <div class="popup-messages-footer">
 
-        <form asp-action="Create" asp-controller="Chat"
-              data-ajax-begin="clearInputField" data-ajax-complete=""
-              data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
-              data-ajax="true" data-ajax-method="POST">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            @*<input name="Text" id="messageText" placeholder="Type a message..." />*@
-            <textarea name="Text" id="messageText" placeholder="Type a message..."></textarea>
-            <input type="hidden" id="userName" value="@User.Identity.Name" name="name" />
-            @*<input type="submit" value="Send" id="submitButton" class="btn btn-primary" />*@
+        <div class="popup-messages-footer">
 
-            <button type="submit" value="Send" id="submitButton" class="fa fa-paper-plane"></button>
+            <form asp-action="Create" asp-controller="Chat"
+                  data-ajax-begin="clearInputField" data-ajax-complete=""
+                  data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
+                  data-ajax="true" data-ajax-method="POST">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                @*<input name="Text" id="messageText" placeholder="Type a message..." />*@
+                <textarea name="Text" id="messageText" placeholder="Type a message..."></textarea>
+                <input type="hidden" id="userName" value="@User.Identity.Name" name="name" />
+                @*<input type="submit" value="Send" id="submitButton" class="btn btn-primary" />*@
 
-        </form>
+                <button type="submit" value="Send" id="submitButton" class="fa fa-paper-plane"></button>
 
-        @*<textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>
-            <div class="btn-footer">
-                <button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button>
-                <button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button>
-                <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button>
-                <button class="bg_none pull-right"><i class="glyphicon glyphicon-thumbs-up"></i> </button>
-            </div>*@
-    </div>
+            </form>
+
+            @*<textarea id="status_message" placeholder="Type a message..." rows="10" cols="40" name="message"></textarea>
+                <div class="btn-footer">
+                    <button class="bg_none"><i class="glyphicon glyphicon-film"></i> </button>
+                    <button class="bg_none"><i class="glyphicon glyphicon-camera"></i> </button>
+                    <button class="bg_none"><i class="glyphicon glyphicon-paperclip"></i> </button>
+                    <button class="bg_none pull-right"><i class="glyphicon glyphicon-thumbs-up"></i> </button>
+                </div>*@
+        </div>
+    }
 </div>
 
 <script>
@@ -591,6 +555,12 @@
 
         $("#removeClass").click(function () {
             $('#qnimate').removeClass('popup-box-on');
+        });
+        $("#messageText").keypress(function (event) {
+            if (event.keyCode == 13 && !event.shiftKey) {
+                $("#submitButton").click();
+                return false;
+            }
         });
     })
 

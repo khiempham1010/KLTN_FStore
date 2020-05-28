@@ -355,13 +355,13 @@
             </div>
             <div class="headRight-section">
                 <div class="headRight-sub">
-                    <h3 id="name">@Model.OrderByDescending(x => x.When).FirstOrDefault().Name</h3>
+                    <h3 id="name">@Model.OrderByDescending(x => x.When).Where(x=>x.Name!=User.Identity.Name).FirstOrDefault().Name</h3>
                 </div>
             </div>
         </div>
         <div class="body-section">
             <div class="left-section mCustomScrollbar" data-mcs-theme="minimal-dark">
-                <ul>
+                <ul class="left-section-ul">
                     @{
                         var isfirst = true;
                     }
@@ -381,14 +381,14 @@
                                         <div class="desc">
                                             @if (newMessage.When.Day == DateTime.Now.Day)
                                             {
-                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute</small>
+                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute:@newMessage.When.Second</small>
                                             }
                                             else
                                             {
                                                 <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
                                             }
                                             <h5 class="messagerName">@item.Key</h5>
-                                            <small>@newMessage.Text</small>
+                                            <small class="messageText" >@newMessage.Text</small>
                                         </div>
                                     </div>
                                 </li>
@@ -405,14 +405,14 @@
                                         <div class="desc">
                                             @if (newMessage.When.Day == DateTime.Now.Day)
                                             {
-                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute</small>
+                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute:@newMessage.When.Second</small>
                                             }
                                             else
                                             {
                                                 <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
                                             }
                                             <h5 class="messagerName">@item.Key</h5>
-                                            <small>@newMessage.Text</small>
+                                            <small class="messageText" >@newMessage.Text</small>
                                         </div>
                                     </div>
                                 </li>
@@ -436,14 +436,14 @@
                                 {
                                 <li class="msg-right">
                                     <div class="msg-desc">@item.Text</div>
-                                    <small>@item.When</small>
+                                    <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
                                 </li>
                                 }
                                 else
                                 {
                                 <li class="msg-left">
                                     <div class="msg-desc">@item.Text</div>
-                                    <small>@item.When</small>
+                                    <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
                                 </li>
                                 }
                             }
@@ -483,30 +483,20 @@
         </script>
     }
     <script>
-        $('.messager').click(function () {
+        $('.left-section-ul').on('click','.messager',function () {
             var a = $(this).find('.messagerName').text();
             $('.messager').removeClass('active');
             $('#name').text(a);
             $(this).toggleClass('active');
-            var message = @Html.Raw(JsonConvert.SerializeObject(this.Model.OrderBy(x=>x.When)));
-                    $('.messageList').empty();
-
-            $.each(message, function (i, item)
-            {
-                if (item.Name == a) {
-                    $('#receiverId').val(item.UserId)
-                }
-                if (item.Name == a||item.ReceiverName == a) {
-                    addMessage(item);
-                }
-            })
+            $('.messageList').empty();
+            loaddata(a);
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
     <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
     <script src="~/js/chatadmin.js" asp-append-version="true"></script>
     <script src="~/js/signalrReqHandler.js"></script>
-
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!-- custom scrollbar plugin -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>

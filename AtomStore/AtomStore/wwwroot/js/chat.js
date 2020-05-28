@@ -31,6 +31,9 @@ function sendMessage() {
 }
 
 function addMessageToChat(message) {
+    if (message.name != username.value) {
+        atom.notify('You have received a message from ' + message.name, 'success');
+    }
     let isCurrentUserMessage = message.name === username.value;
 
     let container = document.createElement('div');
