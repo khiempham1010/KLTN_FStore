@@ -38,6 +38,17 @@ namespace AtomStore.Controllers
             var messages = _chatService.GetMessages();
             return View(messages);
         }
+        [HttpGet]
+        public IActionResult Get()
+        {
+            var currentUser = _userManager.GetUserAsync(User).Result;
+            if (User.Identity.IsAuthenticated)
+            {
+                ViewBag.CurrentUserName = currentUser.UserName;
+            }
+            var messages = _chatService.GetMessages();
+            return new OkObjectResult(messages);
+        }
         public async Task<IActionResult> Create(MessageViewModel message)
         {
             if (ModelState.IsValid)

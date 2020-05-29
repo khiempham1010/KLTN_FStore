@@ -117,7 +117,7 @@
             ss = "0" + ss;
         
 
-        return day + "/" + month + "/" + year + " " + hh + ":" + mm + ":" + ss;
+        return day + "/" + month + "/" + year + " " + hh + ":" + mm;
         //var date = datetime.substr(14)
         //return date;
     },
