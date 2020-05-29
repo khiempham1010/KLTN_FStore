@@ -10,6 +10,8 @@
     <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.css">
+    <link href="~/admin-side/css/style.css" rel="stylesheet" />
+
     <style>
         /*body {
             font-family: 'Raleway', sans-serif;
@@ -42,10 +44,11 @@
             width: calc(30% - 1px);
             float: left;
             border-right: 1px solid #E6E6E6;
+            background-color:#222D32;
         }
 
         .headLeft-sub {
-            padding: 3px;
+            padding: 5px;
             /*text-align: center;*/
             margin-left: 10px;
             font-size: 36px;
@@ -222,7 +225,7 @@
                             margin-left: 70px;
                             background: #F1F0F0;
                             padding: 5px 10px;
-                            border-radius: 5px 5px 5px 0px;
+                            border-radius: 10px;
                             position: relative;
                             display: inline-block;
                             font-size: 15px;
@@ -242,8 +245,9 @@
                             }*/
 
                         .message ul li.msg-left small {
-                            float: right;
+                            /*float: right;*/
                             color: #c1c1c1;
+                            margin-left:70px;
                         }
 
                     .message ul li.msg-right {
@@ -263,7 +267,7 @@
                             background: #009EF7;
                             color: white;
                             padding: 5px 10px;
-                            border-radius: 5px 5px 5px 0px;
+                            border-radius: 10px;
                             position: relative;
                             display: inline-block;
                             font-size: 15px;
@@ -359,7 +363,7 @@
 
         #messageText {
             border: none;
-            width: 680px;
+            width: 623px;
             height: 50px;
             resize: none;
             font-size: 15px;
@@ -372,14 +376,16 @@
         <div class="head-section">
             <div class="headLeft-section">
                 <div class="headLeft-sub">
-                    <img src="/client-side/images/conversation.png" />  Chat
+                    <img src="/client-side/images/chat.png" /><span style="color:#B8C7CE; font-family:Oswald;margin-left:15px;">Messages</span>   
                 </div>
             </div>
             <div class="headRight-section">
                 <div class="headRight-sub">
                     <img src="/demo/man01.png" />
-                    <div id="name">@Model.OrderByDescending(x => x.When).FirstOrDefault().Name</div>
-                    <h3 id="name">@Model.OrderByDescending(x => x.When).Where(x => x.Name != User.Identity.Name).FirstOrDefault().Name</h3>
+                    @*<div id="name">@Model.OrderByDescending(x => x.When).FirstOrDefault().Name</div>*@
+                    <div style="font-size:20px; font-weight:bold; font-family:Oswald;" id="name">@Model.OrderByDescending(x => x.When).Where(x => x.Name != User.Identity.Name).FirstOrDefault().Name</div>
+
+                    @*<h3 id="name">@Model.OrderByDescending(x => x.When).Where(x => x.Name != User.Identity.Name).FirstOrDefault().Name</h3>*@
                 </div>
             </div>
         </div>
@@ -411,9 +417,8 @@
                                             {
                                                 <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
                                             }
-                                            <h5 class="messagerName">@item.Key</h5>
-                                            <small style="margin-top:5px;">@newMessage.Text</small>
-                                            <small class="messageText">@newMessage.Text</small>
+                                            <h5 style="font-weight:bold; font-size:15px;" class="messagerName">@item.Key</h5>
+                                            <small class="messageText" style="margin-top:5px;font-size:13px;" >@newMessage.Text</small>
                                         </div>
                                     </div>
                                 </li>
@@ -436,8 +441,8 @@
                                             {
                                                 <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
                                             }
-                                            <h5 class="messagerName">@item.Key</h5>
-                                            <small class="messageText">@newMessage.Text</small>
+                                            <h5 style="font-weight:bold; font-size:15px;" class="messagerName">@item.Key</h5>
+                                            <small class="messageText" style="margin-top:5px;font-size:13px; ">@newMessage.Text</small>
                                         </div>
                                     </div>
                                 </li>
@@ -462,14 +467,18 @@
                                 {
                                     <li class="msg-right" style="word-wrap:break-word;">
                                         <div class="msg-desc">@item.Text</div>
-                                        <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
+                                        <div class="time-right">
+                                            <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
+                                        </div>
                                     </li>
                                 }
                                 else
                                 {
                                     <li class="msg-left">
                                         <div class="msg-desc">@item.Text</div>
-                                        <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
+                                        <div class="time-left">
+                                            <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
+                                        </div>
                                     </li>
                                 }
                             }
@@ -517,6 +526,12 @@
             $(this).toggleClass('active');
             $('.messageList').empty();
             loaddata(a);
+        });
+        $("#messageText").keypress(function (event) {
+            if (event.keyCode == 13 && !event.shiftKey) {
+                $("#submitButton").click();
+                return false;
+            }
         });
     </script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>

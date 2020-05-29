@@ -278,7 +278,7 @@
         }
 
         .popup-messages .direct-chat-msg {
-            margin-bottom: 10px;
+            /*margin-bottom: 10px;*/
             position: relative;
         }
 
@@ -452,7 +452,7 @@
 
 <div class="popup-box chat-popup" id="qnimate">
     <div class="popup-head">
-        <div class="popup-head-left pull-left"><i class="fa fa-comment" style="font-size:22px;"></i> Chatbox</div>
+        <div class="popup-head-left pull-left" style="color:white; margin-left:90px;"> CHAT WITH US</div>
         <div class="popup-head-right pull-right">
             @*<div class="btn-group">
                     <button class="chat-header-button" data-toggle="dropdown" type="button" aria-expanded="false">
@@ -472,12 +472,13 @@
     @if (!User.Identity.IsAuthenticated)
     {
         <div class="popup-messages" id="chatbody">
+            <div style="text-align:center; margin-top:15px;"><span style="font-size:30px; font-family:Roboto; font-weight:bold;  ">NEED SOME HELP?</span></div>
+            <div class="direct-chat-messages" id="chat-login" style="text-align:center; margin-top:90px;">
 
-            <div class="direct-chat-messages" id="chat-login" style="text-align:center; margin-top:140px;">
                 <div class="sub-login-chat">
-                    <span>Login to chat with a counselor</span>
+                    <span style="font-size:18px; font-family:Roboto;">Login to chat with a counselor</span>
                 </div>
-                <button type="button" onclick="location.href='/login.html'" id="button-login-chat" class="btn btn-success" style="width:80px; height:40px; border:none;">Login</button>
+                <button type="button" onclick="location.href='/login.html'" id="button-login-chat" class="btn btn-success" style="width:80px; height:40px; border:none; font-size: 17px; margin-top: 7px; font-family: Roboto;">Login</button>
             </div>
         </div>
     }

@@ -33,6 +33,7 @@ using PaulMiami.AspNetCore.Mvc.Recaptcha;
 using AtomStore.Aplication.Dapper.Interfaces;
 using AtomStore.Aplication.Dapper.Implimentation;
 using AtomStore.Hubs;
+using AtomStore.Stripe;
 
 namespace AtomStore
 {
@@ -128,8 +129,8 @@ namespace AtomStore
                     googleOpts.ClientId = Configuration["Authentication:Google:ClientId"];
                     googleOpts.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
                 });
-            
 
+            services.Configure<StripeSettings>(Configuration.GetSection("Stripe"));
             //
             services.AddScoped<IUserClaimsPrincipalFactory<AppUser>, CustomClaimsPrincipalFactory>();
             services.AddImageResizer();

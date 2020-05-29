@@ -36,8 +36,11 @@ function addMessage(message) {
     let time = document.createElement('small');
     var date = new Date(message.When);
     time.innerHTML = atom.dateTimeFormatJson(date);
+    let timediv = document.createElement('div');
+    timediv.className = isCurrentUserMessage ? "time-right" : "time-left";
+    timediv.appendChild(time);
     container.appendChild(mess);
-    container.appendChild(time);
+    container.appendChild(timediv);
     $('.messageList').append(container);
 
 }

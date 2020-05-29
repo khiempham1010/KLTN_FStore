@@ -38,6 +38,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.4" />
     <PackageReference Include="PaulMiami.AspNetCore.Mvc.Recaptcha" Version="1.2.1" />
     <PackageReference Include="SkiaSharp" Version="1.68.1" />
+    <PackageReference Include="Stripe.net" Version="25.3.0" />
   </ItemGroup>
 
 
