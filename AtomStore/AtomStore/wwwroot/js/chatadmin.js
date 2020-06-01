@@ -88,9 +88,14 @@ function addMessageToChat(message) {
         mess.className = "msg-desc";
         mess.innerHTML = message.text;
         let time = document.createElement('small');
-        time.innerHTML = message.when;
+        var messageTime = new Date(message.when);
+        var formatted_time = atom.dateTimeFormatJson(messageTime)
+        time.innerHTML = formatted_time;
+        let timediv = document.createElement('div');
+        timediv.className = isCurrentUserMessage ? "time-right" : "time-left";
+        timediv.appendChild(time);
         container.appendChild(mess);
-        container.appendChild(time);
+        container.appendChild(timediv);
         $('.messageList').append(container);
     }
     $('.messager').each(function (i) {
