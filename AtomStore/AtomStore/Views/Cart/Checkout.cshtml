@@ -9,6 +9,12 @@
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script src="~/client-app/controllers/checkout/index.js"></script>
+    <script>
+        var checkoutObj = new CheckoutController();
+        checkoutObj.initialize();
+    </script>
+
 }
 
 <div class="breadcrumbs">
@@ -106,11 +112,11 @@
                                             <label for="first_name" class="required">Full Name</label>
                                             @if (Model.AppUserViewModel != null)
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerName" value=@Model.AppUserViewModel.FullName>
+                                                <input class="input form-control CustomerName" type="text" asp-for="CustomerName" value=@Model.AppUserViewModel.FullName>
                                             }
                                             else
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerName">
+                                                <input class="input form-control CustomerName" type="text" asp-for="CustomerName">
                                             }
                                         </div>
                                         <!--/ [col] -->
@@ -118,11 +124,11 @@
                                             <label for="last_name" class="required">Phone</label>
                                             @if (Model.AppUserViewModel != null)
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerPhone" value=@Model.AppUserViewModel.PhoneNumber>
+                                                <input class="input form-control CustomerPhone" type="text" asp-for="CustomerPhone" value=@Model.AppUserViewModel.PhoneNumber>
                                             }
                                             else
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerPhone">
+                                                <input class="input form-control CustomerPhone" type="text" asp-for="CustomerPhone">
                                             }
                                         </div>
                                         <!--/ [col] -->
@@ -133,11 +139,11 @@
                                             <label for="email" class="required">Email</label>
                                             @if (Model.AppUserViewModel != null)
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerEmail" value=@Model.AppUserViewModel.Email>
+                                                <input class="input form-control CustomerEmail" type="text" asp-for="CustomerEmail" value=@Model.AppUserViewModel.Email>
                                             }
                                             else
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerEmail">
+                                                <input class="input form-control CustomerEmail" type="text" asp-for="CustomerEmail">
                                             }
                                         </div>
                                         <!--/ [col] -->
@@ -146,11 +152,11 @@
                                             <label for="address" class="required">Address</label>
                                             @if (Model.AppUserViewModel != null)
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerAddress" value=@Model.AppUserViewModel.Address>
+                                                <input class="input form-control CustomerAddress" type="text" asp-for="CustomerAddress" value=@Model.AppUserViewModel.Address>
                                             }
                                             else
                                             {
-                                                <input class="input form-control" type="text" asp-for="CustomerAddress">
+                                                <input class="input form-control CustomerAddress" type="text" asp-for="CustomerAddress">
                                             }
                                         </div>
                                         <!--/ [col] -->
@@ -159,7 +165,7 @@
                                     <li class="row">
                                         <div class="col-sm-8 col-sm-12">
                                             <label class="required">Message</label>
-                                            <input class="input form-control" type="text" asp-for="CustomerMessage">
+                                            <input class="input form-control CustomerMessage" type="text" asp-for="CustomerMessage">
                                         </div>
                                         <!--/ [col] -->
 
@@ -168,7 +174,7 @@
 
                             <h4 class="checkout-sep">3. Payment Information</h4>
                             <div class="box-border">
-                                <ul>
+                                <ul id="paymentMethodul">
                                     @for (int i = 0; i < Model.PaymentMethods.Count; i++)
                                     {
                                         <li>
@@ -221,14 +227,15 @@
                                     </table>
                                 </div>
                                 @*<button type="button" class="button" onclick="window.location.href='/cart.html'"><span>Back to cart</span></button>*@
-                                <button type="submit" class="button pull-right"><span>Place Order</span></button>
+                                <button type="submit" class="button pull-right" id="btnPlaceOrder"><span>Place Order</span></button>
 
                                 @*<input type="image" src="https://www.paypal.com/en US/i/btn/btn xpressCheckout.gif"/>*@
                                 @*<a href="https://www.paypal.com/en US">PayPal</a>*@
 
                             </div>
-                                                    <div>
-                            <form action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
+                        </form>
+                        <div>
+                            <form id="frmCheckoutPaypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 
                                 @*PayPal Setting*@
                                 <input type="hidden" name="upload" value="1" />
@@ -246,10 +253,12 @@
                                     <input type="hidden" name="quantity_@index" value="@product.Quantity" />
                                     index++;
                                 }
-                                <button type="submit"><img src="~/client-side/images/paypal1.jpg" /></button>
+                                @*<button type="submit" id="btnCheckoutPaypal"><img src="~/client-side/images/paypal1.jpg" /></button>*@
+
                             </form>
+                            <button id="btnCheckout"><img src="~/client-side/images/paypal1.jpg" /></button>
                         </div>
-                        </form>
+
 
                         @*<div>
                                 <form asp-action="CheckoutWithStripe" asp-controller="Cart" method="post">

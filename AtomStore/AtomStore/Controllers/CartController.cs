@@ -49,7 +49,7 @@ namespace AtomStore.Controllers
         {
             var model = new CheckoutViewModel();
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
-            
+
             if (session.Any(x => x.Color == null || x.Size == null))
             {
                 return Redirect("/cart.html");
@@ -109,7 +109,9 @@ namespace AtomStore.Controllers
                     try
                     {
                         _orderService.Save();
-                        HttpContext.Session.Remove(CommonConstants.CartSession);
+                        if (model.PaymentMethod != Data.Enums.PaymentMethod.PayPal)
+                            HttpContext.Session.Remove(CommonConstants.CartSession);
+
                         ViewData["Success"] = true;
                     }
                     catch (Exception ex)
@@ -128,26 +130,49 @@ namespace AtomStore.Controllers
         [HttpGet]
         public IActionResult CheckoutWithPaypal()
         {
-            var model = new CheckoutViewModel();
-            var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
-
-            if (session.Any(x => x.Color == null || x.Size == null))
-            {
-                return Redirect("/cart.html");
-            }
-
-            model.Carts = session;
-            if (User.Identity.IsAuthenticated == true)
-            {
-                model.AppUserViewModel = _userService.GetById(User.GetSpecificClaim("UserId").ToString()).Result;
-            }
-            return View(model);
+            return View();
         }
 
-        [Route("checkoutOnline.html", Name = "CheckoutOnline")]
+        public IActionResult CheckoutWithStripe(CheckoutViewModel model, string stripeEmail, string stripeToken)
+        {
+            var customers = new CustomerService();
+            var charges = new ChargeService();
+            var customer = customers.Create(new CustomerCreateOptions
+            {
+                Email = stripeEmail,
+                SourceToken = stripeToken
+            });
+
+            var charge = charges.Create(new ChargeCreateOptions
+            {
+                Amount = 500,
+                Description = "Test Payment",
+                Currency = "usd",
+                CustomerId = customer.Id,
+                ReceiptEmail = stripeEmail,
+                Metadata = new Dictionary<string, string>()
+                {
+                    {"OrderId","111" },
+                    {"Postcode","LEE111" },
+                }
+            });
+
+            if (charge.Status == "Succeeded")
+            {
+                string BalanceTransactionId = charge.BalanceTransactionId;
+                return View();
+            }
+            else
+            {
+
+            }
+            return View();
+        }
+
+        #region AJAX Request
         [ValidateAntiForgeryToken]
         [HttpPost]
-        public IActionResult CheckoutWithPayPal(CheckoutViewModel model)
+        public IActionResult CheckoutAjax(CheckoutViewModel model)
         {
             var session = HttpContext.Session.Get<List<ShoppingCartViewModel>>(CommonConstants.CartSession);
 
@@ -197,50 +222,10 @@ namespace AtomStore.Controllers
                         ViewData["Success"] = false;
                         ModelState.AddModelError("", ex.Message);
                     }
-
                 }
             }
-            model.Carts = session;
-            return View();
+            return new OkObjectResult(model);
         }
-
-        public IActionResult CheckoutWithStripe(CheckoutViewModel model, string stripeEmail, string stripeToken)
-        {
-            var customers = new CustomerService();
-            var charges = new ChargeService();
-            var customer = customers.Create(new CustomerCreateOptions
-            {
-                Email = stripeEmail,
-                SourceToken = stripeToken
-            });
-
-            var charge = charges.Create(new ChargeCreateOptions
-            {
-                Amount = 500,
-                Description = "Test Payment",
-                Currency = "usd",
-                CustomerId = customer.Id,
-                ReceiptEmail = stripeEmail,
-                Metadata = new Dictionary<string, string>()
-                {
-                    {"OrderId","111" },
-                    {"Postcode","LEE111" },
-                }
-            });
-
-            if (charge.Status == "Succeeded")
-            {
-                string BalanceTransactionId = charge.BalanceTransactionId;
-                return View();
-            }
-            else
-            {
-
-            }
-            return View();
-        }
-
-        #region AJAX Request
 
         /// <summary>
         /// Get list item
@@ -253,10 +238,10 @@ namespace AtomStore.Controllers
             if (session == null)
             {
                 session = new List<ShoppingCartViewModel>();
-                
+
             }
 
-            foreach(var item in session)
+            foreach (var item in session)
             {
                 item.Colors = _productService.GetAvailableColor(item.Product.Id);
                 item.Sizes = _productService.GetAvailableSize(item.Product.Id);
@@ -340,8 +325,8 @@ namespace AtomStore.Controllers
                     Price = product.PromotionPrice ?? product.Price
                 });
                 HttpContext.Session.Set(CommonConstants.CartSession, cart);
-                
-                var a=HttpContext.Session.GetString(CommonConstants.CartSession);
+
+                var a = HttpContext.Session.GetString(CommonConstants.CartSession);
             }
             return new OkObjectResult(productId);
         }
@@ -421,7 +406,7 @@ namespace AtomStore.Controllers
                     }
                 }
                 if (hasChanged)
-                {                   
+                {
                     HttpContext.Session.Set(CommonConstants.CartSession, session);
                 }
                 return new OkObjectResult(productId);
