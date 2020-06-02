@@ -144,7 +144,7 @@ namespace AtomStore.Controllers
             return View(model);
         }
 
-        [Route("checkoutPaypal.html", Name = "CheckoutPaypal")]
+        [Route("checkoutOnline.html", Name = "CheckoutOnline")]
         [ValidateAntiForgeryToken]
         [HttpPost]
         public IActionResult CheckoutWithPayPal(CheckoutViewModel model)
