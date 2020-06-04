@@ -2856,14 +2856,14 @@ a.link {
             border-radius: 2px;
         }
 
-/*.pr-info-area .pr-button .s-button a:hover {
+    /*.pr-info-area .pr-button .s-button a:hover {
     background: #e83f33;
     color: #fff;
 }*/
 
-.pr-button .s-button a {
-    color: #fff
-}
+    .pr-button .s-button a {
+        color: #fff
+    }
 
 .pr-img-area img {
     width: 100%
@@ -6810,7 +6810,7 @@ ul.products-list {
 
 .old-price {
     display: inline;
-    margin-right: 15px
+    margin-right: 5px;
 }
 
     .old-price .price-label {
@@ -6820,7 +6820,7 @@ ul.products-list {
     }
 
     .old-price .price {
-        color: #ccc !important;
+        color: #9E9E9E !important;
         font-size: 12px;
         font-weight: normal;
         text-decoration: line-through;
@@ -6843,11 +6843,39 @@ ul.products-list {
 
     .special-price .price {
         font-size: 14px;
-        color: #e83f33;
+        color: black;
         font-weight: 600
     }
 
     .special-price .price-label {
+        font-size: 12px;
+        font-weight: 600;
+        white-space: nowrap;
+        color: #666;
+        display: none
+    }
+
+.special-price1 {
+    margin: 0;
+    /*padding: 3px 0;*/
+    display: inline
+}
+
+    .special-price1 .price-label {
+        color: #666;
+        display: none;
+        font-size: 12px;
+        /*font-weight: 400;*/
+        white-space: nowrap
+    }
+
+    .special-price1 .price {
+        font-size: 12px;
+        color: #9e9e9e;
+        /*font-weight: 600*/
+    }
+
+    .special-price1 .price-label {
         font-size: 12px;
         font-weight: 600;
         white-space: nowrap;
@@ -7157,6 +7185,12 @@ ul.products-list {
     font-weight: 600
 }
 
+.product-view-area .product-details-area .special-price1 .price {
+    font-size: 20px;
+    color: #9E9E9E;
+    vertical-align: 3px;
+}
+
 .cart-plus-minus .qty {
     border: 1px solid #e5e5e5;
     color: #333333;
@@ -7294,7 +7328,7 @@ button.button.pro-add-to-cart {
             text-decoration: none;
         }
 
-            /*.product-cart-option ul li a:hover, .product-cart-option ul li a:hover i {
+        /*.product-cart-option ul li a:hover, .product-cart-option ul li a:hover i {
                 color: #e83f33
             }*/
 
@@ -7600,7 +7634,7 @@ p.note {
     }
 
     .reviews-content-right table tr th {
-        background: #e83f33;
+        background: black;
         border: 0 none;
         color: #fff;
         padding: 10px;
@@ -7985,13 +8019,13 @@ p.note {
     }
 
 .wishlist-item table .td-add-to-cart > a {
-    background: #f8f8f8;
-    color: #333;
+    background: black;
+    color: white;
     display: inline-block;
     font-weight: 600;
     padding: 6px 10px;
-    width: 108px;
-    border: 1px #eeeeee solid;
+    width: 110px;
+    border: 1px black solid;
     border-radius: 3px;
     text-transform: uppercase;
     font-size: 12px;
@@ -8016,9 +8050,9 @@ p.note {
 }
 
     .wishlist-item table .td-add-to-cart > a:hover, .wishlist-item .all-cart:hover {
-        background: #e83f33;
-        color: #fff;
-        border: 1px #e83f33 solid;
+        background: #fcd21b;
+        color: black;
+        border: 1px #fcd21b solid;
     }
 
 .wishlist-area .social-sharing {

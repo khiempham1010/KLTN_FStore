@@ -103,7 +103,16 @@
                                                     <div class="item-content">
                                                         <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
                                                         <div class="item-price">
-                                                            <div class="price-box"> <span class="regular-price"> <span class="price">$@item.Price.ToString("F1")</span> </span> </div>
+                                                            @if (item.PromotionPrice.HasValue)
+                                                            {
+                                                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $@item.PromotionPrice.Value.ToString("F1") </span> </p>
+                                                                <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">$@item.Price.ToString("F1")  </span> </p>
+                                                                <p class="special-price1"> <span class="price-label">% discount</span> <span class="price"> -@((100 - (item.PromotionPrice / item.Price) * 100).Value.ToString("F0"))% </span> </p>
+                                                            }
+                                                            else
+                                                            {
+                                                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">$@item.Price.ToString("F1") </span> </p>
+                                                            }
                                                         </div>
                                                         <div class="pro-action">
                                                             <button type="button" class="add-to-cart" data-id="@item.Id"><span> Add to Cart</span> </button>

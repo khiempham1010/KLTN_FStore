@@ -60,6 +60,7 @@
                             {
                                 <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $@product.PromotionPrice.Value.ToString("F1") </span> </p>
                                 <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">$@product.Price.ToString("F1")  </span> </p>
+                                <p class="special-price1"> <span class="price-label">% discount</span> <span class="price"> -@((100 - (product.PromotionPrice / product.Price) * 100).Value.ToString("F0"))% </span> </p>
                             }
                             else
                             {
@@ -115,7 +116,7 @@
                                     }
                                 </li>
                                 @*<li><a href="#"><i class="fa fa-link"></i><span>Add to Compare</span></a></li>
-        <li><a href="#"><i class="fa fa-envelope"></i><span>Email to a Friend</span></a></li>*@
+                                    <li><a href="#"><i class="fa fa-envelope"></i><span>Email to a Friend</span></a></li>*@
                             </ul>
                         </div>
                         @if (Model.Tags.Count > 0)
@@ -138,6 +139,7 @@
                             <div class="product-tab-inner">
                                 <ul id="product-detail-tab" class="nav nav-tabs product-tabs">
                                     <li class="active"> <a href="#description" data-toggle="tab"> Description </a> </li>
+                                    <li> <a href="#reviews" data-toggle="tab">Reviews</a> </li>
                                 </ul>
                                 <div id="productTabContent" class="tab-content">
                                     <div class="tab-pane fade in active" id="description">
@@ -145,6 +147,140 @@
                                             @Html.Raw(product.Content)
                                         </div>
                                     </div>
+                                    @**REVIEWS*---------------------------------------*@
+                                    <div id="reviews" class="tab-pane fade">
+                                        <div class="col-sm-5 col-lg-5 col-md-5">
+                                            <div class="reviews-content-left">
+                                                <h2>Customer Reviews</h2>
+                                                <div class="review-ratting">
+                                                    <p><a href="#">Amazing</a> Review by Company</p>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Price</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Value</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Quality</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p class="author"> Angela Mack<small> (Posted on 16/12/2015)</small> </p>
+                                                </div>
+                                                <div class="review-ratting">
+                                                    <p><a href="#">Good!!!!!</a> Review by Company</p>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Price</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Value</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Quality</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p class="author"> Lifestyle<small> (Posted on 20/12/2015)</small> </p>
+                                                </div>
+                                                <div class="review-ratting">
+                                                    <p><a href="#">Excellent</a> Review by Company</p>
+                                                    <table>
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>Price</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Value</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                            <tr>
+                                                                <th>Quality</th>
+                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <p class="author"> Jone Deo<small> (Posted on 25/12/2015)</small> </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-7 col-lg-7 col-md-7">
+                                            <div class="reviews-content-right">
+                                                <h2>Write Your Own Review</h2>
+                                                <form>
+                                                    <h3>You're reviewing: <span>Donec Ac Tempus</span></h3>
+                                                    <h4>How do you rate this product?<em>*</em></h4>
+                                                    <div class="table-responsive reviews-table">
+                                                        <table>
+                                                            <tbody>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th>1 star</th>
+                                                                    <th>2 stars</th>
+                                                                    <th>3 stars</th>
+                                                                    <th>4 stars</th>
+                                                                    <th>5 stars</th>
+                                                                </tr>
+                                                                <tr style="color:black;">
+                                                                    <td>Quality</td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                </tr>
+                                                                <tr style="color:black;">
+                                                                    <td>Price</td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                </tr>
+                                                                <tr style="color:black;">
+                                                                    <td>Value</td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                    <td><input type="radio"></td>
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <div class="form-area">
+                                                        <div class="form-element">
+                                                            <label>Nickname <em>*</em></label>
+                                                            <input type="text">
+                                                        </div>
+                                                        <div class="form-element">
+                                                            <label>Summary of Your Review <em>*</em></label>
+                                                            <input type="text">
+                                                        </div>
+                                                        <div class="form-element">
+                                                            <label>Review <em>*</em></label>
+                                                            <textarea></textarea>
+                                                        </div>
+                                                        <div class="buttons-set">
+                                                            <button class="button submit" title="Submit Review" type="submit"><span><i class="fa fa-thumbs-up"></i> &nbsp;Review</span></button>
+                                                        </div>
+                                                    </div>
+                                                </form>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    @*---------------------------------------------------------*@
                                 </div>
                             </div>
                         </div>

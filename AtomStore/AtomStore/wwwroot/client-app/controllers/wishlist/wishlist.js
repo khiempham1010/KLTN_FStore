@@ -56,7 +56,7 @@
                             ProductName: item.ProductName,
                             ProductName: item.ProductName,
                             Image: item.Product.Image,
-                            Price: atom.formatNumber(item.Product.Price, 0),
+                            Price: atom.formatNumber(item.Product.Price, 0)+".0",
                             ProductId: item.Product.Id
                         });
                 });

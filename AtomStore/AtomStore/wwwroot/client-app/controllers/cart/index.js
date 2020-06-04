@@ -238,16 +238,16 @@
                             ProductId: item.Product.Id,
                             ProductName: item.Product.Name,
                             Image: item.Product.Image,
-                            Price: atom.formatNumber(item.Price, 0),
+                            Price: atom.formatNumber(item.Price, 0)+".0",
                             Quantity: item.Quantity,
                             Colors: getColorOptions(item.Color == null ? 0 : item.Color.Id, item.Colors),
                             Sizes: getSizeOptions(item.Size == null ? "" : item.Size.Id, item.Sizes),
-                            Amount: atom.formatNumber(item.Price * item.Quantity, 0),
+                            Amount: atom.formatNumber(item.Price * item.Quantity, 0)+".0",
                             Url: '/' + item.Product.SeoAlias + "-p." + item.Product.Id + ".html"
                         });
                     totalAmount += (item.Price * item.Quantity);
                 });
-                $('#lblTotalAmount').text(atom.formatNumber(totalAmount, 0));
+                $('#lblTotalAmount').text("$"+atom.formatNumber(totalAmount, 0)+".0");
                 if (render !== "")
                     $('#table-cart-content').html(render);
                 else {
