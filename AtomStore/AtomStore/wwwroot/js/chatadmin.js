@@ -42,7 +42,6 @@ function addMessage(message) {
     container.appendChild(mess);
     container.appendChild(timediv);
     $('.messageList').append(container);
-
 }
 
 function updateleftsecsion() {

@@ -25,11 +25,15 @@ namespace AtomStore.Controllers
         IConfiguration _configuration;
         IWishlistService _wishlistService;
         public readonly UserManager<AppUser> _userManager;
+        IProductFeedbackService _productFeedbackService;
+        IUserService _userService;
         public ProductController(IProductService productService, IConfiguration configuration,
             IOrderService orderService,
             IProductCategoryService productCategoryService,
             IWishlistService wishlistService,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager,
+            IProductFeedbackService productFeedbackService,
+            IUserService userService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
@@ -37,6 +41,8 @@ namespace AtomStore.Controllers
             _orderService = orderService;
             _wishlistService = wishlistService;
             _userManager = userManager;
+            _productFeedbackService = productFeedbackService;
+            _userService = userService;
         }
         [Route("products.html")]
         public IActionResult Index()
@@ -92,7 +98,7 @@ namespace AtomStore.Controllers
         [Route("{alias}-p.{id}.html", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
-            
+
             var model = new DetailViewModel();
             model.Product = _productService.GetById(id);
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
@@ -111,9 +117,18 @@ namespace AtomStore.Controllers
                 Value = x.Id.ToString()
             }).ToList();
             var currentUser = _userManager.GetUserAsync(User).Result;
-            if (currentUser != null) {
+            if (currentUser != null)
+            {
                 var wishlist = _wishlistService.GetByProductAndUserId(model.Product.Id, currentUser.Id);
                 model.Wishlist = wishlist;
+            }
+            var feedbacks = new List<ProductFeedbackViewModel>();
+            feedbacks = _productFeedbackService.GetByProductId(id);
+            model.ProductFeedback = feedbacks;
+            model.Rating = 0;
+            if (feedbacks.Count > 0)
+            {
+                model.Rating = (int)feedbacks.Select(x=>x.Rating).Average();
             }
             return View(model);
         }
@@ -121,7 +136,7 @@ namespace AtomStore.Controllers
         public IActionResult AddWishlist(int productId)
         {
             var currentUser = _userManager.GetUserAsync(User).Result;
-            
+
             var wishList = new WishlistViewModel();
             if (currentUser != null)
             {
@@ -148,7 +163,46 @@ namespace AtomStore.Controllers
             {
                 return new BadRequestObjectResult(currentUser);
             }
-            
+
+        }
+        [HttpPost]
+        public IActionResult AddFeedback(ProductFeedbackViewModel feedbackVM)
+        {
+            if (ModelState != null)
+            {
+                var currentUser = _userManager.GetUserAsync(User).Result;
+
+                if (currentUser != null)
+                {
+                    feedbackVM.OwnerId = currentUser.Id;
+
+                    _productFeedbackService.Add(feedbackVM);
+                    _productFeedbackService.Save();
+                    return new OkObjectResult(feedbackVM);
+                }
+            }
+            return new BadRequestObjectResult(feedbackVM);
+        }
+        [HttpGet]
+        public IActionResult GetFeedback(int productId)
+        {
+            var feedbacks = new List<ProductFeedbackViewModel>();
+            feedbacks = _productFeedbackService.GetByProductId(productId);
+            return new OkObjectResult(feedbacks);
+
+        }
+        [HttpPost]
+        public IActionResult SaveFeedbackImages(int productId, string[] images)
+        {
+            _productFeedbackService.AddImages(productId, images);
+            _productService.Save();
+            return new OkObjectResult(images);
+        }
+        [HttpGet]
+        public IActionResult GetImages(int productId)
+        {
+            var images = _productFeedbackService.GetImages(productId);
+            return new OkObjectResult(images);
         }
     }
 }

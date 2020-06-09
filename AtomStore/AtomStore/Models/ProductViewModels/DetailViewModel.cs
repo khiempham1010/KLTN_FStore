@@ -31,5 +31,7 @@ namespace AtomStore.Models.ProductViewModels
         public List<SelectListItem> Sizes { set; get; }
 
         public WishlistViewModel Wishlist { get; set; }
+        public List<ProductFeedbackViewModel> ProductFeedback { get; set; }
+        public int Rating { get; set; }
     }
 }

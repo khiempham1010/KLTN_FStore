@@ -29,7 +29,7 @@
             e.preventDefault();
             var id = parseInt($(this).data('id'));
             var corlor = $('#btnAddToWishlist').css("color");
-            if (corlor=="rgb(51, 51, 51)") {
+            if (corlor == "rgb(51, 51, 51)") {
                 $.ajax({
                     url: '/Product/AddWishlist',
                     type: 'post',
@@ -73,4 +73,5 @@
     function loadHeaderCart() {
         $("#headerCart").load("/AjaxContent/HeaderCart");
     }
+    
 }

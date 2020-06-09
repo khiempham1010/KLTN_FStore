@@ -16,10 +16,10 @@ using System.Text;
 
 namespace AtomStore.Data.EF
 {
-    public class AppDbContext:IdentityDbContext<AppUser,AppRole,Guid>
+    public class AppDbContext : IdentityDbContext<AppUser, AppRole, Guid>
     {
-        
-        public AppDbContext(DbContextOptions options):base(options)
+
+        public AppDbContext(DbContextOptions options) : base(options)
         {
 
         }
@@ -48,6 +48,8 @@ namespace AtomStore.Data.EF
         public DbSet<AdvertistmentPosition> AdvertistmentPositions { get; set; }
         public DbSet<Message> Messages { get; set; }
         public DbSet<WishList> Wishlists { get; set; }
+        public DbSet<ProductFeedback> ProductFeedbacks {get;set;}
+        public DbSet<FeedbackImage> feedbackImages { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config

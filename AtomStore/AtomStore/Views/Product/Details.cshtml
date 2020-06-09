@@ -69,7 +69,16 @@
 
                         </div>
                         <div class="ratings">
-                            <div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                            <div class="rating">
+                                @for (int star = 0; star < Model.Rating; star++)
+                                {
+                                    <i class="fa fa-star"></i>
+                                }
+                                @for (int star = 0; star < 5 - Model.Rating; star++)
+                                {
+                                    <i class="fa fa-star-o"></i>
+                                }
+                            </div>
                             <p class="availability @(product.Status==AtomStore.Data.Enums.Status.Active?"in-stock":"out-of-stock") pull-right">Availability: <span>@product.Status</span></p>
                         </div>
                         <div class="short-description">
@@ -151,74 +160,50 @@
                                     <div id="reviews" class="tab-pane fade">
                                         <div class="col-sm-5 col-lg-5 col-md-5">
                                             <div class="reviews-content-left">
-                                                <h2>Customer Reviews</h2>
-                                                <div class="review-ratting">
-                                                    <p><a href="#">Amazing</a> Review by Company</p>
-                                                    <table>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th>Price</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Value</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Quality</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <p class="author"> Angela Mack<small> (Posted on 16/12/2015)</small> </p>
-                                                </div>
-                                                <div class="review-ratting">
-                                                    <p><a href="#">Good!!!!!</a> Review by Company</p>
-                                                    <table>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th>Price</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Value</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Quality</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <p class="author"> Lifestyle<small> (Posted on 20/12/2015)</small> </p>
-                                                </div>
-                                                <div class="review-ratting">
-                                                    <p><a href="#">Excellent</a> Review by Company</p>
-                                                    <table>
-                                                        <tbody>
-                                                            <tr>
-                                                                <th>Price</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Value</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th>Quality</th>
-                                                                <td><div class="rating"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div></td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
-                                                    <p class="author"> Jone Deo<small> (Posted on 25/12/2015)</small> </p>
-                                                </div>
+                                                @if (Model.ProductFeedback.Count > 0)
+                                                {
+                                                    @foreach (var item in Model.ProductFeedback)
+                                                    {
+                                                        <div class="review-ratting">
+                                                            <p><a>@item.Title</a></p>
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>Rating</th>
+                                                                        <td>
+                                                                            <div class="rating">
+                                                                                @for (int star = 0; star < item.Rating; star++)
+                                                                                {
+                                                                                    <i class="fa fa-star"></i>
+                                                                                }
+                                                                                @for (int star = 0; star < 5 - item.Rating; star++)
+                                                                                {
+                                                                                    <i class="fa fa-star-o"></i>
+                                                                                }
+                                                                            </div>
+                                                                        </td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <p>@item.Content</p>
+                                                            @if (item.Image != null)
+                                                            {
+                                                                <img src="@item.Image">
+                                                            }
+                                                            <p class="author"> @item.AppUser.FullName<small> (Posted on @item.DateCreated.Date)</small> </p>
+                                                        </div>
+                                                    }
+                                                }
                                             </div>
                                         </div>
                                         <div class="col-sm-7 col-lg-7 col-md-7">
                                             <div class="reviews-content-right">
                                                 <h2>Write Your Own Review</h2>
-                                                <form>
-                                                    <h3>You're reviewing: <span>Donec Ac Tempus</span></h3>
+                                                <form asp-action="AddFeedback" asp-controller="Product"
+                                                      data-ajax-begin="" data-ajax-complete="reloadFeedback(@(User.Identity.Name))"
+                                                      data-ajax-failure="function fail()" data-ajax-success="success()"
+                                                      data-ajax="true" data-ajax-method="POST" id="frmFeedback">
+                                                    <h3>You're reviewing: <span>@Model.Product.Name</span></h3>
                                                     <h4>How do you rate this product?<em>*</em></h4>
                                                     <div class="table-responsive reviews-table">
                                                         <table>
@@ -231,48 +216,45 @@
                                                                     <th>4 stars</th>
                                                                     <th>5 stars</th>
                                                                 </tr>
-                                                                <tr style="color:black;">
-                                                                    <td>Quality</td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                </tr>
-                                                                <tr style="color:black;">
-                                                                    <td>Price</td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                </tr>
-                                                                <tr style="color:black;">
-                                                                    <td>Value</td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
-                                                                    <td><input type="radio"></td>
+                                                                <tr style="color:black;" id="rating">
+                                                                    <td>Rating</td>
+                                                                    <td><input type="radio" class="rate" value="1"></td>
+                                                                    <td><input type="radio" class="rate" value="2"></td>
+                                                                    <td><input type="radio" class="rate" value="3"></td>
+                                                                    <td><input type="radio" class="rate" value="4"></td>
+                                                                    <td><input type="radio" class="rate" value="5"></td>
                                                                 </tr>
                                                             </tbody>
                                                         </table>
                                                     </div>
                                                     <div class="form-area">
                                                         <div class="form-element">
-                                                            <label>Nickname <em>*</em></label>
-                                                            <input type="text">
+                                                            <label id="feedbackTitle">Title <em>*</em></label>
+                                                            <input type="text" name="Title" class="tile">
                                                         </div>
                                                         <div class="form-element">
-                                                            <label>Summary of Your Review <em>*</em></label>
-                                                            <input type="text">
+                                                            <label id="feedbackContend">Content <em>*</em></label>
+                                                            <textarea name="Content"></textarea>
                                                         </div>
                                                         <div class="form-element">
-                                                            <label>Review <em>*</em></label>
-                                                            <textarea></textarea>
+                                                            <label for="img">Select image:</label>
+                                                            <input type="file" id="fileImage" name="img" accept="image/*">
+                                                            <div class="col-sm-10">
+                                                                <input type="hidden" id="hidId" value="" />
+                                                                <div id="image-list" class="col-md-12">
+
+                                                                </div>
+                                                            </div>
+                                                            <input type="hidden" name="Image" id="imageInput" />
                                                         </div>
                                                         <div class="buttons-set">
-                                                            <button class="button submit" title="Submit Review" type="submit"><span><i class="fa fa-thumbs-up"></i> &nbsp;Review</span></button>
+                                                            <button class="button" type="submit" title="Submit Review"><span><i class="fa fa-thumbs-up"></i> &nbsp;Review</span></button>
+                                                        </div>
+                                                        <div class="form-element">
+                                                            <input type="hidden" name="ProductId" value="@Model.Product.Id" />
+                                                        </div>
+                                                        <div class="form-element">
+                                                            <input type="hidden" name="Rating" id="ratingVal" />
                                                         </div>
                                                     </div>
                                                 </form>
@@ -465,4 +447,22 @@
         </div>
     </div>
 </div>
+
+
+<script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+<script src="~/lib/jquery/dist/jquery.min.js"></script>
+<script src="~/client-app/controllers/product/feedback.js" asp-append-version="true"></script>
+
+<script>
+    $(function () {
+        $(".rate").click(function () {
+            var radioValue = $("#frmFeedback input[Type='radio']:checked").val();
+            if (radioValue) {
+                $('#ratingVal').val(radioValue)
+            }
+        });
+    });
+
+
+</script>
 
