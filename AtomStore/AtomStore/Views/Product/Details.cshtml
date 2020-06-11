@@ -393,7 +393,16 @@
                                                 <div class="info-inner">
                                                     <div class="item-title"> <a title="@item.Name" href="@url">@item.Name</a> </div>
                                                     <div class="item-content">
-                                                        <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="rating">
+                                                            @for (int star = 0; star < item.Rating; star++)
+                                                            {
+                                                                <i class="fa fa-star"></i>
+                                                            }
+                                                            @for (int star = 0; star < 5 - item.Rating; star++)
+                                                            {
+                                                                <i class="fa fa-star-o"></i>
+                                                            }
+                                                        </div>
                                                         <div class="item-price">
                                                             <div class="price-box">
                                                                 @if (item.PromotionPrice.HasValue)
@@ -462,11 +471,11 @@
                                                         <div class="item-title"> <a title="@item.Product.Name" href="@url">@item.Product.Name</a> </div>
                                                         <div class="item-content">
                                                             <div class="rating">
-                                                                @for (int star = 0; star < item.Rating; star++)
+                                                                @for (int star = 0; star < item.Product.Rating; star++)
                                                                 {
                                                                     <i class="fa fa-star"></i>
                                                                 }
-                                                                @for (int star = 0; star < 5 - item.Rating; star++)
+                                                                @for (int star = 0; star < 5 - item.Product.Rating; star++)
                                                                 {
                                                                     <i class="fa fa-star-o"></i>
                                                                 }
