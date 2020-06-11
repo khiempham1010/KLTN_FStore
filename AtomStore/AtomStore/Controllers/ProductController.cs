@@ -101,7 +101,6 @@ namespace AtomStore.Controllers
         [Route("{alias}-p.{id}.html", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
-
             var model = new DetailViewModel();
             model.Product = _productService.GetById(id);
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
@@ -135,7 +134,7 @@ namespace AtomStore.Controllers
                 {
                     viewList = _viewedlistService.GetAll(currentUser.Id);
                     model.Viewedlist = viewList;
-                    return View(model);
+                    
                 }
                 else
                 {
@@ -148,7 +147,7 @@ namespace AtomStore.Controllers
                     _viewedlistService.Save();
                     viewList = _viewedlistService.GetAll(currentUser.Id);
                     model.Viewedlist = viewList;
-                    return View(model);
+                    
                 }
 
             }
