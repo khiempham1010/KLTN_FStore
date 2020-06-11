@@ -36,6 +36,8 @@ namespace AtomStore.Application.AutoMapper
             CreateMap<WishList, WishlistViewModel>();
             CreateMap<ViewedList, ViewedlistViewModel>();
 
+            CreateMap<ProductFeedback, ProductFeedbackViewModel>();
+            CreateMap<FeedbackImage, FeedbackImageViewModel>();
         }
     }
 }

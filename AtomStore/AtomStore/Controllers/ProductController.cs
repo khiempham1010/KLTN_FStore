@@ -26,12 +26,16 @@ namespace AtomStore.Controllers
         IWishlistService _wishlistService;
         IViewedlistService _viewedlistService;
         public readonly UserManager<AppUser> _userManager;
+        IProductFeedbackService _productFeedbackService;
+        IUserService _userService;
         public ProductController(IProductService productService, IConfiguration configuration,
             IOrderService orderService,
             IProductCategoryService productCategoryService,
             IWishlistService wishlistService,
             IViewedlistService viewedlistService,
-        UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager,
+            IProductFeedbackService productFeedbackService,
+            IUserService userService)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
@@ -40,6 +44,8 @@ namespace AtomStore.Controllers
             _wishlistService = wishlistService;
             _viewedlistService = viewedlistService;
             _userManager = userManager;
+            _productFeedbackService = productFeedbackService;
+            _userService = userService;
         }
         [Route("products.html")]
         public IActionResult Index()
@@ -126,7 +132,7 @@ namespace AtomStore.Controllers
                 var viewed = _viewedlistService.GetByProductAndUserId(id, currentUser.Id);
                 var viewList = new List<ViewedlistViewModel>();
                 if (viewed != null)
-                {                 
+                {
                     viewList = _viewedlistService.GetAll(currentUser.Id);
                     model.Viewedlist = viewList;
                     return View(model);
@@ -144,9 +150,17 @@ namespace AtomStore.Controllers
                     model.Viewedlist = viewList;
                     return View(model);
                 }
-                
+
             }
-            
+
+            var feedbacks = new List<ProductFeedbackViewModel>();
+            feedbacks = _productFeedbackService.GetByProductId(id);
+            model.ProductFeedback = feedbacks;
+            model.Rating = 0;
+            if (feedbacks.Count > 0)
+            {
+                model.Rating = (int)feedbacks.Select(x=>x.Rating).Average();
+            }
             return View(model);
         }
         [HttpPost]
@@ -214,7 +228,46 @@ namespace AtomStore.Controllers
             {
                 return new BadRequestObjectResult(currentUser);
             }
+        }
 
+        [HttpPost]
+        public IActionResult AddFeedback(ProductFeedbackViewModel feedbackVM)
+        {
+            if (ModelState != null)
+            {
+                var currentUser = _userManager.GetUserAsync(User).Result;
+
+                if (currentUser != null)
+                {
+                    feedbackVM.OwnerId = currentUser.Id;
+
+                    _productFeedbackService.Add(feedbackVM);
+                    _productFeedbackService.Save();
+                    return new OkObjectResult(feedbackVM);
+                }
+            }
+            return new BadRequestObjectResult(feedbackVM);
+        }
+        [HttpGet]
+        public IActionResult GetFeedback(int productId)
+        {
+            var feedbacks = new List<ProductFeedbackViewModel>();
+            feedbacks = _productFeedbackService.GetByProductId(productId);
+            return new OkObjectResult(feedbacks);
+
+        }
+        [HttpPost]
+        public IActionResult SaveFeedbackImages(int productId, string[] images)
+        {
+            _productFeedbackService.AddImages(productId, images);
+            _productService.Save();
+            return new OkObjectResult(images);
+        }
+        [HttpGet]
+        public IActionResult GetImages(int productId)
+        {
+            var images = _productFeedbackService.GetImages(productId);
+            return new OkObjectResult(images);
         }
 
 

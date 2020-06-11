@@ -48,6 +48,8 @@ namespace AtomStore.Application.AutoMapper
             CreateMap<ViewedlistViewModel, ViewedList>()
                  .ConstructUsing(c => new ViewedList(c.Id, c.UserId, c.ProductId, c.Email, c.ProductName, c.DateCreated, c.DateModified));
 
+            CreateMap<ProductFeedbackViewModel, ProductFeedback>()
+                .ConstructUsing(c => new ProductFeedback(c.ProductId, c.Title, c.Content, c.Rating, c.ParentId, c.DateCreated, c.DateModified, c.OwnerId, c.Like, c.Image));
         }
     }
 }

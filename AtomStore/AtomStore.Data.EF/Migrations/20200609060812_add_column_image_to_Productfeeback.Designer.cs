@@ -4,14 +4,16 @@ using AtomStore.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AtomStore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200609060812_add_column_image_to_Productfeeback")]
+    partial class add_column_image_to_Productfeeback
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -727,33 +729,6 @@ namespace AtomStore.Data.EF.Migrations
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("AtomStore.Data.Entities.ViewedList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Email");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<string>("ProductName");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Viewedlists");
-                });
-
             modelBuilder.Entity("AtomStore.Data.Entities.WishList", b =>
                 {
                     b.Property<int>("Id")
@@ -991,19 +966,6 @@ namespace AtomStore.Data.EF.Migrations
                     b.HasOne("AtomStore.Data.Entities.SizeType", "SizeType")
                         .WithMany("Sizes")
                         .HasForeignKey("SizeTypeId");
-                });
-
-            modelBuilder.Entity("AtomStore.Data.Entities.ViewedList", b =>
-                {
-                    b.HasOne("AtomStore.Data.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AtomStore.Data.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AtomStore.Data.Entities.WishList", b =>

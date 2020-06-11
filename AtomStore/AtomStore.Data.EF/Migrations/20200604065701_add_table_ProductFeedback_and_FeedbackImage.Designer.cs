@@ -4,14 +4,16 @@ using AtomStore.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AtomStore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200604065701_add_table_ProductFeedback_and_FeedbackImage")]
+    partial class add_table_ProductFeedback_and_FeedbackImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -556,8 +558,6 @@ namespace AtomStore.Data.EF.Migrations
 
                     b.Property<DateTime>("DateModified");
 
-                    b.Property<string>("Image");
-
                     b.Property<int>("Like");
 
                     b.Property<Guid>("OwnerId");
@@ -725,33 +725,6 @@ namespace AtomStore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Tags");
-                });
-
-            modelBuilder.Entity("AtomStore.Data.Entities.ViewedList", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Email");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<string>("ProductName");
-
-                    b.Property<Guid>("UserId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("Viewedlists");
                 });
 
             modelBuilder.Entity("AtomStore.Data.Entities.WishList", b =>
@@ -991,19 +964,6 @@ namespace AtomStore.Data.EF.Migrations
                     b.HasOne("AtomStore.Data.Entities.SizeType", "SizeType")
                         .WithMany("Sizes")
                         .HasForeignKey("SizeTypeId");
-                });
-
-            modelBuilder.Entity("AtomStore.Data.Entities.ViewedList", b =>
-                {
-                    b.HasOne("AtomStore.Data.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AtomStore.Data.Entities.AppUser", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("AtomStore.Data.Entities.WishList", b =>

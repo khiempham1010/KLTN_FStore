@@ -1,5 +1,6 @@
 ﻿using AtomStore.Application.Interfaces;
 using AtomStore.Application.ViewModels.Common;
+using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Entities;
 using AtomStore.Infrastructure.Interfaces;
 using AtomStore.Utilities.Dtos;
@@ -16,12 +17,15 @@ namespace AtomStore.Application.Implementation
     {
         private IRepository<Feedback, int> _feedbackRepository;
         private IUnitOfWork _unitOfWork;
+        private IRepository<FeedbackImage, int> _feedbackImageRepository;
 
         public FeedbackService(IRepository<Feedback, int> feedbackRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IRepository<FeedbackImage, int> feedbackImageRepository)
         {
             _feedbackRepository = feedbackRepository;
             _unitOfWork = unitOfWork;
+            _feedbackImageRepository=feedbackImageRepository;
         }
 
         public void Add(FeedbackViewModel feedbackVm)
@@ -29,6 +33,8 @@ namespace AtomStore.Application.Implementation
             var page = Mapper.Map<FeedbackViewModel, Feedback>(feedbackVm);
             _feedbackRepository.Add(page);
         }
+
+        
 
         public void Delete(int id)
         {
@@ -70,6 +76,14 @@ namespace AtomStore.Application.Implementation
         public FeedbackViewModel GetById(int id)
         {
             return Mapper.Map<Feedback, FeedbackViewModel>(_feedbackRepository.FindById(id));
+        }
+        public void AddImages(int productId, string[] images)
+        {
+            throw new NotImplementedException();
+        }
+        public List<FeedbackImageViewModel> GetImages(int productId)
+        {
+            throw new NotImplementedException();
         }
 
         public void SaveChanges()
