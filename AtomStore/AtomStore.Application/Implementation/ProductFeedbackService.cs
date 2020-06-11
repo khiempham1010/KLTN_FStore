@@ -17,6 +17,10 @@ namespace AtomStore.Application.Implementation
         private IUnitOfWork _unitOfWork;
         IUserService _userService;
         private readonly IRepository<FeedbackImage, int> _feedbackImageRepository;
+        public ProductFeedbackService()
+        {
+
+        }
         public ProductFeedbackService(IRepository<ProductFeedback, int> feedback, IUnitOfWork unitOfWork, IUserService userService, IRepository<FeedbackImage, int> feedbackImageRepository)
         {
             _feedbackRepository = feedback;

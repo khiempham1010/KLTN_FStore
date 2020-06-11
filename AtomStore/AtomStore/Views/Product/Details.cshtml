@@ -104,8 +104,8 @@
                                 <div class="cart-plus-minus">
                                     <label for="qty">Quantity:</label>
                                     <div class="numbers-row">
-                                        <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 0 ) result.value--;return false;" class="dec qtybutton"><i class="fa fa-minus">&nbsp;</i></div>
-                                        <input type="text" class="qty" title="Qty" value="1" maxlength="12" id="txtQuantity" name="txtQuantity">
+                                        <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) result.value--;return false;" class="dec qtybutton"><i class="fa fa-minus">&nbsp;</i></div>
+                                        <input type="number" class="qty" title="Qty" value="1" min="1" maxlength="12" id="txtQuantity" name="txtQuantity">
                                         <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="inc qtybutton"><i class="fa fa-plus">&nbsp;</i></div>
                                     </div>
                                 </div>
@@ -188,7 +188,12 @@
                                                             <p>@item.Content</p>
                                                             @if (item.Image != null)
                                                             {
-                                                                <img src="@item.Image">
+                                                                <div class="flexslider flexslider-thumb">
+                                                                    <ul class="previews-list slides">
+                                                                        
+                                                                        <img src="@item.Image" style="width:265px;height:265px">
+                                                                    </ul>
+                                                                </div>
                                                             }
                                                             <p class="author"> @item.AppUser.FullName<small> (Posted on @item.DateCreated.Date)</small> </p>
                                                         </div>
@@ -310,7 +315,16 @@
                                                 <div class="info-inner">
                                                     <div class="item-title"> <a title="@item.Name" href="@url">@item.Name</a> </div>
                                                     <div class="item-content">
-                                                        <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                        <div class="rating">
+                                                            @for (int star = 0; star < item.Rating; star++)
+                                                            {
+                                                                <i class="fa fa-star"></i>
+                                                            }
+                                                            @for (int star = 0; star < 5 - item.Rating; star++)
+                                                            {
+                                                                <i class="fa fa-star-o"></i>
+                                                            }
+                                                        </div>
                                                         <div class="item-price">
                                                             <div class="price-box">
                                                                 <span class="regular-price">
@@ -365,7 +379,16 @@
                                                     <div class="info-inner">
                                                         <div class="item-title"> <a title="@item.Name" href="@url">@item.Name</a> </div>
                                                         <div class="item-content">
-                                                            <div class="rating"> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> <i class="fa fa-star-o"></i> </div>
+                                                            <div class="rating">
+                                                                @for (int star = 0; star < item.Rating; star++)
+                                                                {
+                                                                    <i class="fa fa-star"></i>
+                                                                }
+                                                                @for (int star = 0; star < 5 - item.Rating; star++)
+                                                                {
+                                                                    <i class="fa fa-star-o"></i>
+                                                                }
+                                                            </div>
                                                             <div class="item-price">
                                                                 <div class="price-box">
                                                                     <span class="regular-price">

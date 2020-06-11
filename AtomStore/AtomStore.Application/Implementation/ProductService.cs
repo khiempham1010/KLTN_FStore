@@ -53,6 +53,11 @@ namespace AtomStore.Application.Implementation
         private readonly IRepository<Color, int> _colorRepository;
         private readonly IRepository<Size, int> _sizeRepository;
         private IUnitOfWork _unitOfWork;
+        private readonly IRepository<ProductFeedback, int> _feedbackRepository;
+        IUserService _userService;
+        IRepository<FeedbackImage, int> _feedbackImageRepository;
+        IProductFeedbackService _productFeedbackService;
+
 
         public ProductService(IRepository<Product, int> productRepository,
             IRepository<Tag, string> tagRepository,
@@ -62,7 +67,10 @@ namespace AtomStore.Application.Implementation
             IRepository<ProductTag, int> productTagRepository,
             IRepository<ProductCategory, int> productCategoryRepository,
             IRepository<Color, int> colorRepository,
-            IRepository<Size, int> sizeRepository)
+            IRepository<Size, int> sizeRepository, 
+            IRepository<ProductFeedback, int> feedback, 
+            IUserService userService,
+            IRepository<FeedbackImage, int> feedbackImageRepository)
         {
 
             _productRepository = productRepository;
@@ -74,6 +82,10 @@ namespace AtomStore.Application.Implementation
             _productCategoryRepository = productCategoryRepository;
             _colorRepository = colorRepository;
             _sizeRepository = sizeRepository;
+            _feedbackRepository = feedback;
+            _userService = userService;
+            _feedbackImageRepository = feedbackImageRepository;
+            _productFeedbackService = new ProductFeedbackService(feedback, unitOfWork, userService, feedbackImageRepository);
         }
 
         public ProductViewModel Add(ProductViewModel productVM)
@@ -186,6 +198,17 @@ namespace AtomStore.Application.Implementation
                 .Skip((page - 1) * pageSize).Take(pageSize);
 
             var data = query.ProjectTo<ProductViewModel>().ToList();
+            
+            foreach (var item in data)
+            {
+                var feedbacks = new List<ProductFeedbackViewModel>();
+                feedbacks = _productFeedbackService.GetByProductId(item.Id);
+                item.Rating = 0;
+                if (feedbacks.Count > 0)
+                {
+                    item.Rating = (int)feedbacks.Select(x => x.Rating).Average();
+                }
+            }
 
             var paginationSet = new PagedResult<ProductViewModel>()
             {
@@ -332,36 +355,80 @@ namespace AtomStore.Application.Implementation
 
         public List<ProductViewModel> GetLastest(int top)
         {
-            return _productRepository.FindAll(x => x.Status == Status.Active).OrderByDescending(x => x.DateCreated)
+            var data = _productRepository.FindAll(x => x.Status == Status.Active).OrderByDescending(x => x.DateCreated)
                 .Take(top).ProjectTo<ProductViewModel>().ToList();
+            foreach (var item in data)
+            {
+                var feedbacks = new List<ProductFeedbackViewModel>();
+                feedbacks = _productFeedbackService.GetByProductId(item.Id);
+                item.Rating = 0;
+                if (feedbacks.Count > 0)
+                {
+                    item.Rating = (int)feedbacks.Select(x => x.Rating).Average();
+                }
+            }
+            return data;
         }
 
         public List<ProductViewModel> GetHotProduct(int top)
         {
-            return _productRepository.FindAll(x => x.Status == Status.Active && x.HomeFlag == true)
+            var data = _productRepository.FindAll(x => x.Status == Status.Active && x.HomeFlag == true)
                 .OrderByDescending(x => x.DateCreated)
                 .Take(top)
                 .ProjectTo<ProductViewModel>()
                 .ToList();
+            foreach (var item in data)
+            {
+                var feedbacks = new List<ProductFeedbackViewModel>();
+                feedbacks = _productFeedbackService.GetByProductId(item.Id);
+                item.Rating = 0;
+                if (feedbacks.Count > 0)
+                {
+                    item.Rating = (int)feedbacks.Select(x => x.Rating).Average();
+                }
+            }
+            return data;
         }
 
         public List<ProductViewModel> GetRelatedProducts(int id, int top)
         {
             var product = _productRepository.FindById(id);
-            return _productRepository.FindAll(x => x.Status == Status.Active
+            var data = _productRepository.FindAll(x => x.Status == Status.Active
                 && x.Id != id && x.CategoryId == product.CategoryId)
             .OrderByDescending(x => x.DateCreated)
             .Take(top)
             .ProjectTo<ProductViewModel>()
             .ToList();
+            foreach (var item in data)
+            {
+                var feedbacks = new List<ProductFeedbackViewModel>();
+                feedbacks = _productFeedbackService.GetByProductId(item.Id);
+                item.Rating = 0;
+                if (feedbacks.Count > 0)
+                {
+                    item.Rating = (int)feedbacks.Select(x => x.Rating).Average();
+                }
+            }
+            return data;
         }
 
         public List<ProductViewModel> GetUpsellProducts(int top)
         {
-            return _productRepository.FindAll(x => x.PromotionPrice != null)
+            var data = _productRepository.FindAll(x => x.PromotionPrice != null)
                .OrderByDescending(x => x.DateModified)
                .Take(top)
                .ProjectTo<ProductViewModel>().ToList();
+            foreach (var item in data)
+            {
+                var feedbacks = new List<ProductFeedbackViewModel>();
+                feedbacks = _productFeedbackService.GetByProductId(item.Id);
+                item.Rating = 0;
+                if (feedbacks.Count > 0)
+                {
+                    item.Rating = (int)feedbacks.Select(x => x.Rating).Average();
+                }
+            }
+            return data;
         }
 
         public List<TagViewModel> GetProductTags(int productId)

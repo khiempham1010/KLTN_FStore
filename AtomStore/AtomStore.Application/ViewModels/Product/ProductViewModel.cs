@@ -46,5 +46,6 @@ namespace AtomStore.Application.ViewModels.Product
         public string SeoDescription { set; get; }
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
+        public int Rating { get; set; }
     }
 }

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\AtomStore.Aplication.Dapper\AtomStore.Aplication.Dapper.csproj" />
+    <ProjectReference Include="..\AtomStore.Aplication.Dapper\AtomStore.Application.Dapper.csproj" />
     <ProjectReference Include="..\AtomStore.Application\AtomStore.Application.csproj" />
     <ProjectReference Include="..\AtomStore.Data.EF\AtomStore.Data.EF.csproj" />
     <ProjectReference Include="..\AtomStore_Data\AtomStore.Data.csproj" />

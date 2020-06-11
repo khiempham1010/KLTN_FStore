@@ -77,6 +77,7 @@
                     $('#ddlPaymentMethod').val(data.PaymentMethod);
                     $('#ddlCustomerId').val(data.CustomerId);
                     $('#ddlOrderStatus').val(data.OrderStatus);
+                    $('#lbldatecreated').val(data.DateCreated)
 
                     var orderDetails = data.OrderDetails;
                     if (data.OrderDetails != null && data.OrderDetails.length > 0) {
@@ -277,6 +278,9 @@
                 var customerMessage = $('#txtCustomerMessage').val();
                 var paymentMethod = $('#ddlPaymentMethod').val();
                 var orderStatus = $('#ddlOrderStatus').val();
+                var dateCreated = $('#lbldatecreated').val();
+                if (dateCreated == "")
+                    dateCreated = UniqueDateTime();
                 //order detail
 
                 var orderDetails = [];
@@ -304,7 +308,9 @@
                         CustomerName: customerName,
                         PaymentMethod: paymentMethod,
                         Status: 1,
-                        OrderDetails: orderDetails
+                        OrderDetails: orderDetails,
+                        DateCreated: dateCreated
+
                     },
                     dataType: "json",
                     beforeSend: function () {

@@ -8,6 +8,11 @@ namespace AtomStore.Data.Entities
 {
     public class ProductTag:DomainEntity<int>
     {
+        public ProductTag(int productid, string tagId)
+        {
+            ProductId = productid;
+            TagId = tagId;
+        }
         public int ProductId { get; set; }
         public string TagId { get; set; }
         [ForeignKey("ProductId")]
