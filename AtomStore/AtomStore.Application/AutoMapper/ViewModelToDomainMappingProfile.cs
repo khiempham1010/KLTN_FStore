@@ -10,7 +10,7 @@ using System.Text;
 
 namespace AtomStore.Application.AutoMapper
 {
-    public class ViewModelToDomainMappingProfile:Profile
+    public class ViewModelToDomainMappingProfile : Profile
     {
         public ViewModelToDomainMappingProfile()
         {
@@ -20,7 +20,7 @@ namespace AtomStore.Application.AutoMapper
             CreateMap<ProductViewModel, Product>()
                 .ConstructUsing(c => new Product(c.Name, c.CategoryId, c.Image, c.Price, c.OriginalPrice,
                 c.PromotionPrice, c.Description, c.Content, c.HomeFlag, c.Tags, c.Unit, c.Status,
-                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription,c.DateCreated,c.DateModified));
+                c.SeoPageTitle, c.SeoAlias, c.SeoKeywords, c.SeoDescription, c.DateCreated, c.DateModified));
             CreateMap<AppUserViewModel, AppUser>()
                 .ConstructUsing(c => new AppUser(c.Id.GetValueOrDefault(Guid.Empty), c.FullName, c.UserName, c.Email, c.PhoneNumber, c.Avatar, c.Address, c.Status));
             CreateMap<PermissionViewModel, Permission>()
@@ -45,6 +45,9 @@ namespace AtomStore.Application.AutoMapper
                 .ConstructUsing(c => new Message(c.Id, c.Name, c.Text, c.When, c.UserId, c.ReceiverId));
             CreateMap<WishlistViewModel, WishList>()
                 .ConstructUsing(c => new WishList(c.Id, c.UserId, c.ProductId, c.Email, c.ProductName, c.DateCreated, c.DateModified));
+            CreateMap<ViewedlistViewModel, ViewedList>()
+                 .ConstructUsing(c => new ViewedList(c.Id, c.UserId, c.ProductId, c.Email, c.ProductName, c.DateCreated, c.DateModified));
+
             CreateMap<ProductFeedbackViewModel, ProductFeedback>()
                 .ConstructUsing(c => new ProductFeedback(c.ProductId, c.Title, c.Content, c.Rating, c.ParentId, c.DateCreated, c.DateModified, c.OwnerId, c.Like, c.Image));
         }

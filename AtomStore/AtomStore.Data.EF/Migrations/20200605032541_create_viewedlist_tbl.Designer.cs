@@ -4,14 +4,16 @@ using AtomStore.Data.EF;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace AtomStore.Data.EF.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200605032541_create_viewedlist_tbl")]
+    partial class create_viewedlist_tbl
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -238,27 +240,6 @@ namespace AtomStore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Feedbacks");
-                });
-
-            modelBuilder.Entity("AtomStore.Data.Entities.FeedbackImage", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Caption")
-                        .HasMaxLength(250);
-
-                    b.Property<string>("Path")
-                        .HasMaxLength(250);
-
-                    b.Property<int>("ProductFeedbackId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ProductFeedbackId");
-
-                    b.ToTable("FeedbackImage");
                 });
 
             modelBuilder.Entity("AtomStore.Data.Entities.Function", b =>
@@ -540,45 +521,6 @@ namespace AtomStore.Data.EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ProductCategories");
-                });
-
-            modelBuilder.Entity("AtomStore.Data.Entities.ProductFeedback", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("Content")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("DateCreated");
-
-                    b.Property<DateTime>("DateModified");
-
-                    b.Property<string>("Image");
-
-                    b.Property<int>("Like");
-
-                    b.Property<Guid>("OwnerId");
-
-                    b.Property<int>("ParentId");
-
-                    b.Property<int>("ProductId");
-
-                    b.Property<decimal>("Rating");
-
-                    b.Property<string>("Title")
-                        .IsRequired()
-                        .HasMaxLength(255);
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("OwnerId");
-
-                    b.HasIndex("ProductId");
-
-                    b.ToTable("ProductFeedbacks");
                 });
 
             modelBuilder.Entity("AtomStore.Data.Entities.ProductImage", b =>
@@ -872,14 +814,6 @@ namespace AtomStore.Data.EF.Migrations
                         .HasForeignKey("PageId");
                 });
 
-            modelBuilder.Entity("AtomStore.Data.Entities.FeedbackImage", b =>
-                {
-                    b.HasOne("AtomStore.Data.Entities.ProductFeedback", "ProductFeedback")
-                        .WithMany()
-                        .HasForeignKey("ProductFeedbackId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
             modelBuilder.Entity("AtomStore.Data.Entities.Message", b =>
                 {
                     b.HasOne("AtomStore.Data.Entities.AppUser", "AppUser")
@@ -931,19 +865,6 @@ namespace AtomStore.Data.EF.Migrations
                     b.HasOne("AtomStore.Data.Entities.ProductCategory", "ProductCategory")
                         .WithMany("Products")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("AtomStore.Data.Entities.ProductFeedback", b =>
-                {
-                    b.HasOne("AtomStore.Data.Entities.AppUser", "AppUser")
-                        .WithMany()
-                        .HasForeignKey("OwnerId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("AtomStore.Data.Entities.Product", "Product")
-                        .WithMany()
-                        .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

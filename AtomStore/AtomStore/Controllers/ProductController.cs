@@ -24,6 +24,7 @@ namespace AtomStore.Controllers
         IProductCategoryService _productCategoryService;
         IConfiguration _configuration;
         IWishlistService _wishlistService;
+        IViewedlistService _viewedlistService;
         public readonly UserManager<AppUser> _userManager;
         IProductFeedbackService _productFeedbackService;
         IUserService _userService;
@@ -31,6 +32,7 @@ namespace AtomStore.Controllers
             IOrderService orderService,
             IProductCategoryService productCategoryService,
             IWishlistService wishlistService,
+            IViewedlistService viewedlistService,
             UserManager<AppUser> userManager,
             IProductFeedbackService productFeedbackService,
             IUserService userService)
@@ -40,6 +42,7 @@ namespace AtomStore.Controllers
             _configuration = configuration;
             _orderService = orderService;
             _wishlistService = wishlistService;
+            _viewedlistService = viewedlistService;
             _userManager = userManager;
             _productFeedbackService = productFeedbackService;
             _userService = userService;
@@ -122,6 +125,34 @@ namespace AtomStore.Controllers
                 var wishlist = _wishlistService.GetByProductAndUserId(model.Product.Id, currentUser.Id);
                 model.Wishlist = wishlist;
             }
+
+            var viewedList = new ViewedlistViewModel();
+            if (currentUser != null)
+            {
+                var viewed = _viewedlistService.GetByProductAndUserId(id, currentUser.Id);
+                var viewList = new List<ViewedlistViewModel>();
+                if (viewed != null)
+                {
+                    viewList = _viewedlistService.GetAll(currentUser.Id);
+                    model.Viewedlist = viewList;
+                    return View(model);
+                }
+                else
+                {
+                    viewedList.ProductId = id;
+                    viewedList.Product = _productService.GetById(id);
+                    viewedList.UserId = currentUser.Id;
+                    viewedList.ProductName = viewedList.Product.Name;
+                    viewedList.Email = currentUser.Email;
+                    _viewedlistService.Create(viewedList);
+                    _viewedlistService.Save();
+                    viewList = _viewedlistService.GetAll(currentUser.Id);
+                    model.Viewedlist = viewList;
+                    return View(model);
+                }
+
+            }
+
             var feedbacks = new List<ProductFeedbackViewModel>();
             feedbacks = _productFeedbackService.GetByProductId(id);
             model.ProductFeedback = feedbacks;
@@ -165,6 +196,40 @@ namespace AtomStore.Controllers
             }
 
         }
+
+        [HttpPost]
+        public IActionResult AddViewedlist(int productId)
+        {
+            var currentUser = _userManager.GetUserAsync(User).Result;
+
+            var viewedList = new ViewedlistViewModel();
+            if (currentUser != null)
+            {
+                var viewed = _viewedlistService.GetByProductAndUserId(productId, currentUser.Id);
+                if (viewed != null)
+                {
+                    _viewedlistService.Delete(viewed.Id);
+                    _viewedlistService.Save();
+                    return new OkObjectResult(productId);
+                }
+                else
+                {
+                    viewedList.ProductId = productId;
+                    viewedList.Product = _productService.GetById(productId);
+                    viewedList.UserId = currentUser.Id;
+                    viewedList.ProductName = viewedList.Product.Name;
+                    viewedList.Email = currentUser.Email;
+                    _viewedlistService.Create(viewedList);
+                    _viewedlistService.Save();
+                    return new OkObjectResult(productId);
+                }
+            }
+            else
+            {
+                return new BadRequestObjectResult(currentUser);
+            }
+        }
+
         [HttpPost]
         public IActionResult AddFeedback(ProductFeedbackViewModel feedbackVM)
         {
@@ -204,5 +269,7 @@ namespace AtomStore.Controllers
             var images = _productFeedbackService.GetImages(productId);
             return new OkObjectResult(images);
         }
+
+
     }
 }

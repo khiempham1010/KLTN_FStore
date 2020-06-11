@@ -3,7 +3,7 @@
     ViewData["Title"] = "Wishlist";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@section Scripts{ 
+@section Scripts{
     <script src="~/client-app/controllers/wishlist/wishlist.js"></script>
     <script>
         var wishlistObj = new WishlistController();
@@ -33,37 +33,46 @@
                         <h2>My Wishlist</h2>
                     </div>
                     <div class="wishlist-item table-responsive">
-                        <table class="col-md-12" style="border: 1px solid #ddd;">
-                            <thead style="background-color:black; color:white;">
-                                <tr>
-                                    <th class="th-delate">Remove</th>
-                                    <th class="th-product">Images</th>
-                                    <th class="th-details">Product Name</th>
-                                    <th class="th-price">Unit Price</th>
-                                    <th class="th-total th-add-to-cart">Add to Cart </th>
-                                </tr>
-                            </thead>
-                            <tbody id="table-wishlist-content">
-                                @*@foreach (var item in Model)
-                                {
-                                    var url = "/" + item.Product.SeoAlias + "-p." + item.Id + ".html";
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <table class="col-md-12" style="border: 1px solid #ddd;">
+                                <thead style="background-color:black; color:white;">
                                     <tr>
-                                        <td class="th-delate"><a id="btnRemove" data-id="@item.Id">X</a></td>
-                                        <td class="th-product"><a href="@url"><img src="@item.Product.Image" alt="@item.Product.Name"></a></td>
-                                        <td class="th-details"><h2><a href="#">@item.ProductName</a></h2></td>
-                                        <td class="th-price">@item.Product.Price</td>
-                                        <th class="td-add-to-cart"><a class="add-to-cart" data-id="@item.ProductId" id="btnAddToCart" style="cursor:pointer"><span> Add to Cart</span> </a></th>
+                                        <th class="th-delate">Remove</th>
+                                        <th class="th-product">Images</th>
+                                        <th class="th-details">Product Name</th>
+                                        <th class="th-price">Unit Price</th>
+                                        <th class="th-total th-add-to-cart">Add to Cart </th>
                                     </tr>
-                                }*@
+                                </thead>
+                                <tbody id="table-wishlist-content">
+                                    @*@foreach (var item in Model)
+                                        {
+                                            var url = "/" + item.Product.SeoAlias + "-p." + item.Id + ".html";
+                                            <tr>
+                                                <td class="th-delate"><a id="btnRemove" data-id="@item.Id">X</a></td>
+                                                <td class="th-product"><a href="@url"><img src="@item.Product.Image" alt="@item.Product.Name"></a></td>
+                                                <td class="th-details"><h2><a href="#">@item.ProductName</a></h2></td>
+                                                <td class="th-price">@item.Product.Price</td>
+                                                <th class="td-add-to-cart"><a class="add-to-cart" data-id="@item.ProductId" id="btnAddToCart" style="cursor:pointer"><span> Add to Cart</span> </a></th>
+                                            </tr>
+                                        }*@
 
-                            </tbody>
-                        </table>
+                                </tbody>
+                            </table>
+                        }
+                        else
+                        {
+                            <div>
+                                Please login to view wishlist.
+                            </div>
+                        }
                         <script id="template-wishlist" type="x-tmpl-mustache">
                             <tr>
                                 <td class="th-delate"><a id="btnRemove" style="cursor:pointer" data-id="{{Id}}">X</a></td>
                                 <td class="th-product"><a href="{{Url}}"><img src="{{Image}}" alt="{{ProductName}}"></a></td>
                                 <td class="th-details"><h2><a href="{{Url}}">{{ProductName}}</a></h2></td>
-                                <td class="price"><span>${{Price}} </span></td>
+                                <td class="price">${{{PromotionPrice}}}</td>
                                 <th class="td-add-to-cart"><a class="add-to-cart" data-id="{{ProductId}}" id="btnAddToCart" style="cursor:pointer"><span> Add to Cart</span> </a></th>
                             </tr>
                         </script>

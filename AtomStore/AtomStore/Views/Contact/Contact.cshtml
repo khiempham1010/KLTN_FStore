@@ -57,9 +57,33 @@
 
                                 if ((bool)ViewData["Success"] == true)
                                 {
-                                    <div class="alert alert-success">
+                                    <div id="map" style="width:100%;height:500px;"></div>
+                                    <div class="alert alert-success" style="margin-top: 10px;">
                                         Thank you for your feedback. We are going to reply your order soon.
                                     </div>
+                                    <form action="/contact.html" method="post">
+                                        <h3 class="page-subheading">Make an enquiry</h3>
+                                        <div asp-validation-summary="All" class="text-danger"></div>
+                                        @Html.AntiForgeryToken()
+                                        <div class="contact-form-box">
+                                            <div class="form-selector">
+                                                <label>Name</label>
+                                                <input type="text" class="form-control input-sm" asp-for="Feedback.Name" />
+                                            </div>
+                                            <div class="form-selector">
+                                                <label>Email</label>
+                                                <input type="text" class="form-control input-sm" asp-for="Feedback.Email" />
+                                            </div>
+                                            <div class="form-selector">
+                                                <label>Message</label>
+                                                <textarea class="form-control input-sm" rows="10" asp-for="Feedback.Message" style="resize:none;"></textarea>
+                                            </div>
+                                            <div class="form-selector">
+                                                <button type="submit" class="button"><i class="icon-paper-plane icons"></i>&nbsp; <span>Send Message</span></button>
+                                                &nbsp; @*<a href="#" class="button">Clear</a>*@
+                                            </div>
+                                        </div>
+                                    </form>
 
                                 }
                                 else

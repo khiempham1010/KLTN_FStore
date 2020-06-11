@@ -68,6 +68,25 @@
                 });
             }
         });
+        $('.btnAddToWishlist').on('click', function (e) {
+            e.preventDefault();
+            var id = parseInt($(this).data('id'));
+            $.ajax({
+                url: '/Product/AddWishlist',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    productId: id
+                },
+                success: function () {
+                    atom.notify('Product was added successful', 'success');
+                },
+                error: function () {
+                    atom.notify('Log in to add product', 'error');
+                    atom.stopLoading();
+                }
+            });
+        });
     }
 
     function loadHeaderCart() {

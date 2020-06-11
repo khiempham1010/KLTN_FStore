@@ -1,8 +1,8 @@
-﻿var WishlistController = function () {
+﻿var ViewedlistController = function () {
     this.initialize = function () {
         loadData();
         registerEvents();
-        
+
     }
 
     function registerEvents() {
@@ -23,30 +23,34 @@
                 }
             });
         });
-        $('body').on('click', '#btnRemove', function (e) {
+        $('body').on('click', '.btnAddToWishlist', function (e) {
             e.preventDefault();
             var id = parseInt($(this).data('id'));
             $.ajax({
-                url: '/Wishlist/Remove',
+                url: '/Product/AddWishlist',
                 type: 'post',
                 dataType: 'json',
                 data: {
-                    wishlistId : id
+                    productId: id
                 },
                 success: function () {
                     atom.notify('Product was added successful', 'success');
-                    loadData()
+                },
+                error: function () {
+                    atom.notify('Log in to add product', 'error');
+                    atom.stopLoading();
                 }
-            })
-        })
+            });
+        });
     }
+
     function loadData() {
         $.ajax({
-            url: '/Wishlist/GetWishlist',
+            url: '/Viewedlist/GetViewedlist',
             type: 'GET',
             dataType: 'json',
             success: function (response) {
-                var template = $('#template-wishlist').html();
+                var template = $('#template-viewedlist').html();
                 var render = "";
                 $.each(response, function (i, item) {
                     render += Mustache.render(template,
@@ -57,14 +61,17 @@
                             ProductName: item.ProductName,
                             Image: item.Product.Image,
                             Price: atom.formatNumber(item.Product.Price, 0) + ".0",
-                            PromotionPrice: item.Product.PromotionPrice == null ? '<span>' + atom.formatNumber(item.Product.Price, 0) + ".0" + '</span>' : '<span>' + atom.formatNumber(item.Product.PromotionPrice, 0) + ".0" + '</span>',
-                            ProductId: item.Product.Id
+                            PromotionPrice: item.Product.PromotionPrice == null ? '<p class="special-price"> <span class="price-label">Special Price</span> <span class="price">' + "$" + atom.formatNumber(item.Product.Price, 0) + ".0" + '</span> </p>' :
+                                '<p class="special-price"> <span class="price-label">Special Price</span> <span class="price">' + "$" + atom.formatNumber(item.Product.PromotionPrice, 0) + ".0" + '</span> </p>' +
+                                '<p class= "old-price" > <span class="price-label">Regular Price:</span> <span class="price">' + "$" + atom.formatNumber(item.Product.Price, 0) + ".0" + '</span> </p>' +
+                                '<p class="special-price1"> <span class="price-label">% discount</span> <span class="price">' + Math.round(100 - ((item.Product.PromotionPrice / item.Product.Price) * 100)) + "%" + '</span> </p>',
+                            ProductId : item.Product.Id
                         });
                 });
                 if (render !== "")
-                    $('#table-wishlist-content').html(render);
+                    $('.products-grid').html(render);
                 else {
-                    $('.table-responsive').html('There are no items in your Wishlist.');
+                    $('.product-item').html('There are no items in your viewed list.');
                 }
             },
             //error: function (e) {
