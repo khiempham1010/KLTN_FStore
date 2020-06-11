@@ -44,7 +44,7 @@ namespace AtomStore.Application.Implementation
 
         public List<WishlistViewModel> GetAll(Guid userId)
         {
-            return _wishlistRepository.FindAll(x => x.UserId == userId).ProjectTo<WishlistViewModel>().ToList();
+            return _wishlistRepository.FindAll(x => x.UserId == userId).OrderByDescending(x => x.DateCreated).ProjectTo<WishlistViewModel>().ToList();
         }
 
         public PagedResult<WishlistViewModel> GetAllPaging(Guid userId, int page, int pageSize)
@@ -75,7 +75,7 @@ namespace AtomStore.Application.Implementation
 
         public WishlistViewModel GetByProductAndUserId(int productId, Guid userId)
         {
-            return Mapper.Map<WishList, WishlistViewModel>(_wishlistRepository.FindSingle(x => x.ProductId == productId&&x.UserId==userId));
+            return Mapper.Map<WishList, WishlistViewModel>(_wishlistRepository.FindSingle(x => x.ProductId == productId && x.UserId == userId));
         }
 
 

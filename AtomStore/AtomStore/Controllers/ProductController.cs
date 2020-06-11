@@ -24,18 +24,21 @@ namespace AtomStore.Controllers
         IProductCategoryService _productCategoryService;
         IConfiguration _configuration;
         IWishlistService _wishlistService;
+        IViewedlistService _viewedlistService;
         public readonly UserManager<AppUser> _userManager;
         public ProductController(IProductService productService, IConfiguration configuration,
             IOrderService orderService,
             IProductCategoryService productCategoryService,
             IWishlistService wishlistService,
-            UserManager<AppUser> userManager)
+            IViewedlistService viewedlistService,
+        UserManager<AppUser> userManager)
         {
             _productService = productService;
             _productCategoryService = productCategoryService;
             _configuration = configuration;
             _orderService = orderService;
             _wishlistService = wishlistService;
+            _viewedlistService = viewedlistService;
             _userManager = userManager;
         }
         [Route("products.html")]
@@ -92,7 +95,7 @@ namespace AtomStore.Controllers
         [Route("{alias}-p.{id}.html", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
-            
+
             var model = new DetailViewModel();
             model.Product = _productService.GetById(id);
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
@@ -111,17 +114,46 @@ namespace AtomStore.Controllers
                 Value = x.Id.ToString()
             }).ToList();
             var currentUser = _userManager.GetUserAsync(User).Result;
-            if (currentUser != null) {
+            if (currentUser != null)
+            {
                 var wishlist = _wishlistService.GetByProductAndUserId(model.Product.Id, currentUser.Id);
                 model.Wishlist = wishlist;
             }
+
+            var viewedList = new ViewedlistViewModel();
+            if (currentUser != null)
+            {
+                var viewed = _viewedlistService.GetByProductAndUserId(id, currentUser.Id);
+                var viewList = new List<ViewedlistViewModel>();
+                if (viewed != null)
+                {                 
+                    viewList = _viewedlistService.GetAll(currentUser.Id);
+                    model.Viewedlist = viewList;
+                    return View(model);
+                }
+                else
+                {
+                    viewedList.ProductId = id;
+                    viewedList.Product = _productService.GetById(id);
+                    viewedList.UserId = currentUser.Id;
+                    viewedList.ProductName = viewedList.Product.Name;
+                    viewedList.Email = currentUser.Email;
+                    _viewedlistService.Create(viewedList);
+                    _viewedlistService.Save();
+                    viewList = _viewedlistService.GetAll(currentUser.Id);
+                    model.Viewedlist = viewList;
+                    return View(model);
+                }
+                
+            }
+            
             return View(model);
         }
         [HttpPost]
         public IActionResult AddWishlist(int productId)
         {
             var currentUser = _userManager.GetUserAsync(User).Result;
-            
+
             var wishList = new WishlistViewModel();
             if (currentUser != null)
             {
@@ -148,7 +180,43 @@ namespace AtomStore.Controllers
             {
                 return new BadRequestObjectResult(currentUser);
             }
-            
+
         }
+
+        [HttpPost]
+        public IActionResult AddViewedlist(int productId)
+        {
+            var currentUser = _userManager.GetUserAsync(User).Result;
+
+            var viewedList = new ViewedlistViewModel();
+            if (currentUser != null)
+            {
+                var viewed = _viewedlistService.GetByProductAndUserId(productId, currentUser.Id);
+                if (viewed != null)
+                {
+                    _viewedlistService.Delete(viewed.Id);
+                    _viewedlistService.Save();
+                    return new OkObjectResult(productId);
+                }
+                else
+                {
+                    viewedList.ProductId = productId;
+                    viewedList.Product = _productService.GetById(productId);
+                    viewedList.UserId = currentUser.Id;
+                    viewedList.ProductName = viewedList.Product.Name;
+                    viewedList.Email = currentUser.Email;
+                    _viewedlistService.Create(viewedList);
+                    _viewedlistService.Save();
+                    return new OkObjectResult(productId);
+                }
+            }
+            else
+            {
+                return new BadRequestObjectResult(currentUser);
+            }
+
+        }
+
+
     }
 }

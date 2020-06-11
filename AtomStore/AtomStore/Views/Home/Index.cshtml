@@ -79,7 +79,7 @@
                             <div class="slider-items">
                                 @foreach (var item in Model.TopLatestProducts)
                                 {
-                                    <div class="product-item">
+                                    <div class="product-item" id="addViewedlist">
                                         <div class="item-inner">
                                             <div class="product-thumbnail">
                                                 @*<div class="icon-new-label new-left">New</div>*@
@@ -154,8 +154,8 @@
                                         <div class="item-inner">
                                             <div class="product-thumbnail">
                                                 @*<div class="icon-new-label new-left">New</div>*@
-                                                <div class="pr-img-area">
-                                                    <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html">
+                                                <div class="pr-img-area" data-id="@item.Id" >
+                                                    <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html" data-id="@item.Id" id="btnAddViewed">
                                                         <figure>
                                                             <img height="255" class="first-img" src="@item.Image" alt="@item.Name">
                                                             <img height="255" class="hover-img" src="@item.Image" alt="@item.Name">

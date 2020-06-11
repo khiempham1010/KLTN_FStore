@@ -202,7 +202,7 @@ namespace AtomStore.Application.Implementation
 
         public List<OrderHistoryViewModel> GetOrderHistory(String userEmail)
         {
-            var listUserOrder = _orderRepository.FindAll(x => x.CustomerEmail == userEmail);
+            var listUserOrder = _orderRepository.FindAll(x => x.CustomerEmail == userEmail).OrderByDescending(x=>x.DateCreated);
             List<OrderHistoryViewModel> orderHistory = new List<OrderHistoryViewModel>();
             foreach (var item in listUserOrder)
             {

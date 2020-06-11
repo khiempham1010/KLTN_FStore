@@ -55,7 +55,7 @@ namespace AtomStore.Controllers
 
             model.Contact = _contactService.GetById("default");
 
-            return View("Index", model);
+            return View("Contact", model);
         }
     }
 }

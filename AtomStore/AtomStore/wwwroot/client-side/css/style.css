@@ -1858,6 +1858,16 @@ ul#cart-sidebar {
     .our-clients .slider-items-products .owl-buttons a {
         margin-top: -15px
     }
+
+    .our-clients .slider-items-products1 .owl-buttons .owl-next {
+        position: absolute;
+        right: -22px;
+        top: 15px
+    }
+
+    .our-clients .slider-items-products1 .owl-buttons a {
+        margin-top: -15px
+    }
 /******************************************
 7. Special products
 ******************************************/
@@ -3009,6 +3019,14 @@ a.link {
 .best-sale-pro .slider-items-products .owl-buttons .owl-next {
     top: 15%
 }
+
+.best-sale-pro .slider-items-products1 .owl-buttons .owl-prev {
+    top: 15%
+}
+
+.best-sale-pro .slider-items-products1 .owl-buttons .owl-next {
+    top: 15%
+}
 /******************************************
 13. owl.carousel Slider
 ******************************************/
@@ -3049,6 +3067,40 @@ a.link {
     }
 
     .slider-items-products:hover .owl-buttons .owl-next a {
+    }
+
+.slider-items-products1 {
+    position: relative
+}
+
+    .slider-items-products1 .item {
+        text-align: center
+    }
+
+        .slider-items-products1 .item .product-image {
+            display: block;
+            overflow: hidden
+        }
+
+            .slider-items-products1 .item .product-image img {
+                -webkit-transition-duration: 500ms;
+                transition-duration: 500ms;
+                -webkit-transition-property: transform;
+                transition-property: transform
+            }
+
+    .slider-items-products1 .owl-buttons .owl-prev a {
+        transition: all .5s ease-out 0s
+    }
+
+    .slider-items-products1:hover .owl-buttons .owl-prev a {
+    }
+
+    .slider-items-products1 .owl-buttons .owl-next a {
+        transition: all .5s ease-out 0s
+    }
+
+    .slider-items-products1:hover .owl-buttons .owl-next a {
     }
 
 .owl-buttons {
@@ -3134,6 +3186,80 @@ a.link {
     border: 0px #e8e8e8 solid;
 }
 
+.slider-items-products1 .owl-buttons .owl-prev {
+    position: absolute;
+    left: -12px;
+    top: 46%;
+    right: inherit;
+}
+
+.slider-items-products1 .owl-buttons .owl-next {
+    position: absolute;
+    top: 46%;
+    right: 10px;
+}
+
+.slider-items-products1 .owl-buttons .owl-prev a {
+    background-position: 0 100%
+}
+
+.slider-items-products1 .owl-buttons .owl-next a {
+    background-position: 100% 100%;
+    top: 50%
+}
+
+    .slider-items-products1 .owl-buttons .owl-next a:before {
+        font-family: 'FontAwesome';
+        font-style: normal;
+        font-weight: normal;
+        speak: none;
+        -webkit-font-smoothing: antialiased;
+        content: "\f105";
+        text-transform: none;
+        font-size: 22px;
+        line-height: 26px
+    }
+
+.slider-items-products1 .owl-buttons .owl-prev a:before {
+    font-family: 'FontAwesome';
+    font-style: normal;
+    font-weight: normal;
+    speak: none;
+    -webkit-font-smoothing: antialiased;
+    content: "\f104";
+    text-transform: none;
+    font-size: 22px;
+    line-height: 26px
+}
+
+.slider-items-products1 .owl-buttons a {
+    width: 20px;
+    height: 25px;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    -webkit-box-pack: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+    background: inherit;
+    box-shadow: 0 0 0px 0 rgba(0,0,0,.08);
+    -webkit-transition: all .3s;
+    transition: all .3s;
+    border-radius: 3px;
+    z-index: 5;
+    opacity: 1;
+    cursor: pointer;
+    color: #666;
+    border: 0px #e8e8e8 solid;
+}
+
 .product-flexslider {
     margin: 30px -12px;
     margin-top: 20px
@@ -3151,6 +3277,17 @@ a.link {
 }
 
 .slider-items-products .owl-buttons .owl-prev a {
+    background-position: 0 100%;
+}
+
+.slider-items-products1 .owl-buttons a:hover {
+    text-decoration: none;
+    background: inherit;
+    color: #e83f33;
+    border: 0px #e83f33 solid
+}
+
+.slider-items-products1 .owl-buttons .owl-prev a {
     background-position: 0 100%;
 }
 /******************************************
@@ -3450,6 +3587,19 @@ a.link {
 }
 
 .blog-post-wrapper .slider-items-products .owl-buttons .owl-prev {
+    position: absolute;
+    left: inherit;
+    top: -12%;
+    right: 45px;
+}
+
+.blog-post-wrapper .slider-items-products1 .owl-buttons .owl-next {
+    position: absolute;
+    top: -12%;
+    right: 25px;
+}
+
+.blog-post-wrapper .slider-items-products1 .owl-buttons .owl-prev {
     position: absolute;
     left: inherit;
     top: -12%;
@@ -5349,7 +5499,7 @@ a.ads1 {
 .toolbar {
     margin: 10px 0px 0px;
     overflow: hidden;
-    border-top: 1px #e8e8e8 solid
+    /*border-top: 1px #e8e8e8 solid*/
 }
 
     .toolbar .sorter {
@@ -6562,6 +6712,16 @@ button.button.button-clear {
         right: 8%;
     }
 
+    .category-description .slider-items-products1 .owl-buttons .owl-prev {
+        top: 48%;
+        left: 32px;
+    }
+
+    .category-description .slider-items-products1 .owl-buttons .owl-next {
+        top: 48%;
+        right: 8%;
+    }
+
     .category-description .product-flexslider {
         margin-top: 0px;
         margin-bottom: 25px;
@@ -7425,8 +7585,53 @@ button.button.pro-add-to-cart {
     top: -10%;
 }
 
+.related-products-pro .slider-items-products1 .owl-buttons .owl-prev,
+.upsell-product-area .slider-items-products1 .owl-buttons .owl-prev {
+    left: inherit;
+    position: absolute;
+    right: 55px;
+    top: -10%;
+}
+
 .related-products-pro .slider-items-products .owl-buttons .owl-next,
 .upsell-product-area .slider-items-products .owl-buttons .owl-next {
+    position: absolute;
+    right: 28px;
+    top: -10%;
+}
+
+.related-products-pro .slider-items-products1 .owl-buttons .owl-next,
+.upsell-product-area .slider-items-products1 .owl-buttons .owl-next {
+    position: absolute;
+    right: 28px;
+    top: -10%;
+}
+
+.related-products-pro1 .slider-items-products .owl-buttons .owl-prev,
+.upsell-product-area .slider-items-products .owl-buttons .owl-prev {
+    left: inherit;
+    position: absolute;
+    right: 55px;
+    top: -10%;
+}
+
+.related-products-pro1 .slider-items-products1 .owl-buttons .owl-prev,
+.upsell-product-area .slider-items-products1 .owl-buttons .owl-prev {
+    left: inherit;
+    position: absolute;
+    right: 55px;
+    top: -10%;
+}
+
+.related-products-pro1 .slider-items-products .owl-buttons .owl-next,
+.upsell-product-area .slider-items-products .owl-buttons .owl-next {
+    position: absolute;
+    right: 28px;
+    top: -10%;
+}
+
+.related-products-pro1 .slider-items-products1 .owl-buttons .owl-next,
+.upsell-product-area .slider-items-products1 .owl-buttons .owl-next {
     position: absolute;
     right: 28px;
     top: -10%;
@@ -7722,7 +7927,26 @@ p.note {
     margin-top: 2px;
 }
 
+.related-products-pro .product-flexslider1 {
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
 .related-products-pro {
+    margin-top: 0px;
+}
+
+.related-products-pro1 .product-flexslider {
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
+.related-products-pro1 .product-flexslider1 {
+    margin-bottom: 0px;
+    margin-top: 2px;
+}
+
+.related-products-pro1 {
     margin-top: 0px;
 }
 

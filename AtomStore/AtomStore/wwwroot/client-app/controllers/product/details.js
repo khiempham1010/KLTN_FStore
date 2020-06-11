@@ -29,7 +29,7 @@
             e.preventDefault();
             var id = parseInt($(this).data('id'));
             var corlor = $('#btnAddToWishlist').css("color");
-            if (corlor=="rgb(51, 51, 51)") {
+            if (corlor == "rgb(51, 51, 51)") {
                 $.ajax({
                     url: '/Product/AddWishlist',
                     type: 'post',
@@ -67,6 +67,25 @@
                     }
                 });
             }
+        });
+        $('.btnAddToWishlist').on('click', function (e) {
+            e.preventDefault();
+            var id = parseInt($(this).data('id'));
+            $.ajax({
+                url: '/Product/AddWishlist',
+                type: 'post',
+                dataType: 'json',
+                data: {
+                    productId: id
+                },
+                success: function () {
+                    atom.notify('Product was added successful', 'success');
+                },
+                error: function () {
+                    atom.notify('Log in to add product', 'error');
+                    atom.stopLoading();
+                }
+            });
         });
     }
 
