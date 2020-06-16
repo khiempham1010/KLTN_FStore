@@ -172,6 +172,7 @@ namespace AtomStore
             services.AddTransient<IWishlistService, WishlistService>();
             services.AddTransient<IViewedlistService, ViewedlistService>();
             services.AddTransient<IProductFeedbackService, ProductFeedbackService>();
+            services.AddTransient<IRecommenderService, RecommenderService>();
 
             services.AddSignalR();
 

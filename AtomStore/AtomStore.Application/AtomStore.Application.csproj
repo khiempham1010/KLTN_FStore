@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\AtomStore.Application.Recommender\AtomStore.Application.Recommender.csproj" />
     <ProjectReference Include="..\AtomStore.Data.EF\AtomStore.Data.EF.csproj" />
     <ProjectReference Include="..\AtomStore_Data\AtomStore.Data.csproj" />
     <ProjectReference Include="..\AtomStore_Utilities\AtomStore.Utilities.csproj" />

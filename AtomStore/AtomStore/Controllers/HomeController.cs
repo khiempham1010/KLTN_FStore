@@ -16,14 +16,16 @@ namespace AtomStore.Controllers
     {
         private IProductService _productService;
         private IProductCategoryService _productCategoryService;
+        private IRecommenderService _recommenderService;
 
         //private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IProductService productService, IProductCategoryService productCategoryService)
+        public HomeController(IProductService productService, IProductCategoryService productCategoryService, IRecommenderService recommenderService)
         {
 
             _productService = productService;
             _productCategoryService = productCategoryService;
+            _recommenderService = recommenderService;
             //_localizer = localizer;
         }
 
@@ -39,6 +41,7 @@ namespace AtomStore.Controllers
             homeVm.TopLatestProducts = _productService.GetLastest(10);
             //homeVm.LastestBlogs = _blogService.GetLastest(5);
             //homeVm.HomeSlides = _commonService.GetSlides("top");
+            _recommenderService.TrainData();
             return View(homeVm);
         }
 
