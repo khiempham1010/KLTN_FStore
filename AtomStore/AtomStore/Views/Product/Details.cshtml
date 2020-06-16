@@ -163,7 +163,7 @@
                                     <div id="reviews" class="tab-pane fade">
                                         <div class="col-sm-5 col-lg-5 col-md-5">
                                             <div class="reviews-content-left">
-                                                @if (Model.ProductFeedback.Count > 0)
+                                                @if (Model.ProductFeedback != null)
                                                 {
                                                     @foreach (var item in Model.ProductFeedback)
                                                     {
@@ -360,18 +360,18 @@
     </div>
     <!-- Related Product Slider End -->
     <!-- Upsell Product Slider -->
-    @if (Model.UpsellProducts.Count > 0)
+    @if (Model.recommendProducts!=null)
     {
         <section class="upsell-product-area">
             <div class="row">
                 <div class="col-xs-12">
                     <div class="page-header">
-                        <h2>UpSell Products</h2>
+                        <h2>Recommend Products</h2>
                     </div>
                     <div class="slider-items-products">
                         <div id="upsell-product-slider" class="product-flexslider hidden-buttons">
                             <div class="slider-items slider-width-col4">
-                                @foreach (var item in Model.UpsellProducts)
+                                @foreach (var item in Model.recommendProducts)
                                 {
                                     var url = item.SeoAlias + "-" + "p." + item.Id + ".html";
                                     <div class="product-item">
