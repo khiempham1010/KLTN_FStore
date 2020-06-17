@@ -168,6 +168,7 @@
                                                     @foreach (var item in Model.ProductFeedback)
                                                     {
                                                         <div class="review-ratting">
+                                                            <p class="author" style="font-size: 15px;"> @item.AppUser.FullName</p>
                                                             <p><a>@item.Title</a></p>
                                                             <table>
                                                                 <tbody>
@@ -193,12 +194,13 @@
                                                             {
                                                                 <div class="flexslider flexslider-thumb">
                                                                     <ul class="previews-list slides">
-
-                                                                        <img src="@item.Image" style="width:265px;height:265px">
+                                                                        <li>
+                                                                            <img src="@item.Image" style="width:265px;height:265px">
+                                                                        </li>
                                                                     </ul>
                                                                 </div>
                                                             }
-                                                            <p class="author"> @item.AppUser.FullName<small> (Posted on @item.DateCreated.Date)</small> </p>
+                                                            <p class="author"><small> (Posted on @item.DateCreated)</small> </p>
                                                         </div>
                                                     }
                                                 }
@@ -244,15 +246,14 @@
                                                             </div>
                                                             <div class="form-element">
                                                                 <label id="feedbackContend">Content <em>*</em></label>
-                                                                <textarea name="Content"></textarea>
+                                                                <textarea name="Content" style="resize:none;"></textarea>
                                                             </div>
                                                             <div class="form-element">
                                                                 <label for="img">Select image:</label>
                                                                 <input type="file" id="fileImage" name="img" accept="image/*">
-                                                                <div class="col-sm-10">
+                                                                <div class="col-sm-10" style="margin-top: 10px;">
                                                                     <input type="hidden" id="hidId" value="" />
                                                                     <div id="image-list" class="col-md-12">
-
                                                                     </div>
                                                                 </div>
                                                                 <input type="hidden" name="Image" id="imageInput" />

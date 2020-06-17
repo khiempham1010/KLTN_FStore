@@ -24,7 +24,7 @@ $("#fileImage").on('change', function () {
         success: function (path) {
             clearFileInput($("#fileImage"));
             images.push(path);
-            $('#image-list').append('<div class="col-md-3"><img width="100"  data-path="' + path + '" src="' + path + '"><br><a href="#" class="btn-delete-image">Delete</a></div>');
+            $('#image-list').append('<div class="col-md-3" style="text-align:center;"><img width="100px; height:100px;"  data-path="' + path + '" src="' + path + '"><br><a href="#" class="btn-delete-image"> <i class="icon-close"> </i> </a> </div>');
             $('#imageInput').val(path);
             atom.notify('Upload successfully!', 'success');
 
