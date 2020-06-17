@@ -104,10 +104,17 @@ namespace AtomStore.Controllers
         [Route("{alias}-p.{id}.html", Name = "ProductDetail")]
         public IActionResult Details(int id)
         {
+            _recommenderService.TrainData();
             var model = new DetailViewModel();
             model.Product = _productService.GetById(id);
+            var currentUser = _userManager.GetUserAsync(User).Result;
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
             model.RelatedProducts = _productService.GetRelatedProducts(id, 9);
+            foreach (var item in model.RelatedProducts)
+            {
+                item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+
+            }
             model.UpsellProducts = _productService.GetUpsellProducts(6);
             model.ProductImages = _productService.GetImages(id);
             model.Tags = _productService.GetProductTags(id);
@@ -121,7 +128,7 @@ namespace AtomStore.Controllers
                 Text = x.Name,
                 Value = x.Id.ToString()
             }).ToList();
-            var currentUser = _userManager.GetUserAsync(User).Result;
+            
             if (currentUser != null)
             {
                 var wishlist = _wishlistService.GetByProductAndUserId(model.Product.Id, currentUser.Id);
@@ -136,8 +143,9 @@ namespace AtomStore.Controllers
                 if (viewed != null)
                 {
                     viewList = _viewedlistService.GetAll(currentUser.Id);
-                    foreach(var item in viewList)
+                    foreach (var item in viewList)
                     {
+                        item.Product.Wishlist = _wishlistService.GetByProductAndUserId(item.ProductId, currentUser.Id) == default ? false : true;
                         var fb = new List<ProductFeedbackViewModel>();
                         fb = _productFeedbackService.GetByProductId(item.ProductId);
                         item.Product.Rating = 0;
@@ -160,6 +168,7 @@ namespace AtomStore.Controllers
                     viewList = _viewedlistService.GetAll(currentUser.Id);
                     foreach (var item in viewList)
                     {
+                        item.Product.Wishlist = _wishlistService.GetByProductAndUserId(item.ProductId, currentUser.Id) == default ? false : true;
                         var fb = new List<ProductFeedbackViewModel>();
                         fb = _productFeedbackService.GetByProductId(item.Id);
                         item.Product.Rating = 0;
@@ -179,13 +188,14 @@ namespace AtomStore.Controllers
             model.Rating = 0;
             if (feedbacks.Count > 0)
             {
-                model.Rating = (int)feedbacks.Select(x=>x.Rating).Average();
+                model.Rating = (int)feedbacks.Select(x => x.Rating).Average();
             }
             if (currentUser != null)
             {
-                var recommendProducts = _recommenderService.GetRecommendProduct(currentUser.Id, id, 10);
-                foreach(var item in recommendProducts)
+                var recommendProducts = _recommenderService.GetRecommendProduct(currentUser.Id, 10);
+                foreach (var item in recommendProducts)
                 {
+                    item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
                     var fb = new List<ProductFeedbackViewModel>();
                     fb = _productFeedbackService.GetByProductId(item.Id);
                     item.Rating = 0;
@@ -198,7 +208,7 @@ namespace AtomStore.Controllers
             }
 
             return View(model);
-            
+
         }
         [HttpPost]
         public IActionResult AddWishlist(int productId)

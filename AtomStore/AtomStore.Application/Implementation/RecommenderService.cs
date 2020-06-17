@@ -50,22 +50,11 @@ namespace AtomStore.Application.Implementation
             _orderDetailRepository = orderDetailRepository;
             parser = new UserBehaviorDatabaseParser(_productRepository, _userManager, _tagRepository, _viewedlistRepository, _wishlistRepository, _orderRepository, _feedbackRepository,_orderDetailRepository);
 
-            IRater rate = new LinearRater(1, 2, 3, 4, -3);
+            IRater rate = new LinearRater(2, 3, 4, 5, -3);
             IComparer compare = new CorrelationUserComparer();
-            //recommender = new UserCollaborativeFilterRecommender(compare, rate, 5);
-            //if (File.Exists(savedModel))
-            //{
-            //    try
-            //    {
-            //        recommender.Load(savedModel);
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        var error = e.StackTrace;
-            //    }
-            //}
 
-            recommender = new ItemCollaborativeFilterRecommender(compare, rate, 30);
+            //user base
+            recommender = new UserCollaborativeFilterRecommender(compare, rate, 5);
             if (File.Exists(savedModel))
             {
                 try
@@ -77,6 +66,20 @@ namespace AtomStore.Application.Implementation
                     var error = e.StackTrace;
                 }
             }
+
+            //item base
+            //recommender = new ItemCollaborativeFilterRecommender(compare, rate, 30);
+            //if (File.Exists(savedModel))
+            //{
+            //    try
+            //    {
+            //        recommender.Load(savedModel);
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        var error = e.StackTrace;
+            //    }
+            //}
         }
         public List<ProductViewModel> GetRecommendProduct(Guid userId, int numSuggestion)
         {

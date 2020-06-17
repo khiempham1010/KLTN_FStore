@@ -9,6 +9,8 @@ using AtomStore.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Identity;
+using AtomStore.Data.Entities;
 
 namespace AtomStore.Controllers
 {
@@ -17,15 +19,20 @@ namespace AtomStore.Controllers
         private IProductService _productService;
         private IProductCategoryService _productCategoryService;
         private IRecommenderService _recommenderService;
+        IWishlistService _wishlistService;
+        UserManager<AppUser> _userManager;
 
         //private readonly IStringLocalizer<HomeController> _localizer;
 
-        public HomeController(IProductService productService, IProductCategoryService productCategoryService, IRecommenderService recommenderService)
+        public HomeController(IProductService productService, IProductCategoryService productCategoryService, IRecommenderService recommenderService, IWishlistService wishlistService,
+            UserManager<AppUser> userManager)
         {
 
             _productService = productService;
             _productCategoryService = productCategoryService;
             _recommenderService = recommenderService;
+            _wishlistService = wishlistService;
+            _userManager = userManager;
             //_localizer = localizer;
         }
 
@@ -36,9 +43,20 @@ namespace AtomStore.Controllers
             //var culture = HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.Name;
             //ViewData["BodyClass"] = "cms-index-index cms-home-page";
             var homeVm = new HomeViewModel();
+            var currentUser = _userManager.GetUserAsync(User).Result;
             homeVm.HomeCategories = _productCategoryService.GetHomeCategories(8);
             homeVm.HotProducts = _productService.GetHotProduct(10);
+            foreach (var item in homeVm.HotProducts)
+            {
+                item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+
+            }
             homeVm.TopLatestProducts = _productService.GetLastest(10);
+            foreach (var item in homeVm.TopLatestProducts)
+            {
+                item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+
+            }
             //homeVm.LastestBlogs = _blogService.GetLastest(5);
             //homeVm.HomeSlides = _commonService.GetSlides("top");
             _recommenderService.TrainData();

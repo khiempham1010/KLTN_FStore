@@ -24,7 +24,7 @@ namespace AtomStore.Application.Implementation
         private readonly IRepository<Product, int> _productRepository;
         private readonly IRepository<SizeType, int> _sizeTypeRepository;
         private readonly IUnitOfWork _unitOfWork;
-
+        private readonly IRepository<ProductQuantity, int> _productQuantityRepository;
 
         public OrderService(IRepository<Order, int> orderRepository,
             IRepository<OrderDetail, int> orderDetailRepository,
@@ -32,7 +32,8 @@ namespace AtomStore.Application.Implementation
             IRepository<Product, int> productRepository,
             IRepository<Size, int> sizeRepository,
             IRepository<SizeType, int> sizeTypeRepository,
-            IUnitOfWork unitOfWork)
+            IUnitOfWork unitOfWork,
+            IRepository<ProductQuantity, int> productQuantityRepository)
         {
             _orderRepository = orderRepository;
             _orderDetailRepository = orderDetailRepository;
@@ -41,6 +42,7 @@ namespace AtomStore.Application.Implementation
             _sizeTypeRepository = sizeTypeRepository;
             _productRepository = productRepository;
             _unitOfWork = unitOfWork;
+            _productQuantityRepository = productQuantityRepository;
         }
 
         public void Create(OrderViewModel OrderVm)
@@ -223,6 +225,18 @@ namespace AtomStore.Application.Implementation
                 orderHistory.Product.Add(Mapper.Map<Product, ProductViewModel>(_productRepository.FindById(item.ProductId)));
             }
             return orderHistory;
+        }
+
+        public bool DecreaseQuantity(int productId, int sizeId, int colorId)
+        {
+            var product = _productQuantityRepository.FindAll().FirstOrDefault(x => x.ProductId == productId && x.SizeId == sizeId && x.ColorId == colorId);
+            product.Quantity -= 1;
+            if (product.Quantity >= 0)
+            {
+                _productQuantityRepository.Update(product);
+                return true;
+            }
+            return false;
         }
     }
 }

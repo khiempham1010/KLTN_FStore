@@ -113,7 +113,10 @@ namespace AtomStore.Areas.Admin.Controllers
                         //Send mail
                         await _emailSender.SendEmailAsync(orderVm.CustomerEmail.ToString(), "New order from Atom Store", content);
                     }
-
+                    foreach(var item in orderVm.OrderDetails)
+                    {
+                        _orderService.DecreaseQuantity(item.ProductId, item.SizeId, item.ColorId);
+                    }
                     _orderService.UpdateStatus(orderVm.Id,orderVm.OrderStatus);
                 }
                 catch (Exception ex)

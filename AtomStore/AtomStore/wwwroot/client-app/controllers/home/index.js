@@ -76,21 +76,49 @@
         $('.btnAddToWishlist').on('click', function (e) {
             e.preventDefault();
             var id = parseInt($(this).data('id'));
-            $.ajax({
-                url: '/Product/AddWishlist',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    productId: id
-                },
-                success: function () {
-                    atom.notify('Product was added successful', 'success');
-                },
-                error: function () {
-                    atom.notify('Log in to add product', 'error');
-                    atom.stopLoading();
-                }
-            });
+            var color = $(this).find("i");
+            if (color.css("color") == "rgb(255, 255, 255)") {
+                $.ajax({
+                    url: '/Product/AddWishlist',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        productId: id
+                    },
+                    success: function () {
+                        atom.notify('Product was added successful', 'success');
+                        color.removeClass("fa-heart-o")
+                        color.addClass("fa-heart");
+                        color.css('color', 'rgb(255, 0, 0)');
+
+                    },
+                    error: function () {
+                        atom.notify('Log in to add product', 'error');
+                        atom.stopLoading();
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: '/Product/AddWishlist',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        productId: id
+                    },
+                    success: function () {
+                        atom.notify('Product was added successful', 'success');
+                        color.removeClass("fa-heart")
+                        color.addClass("fa-heart-o");
+                        color.css('color', 'rgb(255, 255, 255)');
+
+                    },
+                    error: function () {
+                        atom.notify('Log in to add product', 'error');
+                        atom.stopLoading();
+                    }
+                });
+            }
         });
 
         //$('#btnAddViewed').on('click', function (e) {

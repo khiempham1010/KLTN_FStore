@@ -47,5 +47,6 @@ namespace AtomStore.Application.ViewModels.Product
         public DateTime DateCreated { set; get; }
         public DateTime DateModified { set; get; }
         public int Rating { get; set; }
+        public bool Wishlist { get; set; }
     }
 }

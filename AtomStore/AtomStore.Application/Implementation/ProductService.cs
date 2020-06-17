@@ -458,7 +458,7 @@ namespace AtomStore.Application.Implementation
 
         public List<ColorViewModel> GetAvailableColor(int productId)
         {
-            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId).ToList();
+            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId && x.Quantity>0).ToList();
             List<Color> colors = _colorRepository.FindAll().ToList();
 
             var query =
@@ -472,7 +472,7 @@ namespace AtomStore.Application.Implementation
 
         public List<SizeViewModel> GetAvailableSize(int productId)
         {
-            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId).ToList();
+            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId && x.Quantity > 0).ToList();
             List<Size> sizes = _sizeRepository.FindAll().ToList();
             var query =
                 from q in quantitys

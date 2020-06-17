@@ -193,7 +193,7 @@
                                                             {
                                                                 <div class="flexslider flexslider-thumb">
                                                                     <ul class="previews-list slides">
-                                                                        
+
                                                                         <img src="@item.Image" style="width:265px;height:265px">
                                                                     </ul>
                                                                 </div>
@@ -204,70 +204,73 @@
                                                 }
                                             </div>
                                         </div>
-                                        <div class="col-sm-7 col-lg-7 col-md-7">
-                                            <div class="reviews-content-right">
-                                                <h2>Write Your Own Review</h2>
-                                                <form asp-action="AddFeedback" asp-controller="Product"
-                                                      data-ajax-begin="" data-ajax-complete="reloadFeedback(@(User.Identity.Name))"
-                                                      data-ajax-failure="function fail()" data-ajax-success="success()"
-                                                      data-ajax="true" data-ajax-method="POST" id="frmFeedback">
-                                                    <h3>You're reviewing: <span>@Model.Product.Name</span></h3>
-                                                    <h4>How do you rate this product?<em>*</em></h4>
-                                                    <div class="table-responsive reviews-table">
-                                                        <table>
-                                                            <tbody>
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th>1 star</th>
-                                                                    <th>2 stars</th>
-                                                                    <th>3 stars</th>
-                                                                    <th>4 stars</th>
-                                                                    <th>5 stars</th>
-                                                                </tr>
-                                                                <tr style="color:black;" id="rating">
-                                                                    <td>Rating</td>
-                                                                    <td><input type="radio" class="rate" value="1"></td>
-                                                                    <td><input type="radio" class="rate" value="2"></td>
-                                                                    <td><input type="radio" class="rate" value="3"></td>
-                                                                    <td><input type="radio" class="rate" value="4"></td>
-                                                                    <td><input type="radio" class="rate" value="5"></td>
-                                                                </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                    <div class="form-area">
-                                                        <div class="form-element">
-                                                            <label id="feedbackTitle">Title <em>*</em></label>
-                                                            <input type="text" name="Title" class="tile">
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <div class="col-sm-7 col-lg-7 col-md-7">
+                                                <div class="reviews-content-right">
+                                                    <h2>Write Your Own Review</h2>
+                                                    <form asp-action="AddFeedback" asp-controller="Product"
+                                                          data-ajax-begin="" data-ajax-complete="reloadFeedback(@(User.Identity.Name))"
+                                                          data-ajax-failure="function fail()" data-ajax-success="success()"
+                                                          data-ajax="true" data-ajax-method="POST" id="frmFeedback">
+                                                        <h3>You're reviewing: <span>@Model.Product.Name</span></h3>
+                                                        <h4>How do you rate this product?<em>*</em></h4>
+                                                        <div class="table-responsive reviews-table">
+                                                            <table>
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th>1 star</th>
+                                                                        <th>2 stars</th>
+                                                                        <th>3 stars</th>
+                                                                        <th>4 stars</th>
+                                                                        <th>5 stars</th>
+                                                                    </tr>
+                                                                    <tr style="color:black;" id="rating">
+                                                                        <td>Rating</td>
+                                                                        <td><input type="radio" class="rate" value="1"></td>
+                                                                        <td><input type="radio" class="rate" value="2"></td>
+                                                                        <td><input type="radio" class="rate" value="3"></td>
+                                                                        <td><input type="radio" class="rate" value="4"></td>
+                                                                        <td><input type="radio" class="rate" value="5"></td>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
                                                         </div>
-                                                        <div class="form-element">
-                                                            <label id="feedbackContend">Content <em>*</em></label>
-                                                            <textarea name="Content"></textarea>
-                                                        </div>
-                                                        <div class="form-element">
-                                                            <label for="img">Select image:</label>
-                                                            <input type="file" id="fileImage" name="img" accept="image/*">
-                                                            <div class="col-sm-10">
-                                                                <input type="hidden" id="hidId" value="" />
-                                                                <div id="image-list" class="col-md-12">
-
-                                                                </div>
+                                                        <div class="form-area">
+                                                            <div class="form-element">
+                                                                <label id="feedbackTitle">Title <em>*</em></label>
+                                                                <input type="text" name="Title" class="tile">
                                                             </div>
-                                                            <input type="hidden" name="Image" id="imageInput" />
+                                                            <div class="form-element">
+                                                                <label id="feedbackContend">Content <em>*</em></label>
+                                                                <textarea name="Content"></textarea>
+                                                            </div>
+                                                            <div class="form-element">
+                                                                <label for="img">Select image:</label>
+                                                                <input type="file" id="fileImage" name="img" accept="image/*">
+                                                                <div class="col-sm-10">
+                                                                    <input type="hidden" id="hidId" value="" />
+                                                                    <div id="image-list" class="col-md-12">
+
+                                                                    </div>
+                                                                </div>
+                                                                <input type="hidden" name="Image" id="imageInput" />
+                                                            </div>
+                                                            <div class="buttons-set">
+                                                                <button class="button" type="submit" title="Submit Review"><span><i class="fa fa-thumbs-up"></i> &nbsp;Review</span></button>
+                                                            </div>
+                                                            <div class="form-element">
+                                                                <input type="hidden" name="ProductId" value="@Model.Product.Id" />
+                                                            </div>
+                                                            <div class="form-element">
+                                                                <input type="hidden" name="Rating" id="ratingVal" />
+                                                            </div>
                                                         </div>
-                                                        <div class="buttons-set">
-                                                            <button class="button" type="submit" title="Submit Review"><span><i class="fa fa-thumbs-up"></i> &nbsp;Review</span></button>
-                                                        </div>
-                                                        <div class="form-element">
-                                                            <input type="hidden" name="ProductId" value="@Model.Product.Id" />
-                                                        </div>
-                                                        <div class="form-element">
-                                                            <input type="hidden" name="Rating" id="ratingVal" />
-                                                        </div>
-                                                    </div>
-                                                </form>
+                                                    </form>
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
                                     </div>
 
                                     @*---------------------------------------------------------*@
@@ -308,7 +311,16 @@
                                                 </div>
                                                 <div class="pr-info-area">
                                                     <div class="pr-button">
-                                                        <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>                                                        @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                                        @if (item.Wishlist)
+                                                        {
+                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>
+
+                                                        }                                                        @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
                                                             <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
                                                     </div>
                                                 </div>
@@ -360,7 +372,7 @@
     </div>
     <!-- Related Product Slider End -->
     <!-- Upsell Product Slider -->
-    @if (Model.recommendProducts!=null)
+    @if (Model.recommendProducts != null)
     {
         <section class="upsell-product-area">
             <div class="row">
@@ -384,7 +396,16 @@
                                                 </div>
                                                 <div class="pr-info-area">
                                                     <div class="pr-button">
-                                                        <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>                                                        @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                                        @if (item.Wishlist)
+                                                        {
+                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>
+
+                                                        }@*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
                                                             <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
                                                     </div>
                                                 </div>
@@ -461,7 +482,17 @@
                                                     </div>
                                                     <div class="pr-info-area">
                                                         <div class="pr-button">
-                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Product.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>                                                            @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                                            @if (item.Product.Wishlist)
+                                                            {
+                                                                <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Product.Id" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Product.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>
+
+                                                            }
+                                                            @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
                                                                 <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
                                                         </div>
                                                     </div>
