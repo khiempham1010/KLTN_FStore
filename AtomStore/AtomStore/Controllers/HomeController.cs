@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Localization;
 using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Identity;
 using AtomStore.Data.Entities;
+using AtomStore.Application.ViewModels.Product;
 
 namespace AtomStore.Controllers
 {
@@ -21,11 +22,12 @@ namespace AtomStore.Controllers
         private IRecommenderService _recommenderService;
         IWishlistService _wishlistService;
         UserManager<AppUser> _userManager;
+        private IProductFeedbackService _productFeedbackService;
 
         //private readonly IStringLocalizer<HomeController> _localizer;
 
         public HomeController(IProductService productService, IProductCategoryService productCategoryService, IRecommenderService recommenderService, IWishlistService wishlistService,
-            UserManager<AppUser> userManager)
+            UserManager<AppUser> userManager, IProductFeedbackService productFeedbackService)
         {
 
             _productService = productService;
@@ -33,6 +35,7 @@ namespace AtomStore.Controllers
             _recommenderService = recommenderService;
             _wishlistService = wishlistService;
             _userManager = userManager;
+            _productFeedbackService = productFeedbackService;
             //_localizer = localizer;
         }
 
@@ -42,24 +45,53 @@ namespace AtomStore.Controllers
             //var title = _localizer["Title"];
             //var culture = HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.Name;
             //ViewData["BodyClass"] = "cms-index-index cms-home-page";
+            _recommenderService.TrainData();
             var homeVm = new HomeViewModel();
             var currentUser = _userManager.GetUserAsync(User).Result;
             homeVm.HomeCategories = _productCategoryService.GetHomeCategories(8);
-            homeVm.HotProducts = _productService.GetHotProduct(10);
-            foreach (var item in homeVm.HotProducts)
-            {
-                item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
-
-            }
             homeVm.TopLatestProducts = _productService.GetLastest(10);
-            foreach (var item in homeVm.TopLatestProducts)
+            homeVm.HotProducts = _productService.GetHotProduct(10);
+            if (currentUser != null)
             {
-                item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+                foreach (var item in homeVm.HotProducts)
+                {
+                    item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+                    var fb = new List<ProductFeedbackViewModel>();
+                    fb = _productFeedbackService.GetByProductId(item.Id);
+                    item.Rating = 0;
+                    if (fb.Count > 0)
+                    {
+                        item.Rating = (int)fb.Select(x => x.Rating).Average();
+                    }
+                }
+                foreach (var item in homeVm.TopLatestProducts)
+                {
+                    item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+                    var fb = new List<ProductFeedbackViewModel>();
+                    fb = _productFeedbackService.GetByProductId(item.Id);
+                    item.Rating = 0;
+                    if (fb.Count > 0)
+                    {
+                        item.Rating = (int)fb.Select(x => x.Rating).Average();
+                    }
+                }
 
+                var recommendProducts = _recommenderService.GetRecommendProduct(currentUser.Id, 10);
+                foreach (var item in recommendProducts)
+                {
+                    item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+                    var fb = new List<ProductFeedbackViewModel>();
+                    fb = _productFeedbackService.GetByProductId(item.Id);
+                    item.Rating = 0;
+                    if (fb.Count > 0)
+                    {
+                        item.Rating = (int)fb.Select(x => x.Rating).Average();
+                    }
+                }
+                homeVm.RecommendProduct = recommendProducts;
             }
             //homeVm.LastestBlogs = _blogService.GetLastest(5);
             //homeVm.HomeSlides = _commonService.GetSlides("top");
-            _recommenderService.TrainData();
             return View(homeVm);
         }
 

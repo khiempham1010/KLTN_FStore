@@ -12,6 +12,7 @@ namespace AtomStore.Models
         public List<ProductViewModel> TopLatestProducts { get; set; }
 
         public List<ProductCategoryViewModel> HomeCategories { set; get; }
+        public List<ProductViewModel> RecommendProduct { get; set; }
 
         public string Title { set; get; }
         public string MetaKeyword { set; get; }

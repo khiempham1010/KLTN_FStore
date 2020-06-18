@@ -110,10 +110,12 @@ namespace AtomStore.Controllers
             var currentUser = _userManager.GetUserAsync(User).Result;
             model.Category = _productCategoryService.GetById(model.Product.CategoryId);
             model.RelatedProducts = _productService.GetRelatedProducts(id, 9);
-            foreach (var item in model.RelatedProducts)
+            if (currentUser != null)
             {
-                item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
-
+                foreach (var item in model.RelatedProducts)
+                {
+                    item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+                }
             }
             model.UpsellProducts = _productService.GetUpsellProducts(6);
             model.ProductImages = _productService.GetImages(id);

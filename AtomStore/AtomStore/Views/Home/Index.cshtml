@@ -48,6 +48,7 @@
 <!-- service section -->
 @Html.Partial("_ServicePartial.cshtml")
 
+<!-- Hot products-->
 <div class="inner-box">
     <div class="container">
         <div class="row">
@@ -152,86 +153,87 @@
     </div>
 </div>
 
-<!-- All products-->
+<!-- best seling products-->
+<div class="inner-box">
+    <div class="container">
+        <div class="home-tab">
+            <div class="tab-title text-left">
+                <h2>Best selling</h2>
 
-<div class="container">
-    <div class="home-tab">
-        <div class="tab-title text-left">
-            <h2>Best selling</h2>
-
-        </div>
-        <div id="productTabContent" class="tab-content">
-            <div class="tab-pane active in" id="computer">
-                <div class="featured-pro">
-                    <div class="slider-items-products">
-                        <div id="computer-slider" class="product-flexslider hidden-buttons">
-                            <div class="slider-items slider-width-col4">
-                                @foreach (var item in Model.HotProducts)
-                                {
-                                    <div class="product-item">
-                                        <div class="item-inner">
-                                            <div class="product-thumbnail">
-                                                @*<div class="icon-new-label new-left">New</div>*@
-                                                <div class="pr-img-area" data-id="@item.Id">
-                                                    <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html" data-id="@item.Id" id="btnAddViewed">
-                                                        <figure>
-                                                            <img height="255" class="first-img" src="@item.Image" alt="@item.Name">
-                                                            <img height="255" class="hover-img" src="@item.Image" alt="@item.Name">
-                                                        </figure>
-                                                    </a>
-                                                </div>
-                                                <div class="pr-info-area">
-                                                    <div class="pr-button">
-                                                        @if (item.Wishlist)
-                                                        {
-                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>
-
-                                                        }
-                                                        else
-                                                        {
-                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>
-
-                                                        }
-                                                        @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
-                                                            <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
+            </div>
+            <div id="productTabContent" class="tab-content">
+                <div class="tab-pane active in" id="computer">
+                    <div class="featured-pro">
+                        <div class="slider-items-products">
+                            <div id="computer-slider" class="product-flexslider hidden-buttons">
+                                <div class="slider-items slider-width-col4">
+                                    @foreach (var item in Model.HotProducts)
+                                    {
+                                        <div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    @*<div class="icon-new-label new-left">New</div>*@
+                                                    <div class="pr-img-area" data-id="@item.Id">
+                                                        <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html" data-id="@item.Id" id="btnAddViewed">
+                                                            <figure>
+                                                                <img height="255" class="first-img" src="@item.Image" alt="@item.Name">
+                                                                <img height="255" class="hover-img" src="@item.Image" alt="@item.Name">
+                                                            </figure>
+                                                        </a>
                                                     </div>
-                                                </div>
-                                            </div>
-                                            <div class="item-info">
-                                                <div class="info-inner">
-                                                    <div class="item-title"> <a title="Product title here" href="/@item.SeoAlias-p.@(item.Id).html">@item.Name </a> </div>
-                                                    <div class="item-content">
-                                                        <div class="rating">
-                                                            @for (int star = 0; star < item.Rating; star++)
+                                                    <div class="pr-info-area">
+                                                        <div class="pr-button">
+                                                            @if (item.Wishlist)
                                                             {
-                                                                <i class="fa fa-star"></i>
-                                                            }
-                                                            @for (int star = 0; star < 5 - item.Rating; star++)
-                                                            {
-                                                                <i class="fa fa-star-o"></i>
-                                                            }
-                                                        </div>
-                                                        <div class="item-price">
-                                                            @if (item.PromotionPrice.HasValue)
-                                                            {
-                                                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $@item.PromotionPrice.Value.ToString("F1") </span> </p>
-                                                                <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">$@item.Price.ToString("F1")  </span> </p>
-                                                                <p class="special-price1"> <span class="price-label">% discount</span> <span class="price"> -@((100 - (item.PromotionPrice / item.Price) * 100).Value.ToString("F0"))% </span> </p>
+                                                                <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>
+
                                                             }
                                                             else
                                                             {
-                                                                <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">$@item.Price.ToString("F1") </span> </p>
+                                                                <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>
+
                                                             }
+                                                            @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                                                <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
                                                         </div>
-                                                        <div class="pro-action">
-                                                            <button type="button" data-id="@item.Id" class="add-to-cart"><span> Add to Cart</span> </button>
+                                                    </div>
+                                                </div>
+                                                <div class="item-info">
+                                                    <div class="info-inner">
+                                                        <div class="item-title"> <a title="Product title here" href="/@item.SeoAlias-p.@(item.Id).html">@item.Name </a> </div>
+                                                        <div class="item-content">
+                                                            <div class="rating">
+                                                                @for (int star = 0; star < item.Rating; star++)
+                                                                {
+                                                                    <i class="fa fa-star"></i>
+                                                                }
+                                                                @for (int star = 0; star < 5 - item.Rating; star++)
+                                                                {
+                                                                    <i class="fa fa-star-o"></i>
+                                                                }
+                                                            </div>
+                                                            <div class="item-price">
+                                                                @if (item.PromotionPrice.HasValue)
+                                                                {
+                                                                    <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $@item.PromotionPrice.Value.ToString("F1") </span> </p>
+                                                                    <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">$@item.Price.ToString("F1")  </span> </p>
+                                                                    <p class="special-price1"> <span class="price-label">% discount</span> <span class="price"> -@((100 - (item.PromotionPrice / item.Price) * 100).Value.ToString("F0"))% </span> </p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">$@item.Price.ToString("F1") </span> </p>
+                                                                }
+                                                            </div>
+                                                            <div class="pro-action">
+                                                                <button type="button" data-id="@item.Id" class="add-to-cart"><span> Add to Cart</span> </button>
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                }
+                                    }
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -241,7 +243,95 @@
     </div>
 </div>
 
+<!-- Recommend products-->
+<div class="inner-box">
+    <div class="container">
+        <div class="home-tab">
+            <div class="tab-title text-left">
+                <h2>Recommend for you</h2>
 
+            </div>
+            <div id="productTabContent" class="tab-content">
+                <div class="tab-pane active in" id="computer">
+                    <div class="featured-pro">
+                        <div class="slider-items-products">
+                            <div id="computer-slider" class="product-flexslider hidden-buttons">
+                                <div class="slider-items slider-width-col4">
+                                    @foreach (var item in Model.RecommendProduct)
+                                    {
+                                        <div class="product-item">
+                                            <div class="item-inner">
+                                                <div class="product-thumbnail">
+                                                    @*<div class="icon-new-label new-left">New</div>*@
+                                                    <div class="pr-img-area" data-id="@item.Id">
+                                                        <a title="@item.Name" href="/@item.SeoAlias-p.@(item.Id).html" data-id="@item.Id" id="btnAddViewed">
+                                                            <figure>
+                                                                <img height="255" class="first-img" src="@item.Image" alt="@item.Name">
+                                                                <img height="255" class="hover-img" src="@item.Image" alt="@item.Name">
+                                                            </figure>
+                                                        </a>
+                                                    </div>
+                                                    <div class="pr-info-area">
+                                                        <div class="pr-button">
+                                                            @if (item.Wishlist)
+                                                            {
+                                                                <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>
+
+                                                            }
+                                                            else
+                                                            {
+                                                                <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>
+
+                                                            }
+                                                            @*<div class="mt-button add_to_compare"> <a href="compare.html"> <i class="fa fa-link"></i> </a> </div>
+                                                                <div class="mt-button quick-view"> <a href="quick_view.html"> <i class="fa fa-search"></i> </a> </div>*@
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="item-info">
+                                                    <div class="info-inner">
+                                                        <div class="item-title"> <a title="Product title here" href="/@item.SeoAlias-p.@(item.Id).html">@item.Name </a> </div>
+                                                        <div class="item-content">
+                                                            <div class="rating">
+                                                                @for (int star = 0; star < item.Rating; star++)
+                                                                {
+                                                                    <i class="fa fa-star"></i>
+                                                                }
+                                                                @for (int star = 0; star < 5 - item.Rating; star++)
+                                                                {
+                                                                    <i class="fa fa-star-o"></i>
+                                                                }
+                                                            </div>
+                                                            <div class="item-price">
+                                                                @if (item.PromotionPrice.HasValue)
+                                                                {
+                                                                    <p class="special-price"> <span class="price-label">Special Price</span> <span class="price"> $@item.PromotionPrice.Value.ToString("F1") </span> </p>
+                                                                    <p class="old-price"> <span class="price-label">Regular Price:</span> <span class="price">$@item.Price.ToString("F1")  </span> </p>
+                                                                    <p class="special-price1"> <span class="price-label">% discount</span> <span class="price"> -@((100 - (item.PromotionPrice / item.Price) * 100).Value.ToString("F0"))% </span> </p>
+                                                                }
+                                                                else
+                                                                {
+                                                                    <p class="special-price"> <span class="price-label">Special Price</span> <span class="price">$@item.Price.ToString("F1") </span> </p>
+                                                                }
+                                                            </div>
+                                                            <div class="pro-action">
+                                                                <button type="button" data-id="@item.Id" class="add-to-cart"><span> Add to Cart</span> </button>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <!-- MODIFIED DAILY OF THE DAY -->
 
 
