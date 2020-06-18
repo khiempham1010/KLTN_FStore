@@ -5653,6 +5653,58 @@ a.ads1 {
                     color: #fff;
                     transition: all .4s ease-out .2s;
                 }
+
+.pagination-area1 {
+    background: rgba(0,0,0,0) none repeat scroll 0 0;
+    border-top: 1px solid #e5e5e5;
+    margin: 22px 0 0;
+    padding-top: 20px;
+    text-align: center;
+    display: inline-block;
+    width: 100%
+}
+
+    .pagination-area1 ul {
+        margin-bottom: 0px
+    }
+
+        .pagination-area1 ul li {
+            background: #f5f5f5;
+            color: #393939;
+            display: inline-block;
+            font-size: 12px;
+            font-weight: 700;
+            height: 30px;
+            line-height: 30px;
+            margin: 0 0 0 5px;
+            width: 30px;
+        }
+
+            .pagination-area1 ul li a {
+                border: 1px solid #e5e5e5;
+                color: #363636;
+                display: block;
+                font-size: 12px;
+                font-weight: 700;
+                height: 30px;
+                width: 30px;
+                text-decoration: none;
+                transition: all .4s ease-out .2s;
+                border-radius: 3px;
+            }
+
+                .pagination-area1 ul li a:hover {
+                    background: #fcd21b;
+                    border: 1px solid #fcd21b;
+                    color: black;
+                }
+
+                .pagination-area ul li a.active {
+                    background: black;
+                    border: 1px solid black;
+                    color: #fff;
+                    transition: all .4s ease-out .2s;
+                }
 /******************************************
 20. Filter price
 ******************************************/

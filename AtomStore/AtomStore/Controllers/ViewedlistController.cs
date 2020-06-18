@@ -35,5 +35,14 @@ namespace AtomStore.Controllers
             List<ViewedlistViewModel> viewedlistVMList = _viewedlistService.GetAll(curUser.Id);
             return new OkObjectResult(viewedlistVMList);
         }
+
+        [HttpGet]
+        [Authorize]
+        public IActionResult GetAllPaging(int page)
+        {
+            var curUser = _userManager.GetUserAsync(User).Result;
+            var model = _viewedlistService.GetAllPaging(curUser.Id, page, 12);
+            return new OkObjectResult(model);
+        }
     }
 }

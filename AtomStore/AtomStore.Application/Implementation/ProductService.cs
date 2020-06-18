@@ -16,6 +16,7 @@ using System.Text;
 using AtomStore.Utilities.Constants;
 using AtomStore.Utilities.Helpers;
 using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
 namespace AtomStore.Application.Implementation
 {
@@ -52,6 +53,8 @@ namespace AtomStore.Application.Implementation
         private IRepository<ProductCategory, int> _productCategoryRepository;
         private readonly IRepository<Color, int> _colorRepository;
         private readonly IRepository<Size, int> _sizeRepository;
+        private readonly IRepository<Order, int> _orderRepository;
+        private readonly IRepository<OrderDetail, int> _orderDetailService;
         private IUnitOfWork _unitOfWork;
         private readonly IRepository<ProductFeedback, int> _feedbackRepository;
         IUserService _userService;
@@ -70,7 +73,9 @@ namespace AtomStore.Application.Implementation
             IRepository<Size, int> sizeRepository, 
             IRepository<ProductFeedback, int> feedback, 
             IUserService userService,
-            IRepository<FeedbackImage, int> feedbackImageRepository)
+            IRepository<FeedbackImage, int> feedbackImageRepository,
+            IRepository<Order, int> orderRepository,
+            IRepository<OrderDetail, int> orderDetailService)
         {
 
             _productRepository = productRepository;
@@ -86,6 +91,8 @@ namespace AtomStore.Application.Implementation
             _userService = userService;
             _feedbackImageRepository = feedbackImageRepository;
             _productFeedbackService = new ProductFeedbackService(feedback, unitOfWork, userService, feedbackImageRepository);
+            _orderRepository = orderRepository;
+            _orderDetailService = orderDetailService;
         }
 
         public ProductViewModel Add(ProductViewModel productVM)
@@ -388,6 +395,23 @@ namespace AtomStore.Application.Implementation
                 }
             }
             return data;
+        }
+
+        public List<ProductViewModel> GetBestSellingProduct(int top)
+        {
+            var orders = _orderRepository.FindAll();
+            var orderDetail = _orderDetailService.FindAll();
+            var tmp = orderDetail.GroupBy(x => x.ProductId);
+            var result = tmp.Select(y => new {
+                Id = y.Key,
+                count = y.Count()
+            }).OrderByDescending(x => x.count).ToList().Take(10);
+            var product = new List<ProductViewModel>();
+            foreach(var item in result)
+            {
+                product.Add(GetById(item.Id));
+            }
+            return product;
         }
 
         public List<ProductViewModel> GetRelatedProducts(int id, int top)
