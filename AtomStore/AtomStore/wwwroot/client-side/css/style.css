@@ -5674,10 +5674,10 @@ a.ads1 {
             display: inline-block;
             font-size: 12px;
             font-weight: 700;
-            height: 30px;
-            line-height: 30px;
+            height: 40px;
+            line-height: 0px;
             margin: 0 0 0 5px;
-            width: 30px;
+            width: 40px;
         }
 
             .pagination-area1 ul li a {
@@ -5686,8 +5686,8 @@ a.ads1 {
                 display: block;
                 font-size: 12px;
                 font-weight: 700;
-                height: 30px;
-                width: 30px;
+                height: 40px;
+                width: 40px;
                 text-decoration: none;
                 transition: all .4s ease-out .2s;
                 border-radius: 3px;
@@ -5699,12 +5699,13 @@ a.ads1 {
                     color: black;
                 }
 
-                .pagination-area ul li a.active {
+                .pagination-area1 ul li a.active {
                     background: black;
                     border: 1px solid black;
                     color: #fff;
                     transition: all .4s ease-out .2s;
                 }
+
 /******************************************
 20. Filter price
 ******************************************/
