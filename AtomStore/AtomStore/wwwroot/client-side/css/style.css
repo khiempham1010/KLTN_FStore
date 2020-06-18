@@ -7859,7 +7859,8 @@ p.note {
         border: 1px solid #e5e5e5;
         padding: 5px;
         width: 60%;
-        height: 34px
+        height: 34px;
+        color: black;
     }
 
     .product-overview-tab .form-area .form-element textarea {
@@ -7867,7 +7868,8 @@ p.note {
         background: #fff;
         border: 1px solid #e5e5e5;
         padding: 5px;
-        border-radius: 3px
+        border-radius: 3px;
+        color:black;
     }
 
 .product-overview-tab .buttons-set {
@@ -8692,6 +8694,7 @@ p.note {
         box-shadow: inherit;
         outline: 0 none;
         height: 35px;
+        resize:none;
     }
 
         #contact input:focus, #contact select:focus, #contact textarea:focus {
