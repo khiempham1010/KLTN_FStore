@@ -5,7 +5,8 @@
         ViewData["MetaDescription"] = Model.Data.CurrentPage == 1 ? Model.Category.SeoDescription : Model.Category.SeoDescription + " - Page " + Model.Data.CurrentPage;
     }*@
 @section Scripts{
-    <script src="~/client-app/controllers/viewedlist/viewedlist.js"></script>
+    <script src="~/lib/twbs-pagination/jquery.twbsPagination.js"></script>
+    <script src="~/client-app/controllers/viewedlist/viewedlist.js" asp-append-version="true"></script>
     <script>
         var viewedlistObj = new ViewedlistController();
         viewedlistObj.initialize();
@@ -107,12 +108,12 @@
                         </li>
                     </script>
                 </div>
-                <div class="pagination-area ">
-                    <ul>
-                        <li><a class="active" href="#">1</a></li>
-                        <li><a href="#">2</a></li>
-                        <li><a href="#">3</a></li>
-                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                <div class="pagination-area">
+                    <ul class="paginationUL">
+                        @*<li><a class="active" href="#">1</a></li>
+                            <li><a href="#">2</a></li>
+                            <li><a href="#">3</a></li>
+                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>*@
                     </ul>
                 </div>
             </div>

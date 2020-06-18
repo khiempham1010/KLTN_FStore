@@ -50,7 +50,7 @@ namespace AtomStore.Controllers
             var currentUser = _userManager.GetUserAsync(User).Result;
             homeVm.HomeCategories = _productCategoryService.GetHomeCategories(8);
             homeVm.TopLatestProducts = _productService.GetLastest(10);
-            homeVm.HotProducts = _productService.GetHotProduct(10);
+            homeVm.HotProducts = _productService.GetBestSellingProduct(10);
             if (currentUser != null)
             {
                 foreach (var item in homeVm.HotProducts)
