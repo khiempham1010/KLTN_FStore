@@ -244,6 +244,8 @@
 </div>
 
 <!-- Recommend products-->
+@if (User.Identity.IsAuthenticated)
+{
 <div class="inner-box">
     <div class="container">
         <div class="home-tab">
@@ -332,6 +334,7 @@
         </div>
     </div>
 </div>
+}
 <!-- MODIFIED DAILY OF THE DAY -->
 
 
