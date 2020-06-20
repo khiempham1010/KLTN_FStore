@@ -2,6 +2,7 @@
 using AtomStore.Application.ViewModels.Common;
 using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Entities;
+using AtomStore.Data.Enums;
 using AtomStore.Infrastructure.Interfaces;
 using AtomStore.Utilities.Dtos;
 using AutoMapper;
@@ -95,6 +96,15 @@ namespace AtomStore.Application.Implementation
         {
             var page = Mapper.Map<FeedbackViewModel, Feedback>(feedbackVm);
             _feedbackRepository.Update(page);
+        }
+        public void Updatestatus(int id)
+        {
+            var fb = _feedbackRepository.FindById(id);
+            if (fb.Status == Status.Active)
+                fb.Status = Status.InActive;
+            else
+                fb.Status = Status.Active;
+            _feedbackRepository.Update(fb);
         }
     }
 }

@@ -5,7 +5,7 @@
     ViewData["Title"] = "Website Feedback";
 }
 @section Scripts{
-    <script src="~/app/controllers/contact/index.js"></script>
+    <script src="~/app/controllers/contact/index.js" asp-append-version="true"></script>
     <script>
         var feedbackObj = new FeedbackController();
         feedbackObj.initialize();
@@ -46,7 +46,7 @@
                                 <th>Message</th>
                                 <th>Date</th>
                                 <th>Status</th>
-                                
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody id="tbl-content"></tbody>
@@ -86,8 +86,8 @@
             <td>{{Email}}</td>
             <td>{{{Message}}}</td>
             <td>{{{DateCreated}}}</td>
-            <td>{{{Status}}}</td>
-            @*<td><a href="#" data-id="{{Id}}" class="btn-view"><i class="fa fa-eye"></i></a></td>*@
+            <td class="status">{{{Status}}}</td>
+            <td style="text-align:center"><a href="#" data-id="{{Id}}" class="btn-view"><i class="fa {{Class}}" style="color:{{Color}}"></i></a></td>
         </tr>
     </script>
 </div>

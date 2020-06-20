@@ -22,5 +22,6 @@ namespace AtomStore.Application.Interfaces
         FeedbackViewModel GetById(int id);
 
         void SaveChanges();
+        void Updatestatus(int id);
     }
 }

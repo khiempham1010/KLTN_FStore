@@ -238,5 +238,17 @@ namespace AtomStore.Application.Implementation
             }
             return false;
         }
+        public int GetTotalRevenue()
+        {
+            var detail = _orderDetailRepository.FindAll();
+            return (int)detail.Sum(x => x.Price * x.Quantity);
+        }
+        public int GetTotalProfit()
+        {
+            var detail = _orderDetailRepository.FindAll();
+            var oPrice = (int)_orderDetailRepository.FindAll().Sum(x=>x.Quantity*x.Product.OriginalPrice);
+
+            return (int)detail.Sum(x => x.Price * x.Quantity)- oPrice;
+        }
     }
 }

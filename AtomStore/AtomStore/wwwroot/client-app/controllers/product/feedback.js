@@ -35,50 +35,41 @@ $("#fileImage").on('change', function () {
     });
 });
 
-function reloadFeedback(username) {
+function reloadFeedback(productId) {
+    $.ajax({
+        type: "Get",
+        url: "/Product/GetFeedback",
+        dataType: 'json',
+        data: {
+            productId: productId
+        },
+        success: function (response) {
+            var template = $('#template-feedback').html();
+            var render = "";
+            $.each(response, function (i, item) {
+                render += Mustache.render(template,
+                    {
+                        FullName: item.AppUser.FullName,
+                        Title: item.Title,
+                        Content: item.Content,
+                        Image: item.Image,
+                        DateCreated: atom.dateTimeFormatJson( item.DateCreated),
+                        Rating: addRating(item.Rating)
+                    });
+            });
+            if (render !== "") {
+                $('.reviews-content-left').empty();
+                $('.reviews-content-left').html(render);
+            }
+            else {
+                $('.reviews-content-left').html('No feedback yet!');
+            }
+        },
+        error: function () {
+            atom.notify('Load feedback error!', 'error');
+        }
+    });
 
-    let container = document.createElement('div');
-    container.className = "review-ratting";
-
-    let p = document.createElement('p');
-    let a = document.createElement('a');
-    a.innerHTM = feedbackTitle.text();
-    p.appendChild(a);
-    let table = document.createElement('table');
-    let tbody = document.createElement('tbody');
-    let tr = document.createElement('tr');
-    let th = document.createElement('th');
-    tr.appendChild(th);
-    let td = document.createElement('td');
-    let divStar=document.createElement('div')
-    divStar.className = "rating";
-    for (i = 0; i < ratingVal; i++) {
-        let star = document.createElement('i');
-        star.className = "fa fa-star";
-        divStar.appendChild(star);
-    }
-    for (i = 0; i < 5 - ratingVal; i++) {
-        let star = document.createElement('i');
-        star.className = "fa fa-star-o";
-        divStar.appendChild(star);
-    }
-    td.appendChild(divStar);
-    tr.appendChild(td);
-    tbody.appendChild(tr);
-    table.appendChild(tbody);
-    let pContend = document.createElement('p');
-    pContend.innerHTM = feedbackContend.text();
-    container.appendChild(pContend);
-    let pAuthor = document.createElement('p');
-    pAuthor.className = "author";
-    pAuthor.innerHTM = username;
-    let small = document.createElement('small');
-    var time = new Date();
-    var formatted_time = atom.dateTimeFormatJson(time)
-    small.innerHTML ="Posted on " + formatted_time;
-    pAuthor.appendChild(small);
-    container.appendChild(pAuthor);
-    $('.reviews-content-left').append(container);
 }
 function success() {
     atom.notify('Review successful', 'success');
@@ -94,4 +85,15 @@ function clearFileInput(ctrl) {
     if (ctrl.value) {
         ctrl.parentNode.replaceChild(ctrl.cloneNode(true), ctrl);
     }
+}
+
+function addRating(rate) {
+    let text='';
+    for (i = 0; i < rate; i++) {
+        text += '<i class="fa fa-star"></i>';
+    }
+    for (i = 0; i < 5-rate; i++) {
+        text += '<i class="fa fa-star-o"></i>';
+    }
+    return text;
 }

@@ -213,7 +213,7 @@
                                                     <h2>Write Your Own Review</h2>
                                                     <form asp-action="AddFeedback" asp-controller="Product"
                                                           data-ajax-begin="" data-ajax-complete="reloadFeedback(@(User.Identity.Name))"
-                                                          data-ajax-failure="function fail()" data-ajax-success="success()"
+                                                          data-ajax-failure="fail()" data-ajax-success="reloadFeedback(@Model.Product.Id)"
                                                           data-ajax="true" data-ajax-method="POST" id="frmFeedback">
                                                         <h3>You're reviewing: <span>@Model.Product.Name</span></h3>
                                                         <h4>How do you rate this product?<em>*</em></h4>
@@ -598,6 +598,34 @@
     </div>
 </div>
 
+
+<script id="template-feedback" type="x-tmpl-mustache">
+    <div class="review-ratting">
+        <p class="author" style="font-size: 15px;"> {{FullName}}</p>
+        <p><a>{{Title}}</a></p>
+        <table>
+            <tbody>
+                <tr>
+                    <th>Rating</th>
+                    <td>
+                        <div class="rating">
+                            {{{Rating}}}
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>{{Content}}</p>
+            <div class="flexslider flexslider-thumb">
+                <ul class="previews-list slides">
+                    <li>
+                        <img src="{{Image}}" style="width:265px;height:265px">
+                    </li>
+                </ul>
+            </div>
+        <p class="author"><small> (Posted on {{DateCreated}})</small> </p>
+    </div>
+</script>
 
 <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
 <script src="~/lib/jquery/dist/jquery.min.js"></script>

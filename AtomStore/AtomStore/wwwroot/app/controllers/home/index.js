@@ -35,8 +35,11 @@
                 atom.startLoading();
             },
             success: function (response) {
-                initChart(response);
 
+                initChart(response.RevenueReports);
+                $('#totalUSer').text(response.TotalUser);
+                $('#totalRevenue').text('$'+response.TotalRevenue)
+                $('#totalProfit').text('$'+response.TotalProfit)
                 atom.stopLoading();
 
             },

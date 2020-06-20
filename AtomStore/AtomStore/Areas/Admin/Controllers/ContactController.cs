@@ -51,7 +51,21 @@ namespace AtomStore.Areas.Admin.Controllers
                 return new OkObjectResult(id);
             }
         }
+        [HttpPost]
+        public IActionResult UpdateStatus(int id)
+        {
+            if (!ModelState.IsValid)
+            {
+                return new BadRequestObjectResult(ModelState);
+            }
+            else
+            {
+                _feedbackService.Updatestatus(id);
+                _feedbackService.SaveChanges();
 
+                return new OkObjectResult(id);
+            }
+        }
         #endregion
 
     }

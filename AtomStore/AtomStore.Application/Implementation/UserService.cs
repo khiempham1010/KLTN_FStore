@@ -55,6 +55,11 @@ namespace AtomStore.Application.Implementation
             return await _userManager.Users.ProjectTo<AppUserViewModel>().ToListAsync();
         }
 
+        public int GetUserCount()
+        {
+            return _userManager.Users.Count();
+        }
+
         public PagedResult<AppUserViewModel> GetAllPagingAsync(string keyword, int page, int pageSize)
         {
             var query = _userManager.Users;

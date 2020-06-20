@@ -8,7 +8,7 @@
                 <div class="r3_counter_box">
                     <i class="pull-left fa fa-dollar icon-rounded"></i>
                     <div class="stats">
-                        <h5><strong>$1019</strong></h5>
+                        <h5><strong id="totalRevenue"></strong></h5>
                         <span>Total Revenue</span>
                     </div>
                 </div>
@@ -17,8 +17,8 @@
                 <div class="r3_counter_box">
                     <i class="pull-left fa fa-laptop user1 icon-rounded"></i>
                     <div class="stats">
-                        <h5><strong>$1019</strong></h5>
-                        <span>Online Revenue</span>
+                        <h5><strong id="totalProfit"></strong></h5>
+                        <span>Total Profit</span>
                     </div>
                 </div>
             </div>
@@ -44,7 +44,7 @@
                 <div class="r3_counter_box">
                     <i class="pull-left fa fa-users dollar2 icon-rounded"></i>
                     <div class="stats">
-                        <h5><strong>14</strong></h5>
+                        <h5><strong id="totalUSer"></strong></h5>
                         <span>Total Users</span>
                     </div>
                 </div>
@@ -71,7 +71,7 @@
                         <label>12</label>
                     </div>
                     <div class="col-md-6 top-content1">
-                        <div id="demo-pie-1" class="pie-title-center" data-percent="45"> <span class="pie-value"></span> </div>
+                        <div id="demo-pie-1" class="pie-title-center" data-percent="50"> <span class="pie-value"></span> </div>
                     </div>
                     <div class="clearfix"> </div>
                 </div>
@@ -138,7 +138,7 @@
         <script src="~/app/Shared/atom.js"></script>
         <script src="/admin-side/js/index1.js"></script>
         <script src="~/admin-side/js/SimpleChart.js"></script>
-        <script src="~/app/controllers/home/index.js"></script>
+        <script src="~/app/controllers/home/index.js" asp-append-version="true"></script>
         <script>
             var home = new HomeController();
             home.initialize();

@@ -43,5 +43,7 @@ namespace AtomStore.Application.Interfaces
 
         void Save();
         bool DecreaseQuantity(int productId, int sizeId, int colorId);
+        int GetTotalRevenue();
+        int GetTotalProfit();
     }
 }

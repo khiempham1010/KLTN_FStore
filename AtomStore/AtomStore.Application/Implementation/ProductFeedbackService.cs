@@ -57,7 +57,7 @@ namespace AtomStore.Application.Implementation
 
         public List<ProductFeedbackViewModel> GetByProductId(int productId)
         {
-            var feedbacks = Mapper.Map<List<ProductFeedback>, List<ProductFeedbackViewModel>>(_feedbackRepository.FindAll(x => x.ProductId == productId).ToList());
+            var feedbacks = Mapper.Map<List<ProductFeedback>, List<ProductFeedbackViewModel>>(_feedbackRepository.FindAll(x => x.ProductId == productId).OrderByDescending(x=>x.DateCreated).ToList());
             foreach (var item in feedbacks)
             {
                 item.AppUser = _userService.GetById(item.OwnerId.ToString()).Result;

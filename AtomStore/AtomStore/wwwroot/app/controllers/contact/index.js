@@ -19,59 +19,27 @@
             loadData(true);
         });
 
-        //$('body').on('click', '.btn-view', function (e) {
-        //    e.preventDefault();
-        //    var that = $(this).data('id');
-        //    $.ajax({
-        //        type: "GET",
-        //        url: "/Admin/Contact/GetById",
-        //        data: { id: that },
-        //        beforeSend: function () {
-        //            atom.startLoading();
-        //        },
-        //        success: function (response) {
-        //            var data = response;
-        //            $('#hidId').val(data.Id);
-        //            $('#txtCustomerName').val(data.CustomerName);
+        $('body').on('click', '.btn-view', function (e) {
+            e.preventDefault();
+            var that = $(this).data('id');
+            $.ajax({
+                type: "POST",
+                url: "/Admin/Contact/UpdateStatus",
+                data: { id: that },
+                beforeSend: function () {
+                    atom.startLoading();
+                },
+                success: function (response) {
+                    loadData();
+                    atom.stopLoading();
 
-        //            $('#txtCustomerAddress').val(data.CustomerAddress);
-        //            $('#txtCustomerPhone').val(data.CustomerPhone);
-        //            $('#txtCustomerMessage').val(data.CustomerMessage);
-        //            $('#ddlPaymentMethod').val(data.PaymentMethod);
-        //            $('#ddlCustomerId').val(data.CustomerId);
-        //            $('#ddlOrderStatus').val(data.OrderStatus);
-
-        //            var orderDetails = data.OrderDetails;
-        //            if (data.OrderDetails != null && data.OrderDetails.length > 0) {
-        //                var render = '';
-        //                var templateDetails = $('#template-table-order-details').html();
-
-        //                $.each(orderDetails, function (i, item) {
-        //                    var products = getProductOptions(item.ProductId);
-        //                    var colors = getColorOptions(item.ColorId);
-        //                    var sizes = getSizeOptions(item.SizeId);
-
-        //                    render += Mustache.render(templateDetails,
-        //                        {
-        //                            Id: item.Id,
-        //                            Products: products,
-        //                            Colors: colors,
-        //                            Sizes: sizes,
-        //                            Quantity: item.Quantity
-        //                        });
-        //                });
-        //                $('#tbl-order-details').html(render);
-        //            }
-        //            $('#modal-detail').modal('show');
-        //            atom.stopLoading();
-
-        //        },
-        //        error: function (e) {
-        //            atom.notify('Has an error in progress', 'error');
-        //            atom.stopLoading();
-        //        }
-        //    });
-        //});
+                },
+                error: function (e) {
+                    atom.notify('Has an error in progress', 'error');
+                    atom.stopLoading();
+                }
+            });
+        });
     };
     function loadData(isPageChanged) {
         $.ajax({
@@ -97,7 +65,9 @@
                             Email: item.Email,
                             Message: item.Message,
                             DateCreated: atom.dateTimeFormatJson(item.DateCreated),
-                            Status: atom.getStatus(item.Status)
+                            Status: item.Status == 1 ? 'Replied' : 'Not reply',
+                            Class: item.Status == 1 ? 'fa-check' : 'fa-remove',
+                            Color: item.Status == 1 ? '#28a745' :'#dc3545'
                         });
                     });
                     $("#lbl-total-records").text(response.RowCount);

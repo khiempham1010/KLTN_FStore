@@ -14,7 +14,7 @@ namespace AtomStore.Application.Interfaces
         Task DeleteAsync(string id);
 
         Task<List<AppUserViewModel>> GetAllAsync();
-
+        int GetUserCount();
         PagedResult<AppUserViewModel> GetAllPagingAsync(string keyword, int page, int pageSize);
 
         Task<AppUserViewModel> GetById(string id);

@@ -20,5 +20,5 @@ go
 
 
 
-EXEC dbo.GetRevenueDaily @fromDate = '11/27/2019',
-                         @toDate = '12/4/2019' 
+EXEC dbo.GetRevenueDaily @fromDate = '6/01/2020',
+                         @toDate = '6/17/2020' 
