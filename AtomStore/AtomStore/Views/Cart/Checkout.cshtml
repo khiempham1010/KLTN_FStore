@@ -94,13 +94,34 @@
                                         <p>Register with us for future convenience:</p>
                                         <p><i class="fa fa-check-circle text-primary"></i> Fast and easy check out</p>
                                         <p><i class="fa fa-check-circle text-primary"></i> Easy access to your order history and status</p>
-                                        <button class="button" onclick="window.location.href='/register.html'"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continue</span></button>
+                                        @if (User.Identity.IsAuthenticated)
+                                        {
+                                            <div hidden>
+                                                <button class="button" onclick="window.location.href='/register.html'" ><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continue</span></button>
+                                            </div>
+                                        }
+                                        else
+                                        {
+                                            <button class="button" onclick="window.location.href='/register.html'"><i class="fa fa-angle-double-right"></i>&nbsp; <span>Continue</span></button>
+                                        }
                                     </div>
-                                    <div class="col-sm-6">
-                                        <h5>Login</h5>
-                                        <p>Already registered? Please log in below:</p>
-                                        <button class="button" onclick="window.location.href='/login.html'"><i class="icon-login"></i>&nbsp; <span>Login</span></button>
-                                    </div>
+                                    @if (User.Identity.IsAuthenticated)
+                                    {
+                                        <div class="col-sm-6" hidden>
+                                            <h5>Login</h5>
+                                            <p>Already registered? Please log in below:</p>
+                                            <button class="button" onclick="window.location.href='/login.html'"><i class="icon-login"></i>&nbsp; <span>Login</span></button>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="col-sm-6">
+                                            <h5>Login</h5>
+                                            <p>Already registered? Please log in below:</p>
+                                            <button class="button" onclick="window.location.href='/login.html'"><i class="icon-login"></i>&nbsp; <span>Login</span></button>
+                                        </div>
+                                    }
+
                                 </div>
                             </div>
 
