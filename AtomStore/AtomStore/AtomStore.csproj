@@ -7,6 +7,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\uploaded\images\20200619\MakerLab_WiFi_Car.ino" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Include="wwwroot\lib\gentelella\vendors\parsleyjs\bower_components\bootstrap\bower.json" />
     <Content Include="wwwroot\lib\gentelella\vendors\parsleyjs\bower_components\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="wwwroot\lib\gentelella\vendors\parsleyjs\bower_components\bootstrap\dist\css\bootstrap-theme.min.css" />

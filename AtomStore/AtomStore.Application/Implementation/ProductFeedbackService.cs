@@ -28,6 +28,11 @@ namespace AtomStore.Application.Implementation
             _userService = userService;
             _feedbackImageRepository = feedbackImageRepository;
         }
+        public List<ProductFeedbackViewModel> GetAll()
+        {
+            var feedbacks = Mapper.Map<List<ProductFeedback>, List<ProductFeedbackViewModel>>(_feedbackRepository.FindAll().OrderByDescending(x => x.DateCreated).ToList());
+            return feedbacks;
+        }
         public ProductFeedbackViewModel Add(ProductFeedbackViewModel feedbackVM)
         {
             var feedback = Mapper.Map<ProductFeedbackViewModel, ProductFeedback>(feedbackVM);

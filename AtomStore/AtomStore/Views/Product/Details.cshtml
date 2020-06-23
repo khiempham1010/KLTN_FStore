@@ -92,13 +92,13 @@
                             <div class="color-area">
                                 <h2 class="saider-bar-title">Color</h2>
                                 <div class="color">
-                                    <select asp-items="Model.Colors" id="ddlColorId"></select>
+                                    <select asp-items="Model.Colors" id="ddlColorId" data-id="@Model.Product.Id"></select>
                                 </div>
                             </div>
                             <div class="size-area">
                                 <h2 class="saider-bar-title">Size</h2>
                                 <div class="size">
-                                    <select asp-items="Model.Sizes" id="ddlSizeId"></select>
+                                    <select asp-items="Model.Sizes" id="ddlSizeId" data-id="@Model.Product.Id"></select>
                                 </div>
                             </div>
                         </div>
@@ -108,8 +108,9 @@
                                     <label for="qty">Quantity:</label>
                                     <div class="numbers-row">
                                         <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty ) &amp;&amp; qty &gt; 1 ) result.value--;return false;" class="dec qtybutton"><i class="fa fa-minus">&nbsp;</i></div>
-                                        <input type="number" class="qty" title="Qty" value="1" min="1" maxlength="12" id="txtQuantity" name="txtQuantity">
-                                        <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;" class="inc qtybutton"><i class="fa fa-plus">&nbsp;</i></div>
+                                        <input disabled type="number" class="qty" title="Qty" value="1" min="1" maxlength="2" id="txtQuantity" name="txtQuantity">
+                                        <div onClick="var result = document.getElementById('txtQuantity'); var qty = result.value; var max = document.getElementById('maxqty'); if (!isNaN(qty) &amp;&amp; qty &lt; parseInt(max.value)) result.value++;return false;" class="inc qtybutton"><i class="fa fa-plus">&nbsp;</i></div>
+                                        <input type="hidden" id="maxqty" value="10" />
                                     </div>
                                 </div>
                                 <button class="button pro-add-to-cart" id="btnAddToCart" data-id="@Model.Product.Id" title="Add to Cart" type="button"><span><i class="fa fa-shopping-basket"></i> Add to Cart</span></button>
@@ -161,10 +162,10 @@
                                     </div>
                                     @**REVIEWS*---------------------------------------*@
                                     <div id="reviews" class="tab-pane fade">
-                                        <div class="col-sm-5 col-lg-5 col-md-5">
-                                            <div class="reviews-content-left">
-                                                @if (Model.ProductFeedback != null)
-                                                {
+                                        @if (Model.ProductFeedback.Count > 0) 
+                                        {
+                                            <div class="col-sm-5 col-lg-5 col-md-5">
+                                                <div class="reviews-content-left">
                                                     @foreach (var item in Model.ProductFeedback)
                                                     {
                                                         <div class="review-ratting">
@@ -203,9 +204,13 @@
                                                             <p class="author"><small> (Posted on @item.DateCreated)</small> </p>
                                                         </div>
                                                     }
-                                                }
+                                                </div>
                                             </div>
-                                        </div>
+                                        }
+                                        else
+                                        {
+                                            <p>This product has no review!</p>
+                                        }
                                         @if (User.Identity.IsAuthenticated)
                                         {
                                             <div class="col-sm-7 col-lg-7 col-md-7">
@@ -616,13 +621,13 @@
             </tbody>
         </table>
         <p>{{Content}}</p>
-            <div class="flexslider flexslider-thumb">
-                <ul class="previews-list slides">
-                    <li>
-                        <img src="{{Image}}" style="width:265px;height:265px">
-                    </li>
-                </ul>
-            </div>
+        <div class="flexslider flexslider-thumb">
+            <ul class="previews-list slides">
+                <li>
+                    <img src="{{Image}}" style="width:265px;height:265px">
+                </li>
+            </ul>
+        </div>
         <p class="author"><small> (Posted on {{DateCreated}})</small> </p>
     </div>
 </script>

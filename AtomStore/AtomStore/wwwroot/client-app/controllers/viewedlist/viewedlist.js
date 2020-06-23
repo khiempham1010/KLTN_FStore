@@ -6,41 +6,69 @@
     }
 
     function registerEvents() {
-        $('body').on('click', '#btnAddToCart', function (e) {
-            e.preventDefault();
-            var id = parseInt($(this).data('Id'));
-            $.ajax({
-                url: '/Cart/AddToCart',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    productId: id,
-                    quantity: 1
-                },
-                success: function () {
-                    atom.notify('Product was added successful', 'success');
-                    loadData()
-                }
-            });
-        });
+        //$('body').on('click', '#btnAddToCart', function (e) {
+        //    e.preventDefault();
+        //    var id = parseInt($(this).data('id'));
+        //    $.ajax({
+        //        url: '/Cart/AddToCart',
+        //        type: 'post',
+        //        dataType: 'json',
+        //        data: {
+        //            productId: id,
+        //            quantity: 1
+        //        },
+        //        success: function () {
+        //            atom.notify('Product was added successful', 'success');
+        //            loadData()
+        //        }
+        //    });
+        //});
         $('body').on('click', '.btnAddToWishlist', function (e) {
             e.preventDefault();
             var id = parseInt($(this).data('id'));
-            $.ajax({
-                url: '/Product/AddWishlist',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    productId: id
-                },
-                success: function () {
-                    atom.notify('Product was added successful', 'success');
-                },
-                error: function () {
-                    atom.notify('Log in to add product', 'error');
-                    atom.stopLoading();
-                }
-            });
+            var color = $(this).find("i");
+            if (color.css("color") == "rgb(255, 255, 255)") {
+                $.ajax({
+                    url: '/Product/AddWishlist',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        productId: id
+                    },
+                    success: function () {
+                        atom.notify('Product was added successful', 'success');
+                        color.removeClass("fa-heart-o")
+                        color.addClass("fa-heart");
+                        color.css('color', 'rgb(255, 0, 0)');
+
+                    },
+                    error: function () {
+                        atom.notify('Log in to add product', 'error');
+                        atom.stopLoading();
+                    }
+                });
+            }
+            else {
+                $.ajax({
+                    url: '/Product/AddWishlist',
+                    type: 'post',
+                    dataType: 'json',
+                    data: {
+                        productId: id
+                    },
+                    success: function () {
+                        atom.notify('Product was added successful', 'success');
+                        color.removeClass("fa-heart")
+                        color.addClass("fa-heart-o");
+                        color.css('color', 'rgb(255, 255, 255)');
+
+                    },
+                    error: function () {
+                        atom.notify('Log in to add product', 'error');
+                        atom.stopLoading();
+                    }
+                });
+            }
         });
     }
 
@@ -64,6 +92,7 @@
                                 ProductName: item.ProductName,
                                 Image: item.Product.Image,
                                 Price: atom.formatNumber(item.Product.Price, 0) + ".0",
+                                wishlist: item.Product.Wishlist === true ? '<div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="' + item.Product.Id + '" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>' : '<div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="' + item.Product.Id + '" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>',
                                 PromotionPrice: item.Product.PromotionPrice == null ? '<p class="special-price"> <span class="price-label">Special Price</span> <span class="price">' + "$" + atom.formatNumber(item.Product.Price, 0) + ".0" + '</span> </p>' :
                                     '<p class="special-price"> <span class="price-label">Special Price</span> <span class="price">' + "$" + atom.formatNumber(item.Product.PromotionPrice, 0) + ".0" + '</span> </p>' +
                                     '<p class= "old-price" > <span class="price-label">Regular Price:</span> <span class="price">' + "$" + atom.formatNumber(item.Product.Price, 0) + ".0" + '</span> </p>' +

@@ -42,8 +42,10 @@ namespace AtomStore.Application.Interfaces
         OrderHistoryViewModel GetOneOrderHistory(int orderId);
 
         void Save();
-        bool DecreaseQuantity(int productId, int sizeId, int colorId);
+        bool DecreaseQuantity(int productId, int sizeId, int colorId, int quantity);
+        bool IncreaseQuantity(int productId, int sizeId, int colorId, int quantity);
         int GetTotalRevenue();
         int GetTotalProfit();
+        int GetTotalSales();
     }
 }

@@ -5,8 +5,10 @@ using System.Threading.Tasks;
 using AtomStore.Application.Interfaces;
 using AtomStore.Application.ViewModels.Common;
 using AtomStore.Data.Entities;
+using AtomStore.Data.Enums;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Logical;
 
 namespace AtomStore.Controllers
 {
@@ -14,10 +16,12 @@ namespace AtomStore.Controllers
     {
         IOrderService _orderService;
         UserManager<AppUser> _userManager;
-        public OrderHistoryController(IOrderService orderService, UserManager<AppUser> userManager)
+        IProductService _productService;
+        public OrderHistoryController(IOrderService orderService, UserManager<AppUser> userManager, IProductService productService)
         {
             _orderService = orderService;
             _userManager = userManager;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -53,6 +57,22 @@ namespace AtomStore.Controllers
             orderDetailsHistory.Total = total;
 
             return View(orderDetailsHistory);
+        }
+        [HttpPost]
+        public IActionResult CancelOrder(int orderId)
+        {
+            var order = _orderService.GetById(orderId);
+            _orderService.UpdateStatus(orderId, OrderStatus.Cancelled);
+            order.OrderDetails = _orderService.GetOrderDetails(orderId);
+            if (order.OrderStatus != OrderStatus.New)
+            {
+                foreach (var item in order.OrderDetails)
+                {
+                    _orderService.IncreaseQuantity(item.ProductId, item.SizeId, item.ColorId, item.Quantity);
+                }
+            }
+            _orderService.Save();
+            return new OkObjectResult(orderId);
         }
     }
 }

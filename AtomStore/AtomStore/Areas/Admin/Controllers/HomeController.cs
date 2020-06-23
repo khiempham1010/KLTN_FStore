@@ -16,11 +16,19 @@ namespace AtomStore.Areas.Admin.Controllers
         IReportService _reportService;
         IUserService _userService;
         IOrderService _orderService;
-        public HomeController(IReportService reportService,IUserService userService, IOrderService orderService)
+        IProductFeedbackService _feedbackService;
+        IProductService _productService;
+        public HomeController(IReportService reportService,
+            IUserService userService, 
+            IOrderService orderService,
+            IProductFeedbackService feedbackService,
+            IProductService productService)
         {
             _reportService = reportService;
             _userService = userService;
             _orderService = orderService;
+            _feedbackService = feedbackService;
+            _productService = productService;
         }
         public IActionResult Index()
         {
@@ -34,6 +42,13 @@ namespace AtomStore.Areas.Admin.Controllers
             dashBoardVM.TotalUser = _userService.GetUserCount();
             dashBoardVM.TotalRevenue = _orderService.GetTotalRevenue();
             dashBoardVM.TotalProfit = _orderService.GetTotalProfit();
+            dashBoardVM.Expense = dashBoardVM.TotalRevenue - dashBoardVM.TotalProfit;
+            dashBoardVM.Expenditure = 0;
+            dashBoardVM.Sales = _orderService.GetTotalSales();
+            var a = _productService.GetInstockProduct();
+            dashBoardVM.SalePercent = dashBoardVM.Sales*100 / (dashBoardVM.Sales + a);
+            dashBoardVM.Review = _feedbackService.GetAll().Count();
+            dashBoardVM.ReviewPercent = dashBoardVM.Review*100 / dashBoardVM.Sales;
             return new OkObjectResult(dashBoardVM);
         }
     }

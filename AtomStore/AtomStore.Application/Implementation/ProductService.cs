@@ -70,8 +70,8 @@ namespace AtomStore.Application.Implementation
             IRepository<ProductTag, int> productTagRepository,
             IRepository<ProductCategory, int> productCategoryRepository,
             IRepository<Color, int> colorRepository,
-            IRepository<Size, int> sizeRepository, 
-            IRepository<ProductFeedback, int> feedback, 
+            IRepository<Size, int> sizeRepository,
+            IRepository<ProductFeedback, int> feedback,
             IUserService userService,
             IRepository<FeedbackImage, int> feedbackImageRepository,
             IRepository<Order, int> orderRepository,
@@ -205,7 +205,7 @@ namespace AtomStore.Application.Implementation
                 .Skip((page - 1) * pageSize).Take(pageSize);
 
             var data = query.ProjectTo<ProductViewModel>().ToList();
-            
+
             foreach (var item in data)
             {
                 var feedbacks = new List<ProductFeedbackViewModel>();
@@ -402,12 +402,13 @@ namespace AtomStore.Application.Implementation
             var orders = _orderRepository.FindAll();
             var orderDetail = _orderDetailService.FindAll();
             var tmp = orderDetail.GroupBy(x => x.ProductId);
-            var result = tmp.Select(y => new {
+            var result = tmp.Select(y => new
+            {
                 Id = y.Key,
                 count = y.Count()
             }).OrderByDescending(x => x.count).ToList().Take(10);
             var product = new List<ProductViewModel>();
-            foreach(var item in result)
+            foreach (var item in result)
             {
                 product.Add(GetById(item.Id));
             }
@@ -479,10 +480,20 @@ namespace AtomStore.Application.Implementation
                 return false;
             return productQuantity.Quantity >= quantity;
         }
+        public int CheckAvailability(int productId, int size, int color)
+        {
+            var productQuantity = _productQuantityRepository.FindAll(x => x.ProductId == productId);
+            foreach (var item in productQuantity)
+            {
+                if (item.ColorId == color && item.SizeId == size)
+                    return item.Quantity;
+            }
+            return 0;
+        }
 
         public List<ColorViewModel> GetAvailableColor(int productId)
         {
-            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId && x.Quantity>0).ToList();
+            List<ProductQuantity> quantitys = _productQuantityRepository.FindAll(x => x.ProductId == productId && x.Quantity > 0).ToList();
             List<Color> colors = _colorRepository.FindAll().ToList();
 
             var query =
@@ -491,7 +502,7 @@ namespace AtomStore.Application.Implementation
                 join c in colors on a.Key equals c.Id
                 select c;
 
-            return Mapper.Map<List<Color>,List<ColorViewModel>>(query.ToList());
+            return Mapper.Map<List<Color>, List<ColorViewModel>>(query.ToList());
         }
 
         public List<SizeViewModel> GetAvailableSize(int productId)
@@ -505,6 +516,11 @@ namespace AtomStore.Application.Implementation
                 select s;
 
             return Mapper.Map<List<Size>, List<SizeViewModel>>(query.ToList());
+        }
+        public int GetInstockProduct()
+        {
+            var product = _productQuantityRepository.FindAll();
+            return product.Sum(x => x.Quantity);
         }
     }
 }

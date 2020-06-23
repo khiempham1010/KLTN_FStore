@@ -35,13 +35,17 @@
                 atom.startLoading();
             },
             success: function (response) {
-
                 initChart(response.RevenueReports);
                 $('#totalUSer').text(response.TotalUser);
-                $('#totalRevenue').text('$'+response.TotalRevenue)
-                $('#totalProfit').text('$'+response.TotalProfit)
+                $('#totalRevenue').text('$' + response.TotalRevenue);
+                $('#totalProfit').text('$' + response.TotalProfit);
+                $('#expenses').text('$' + response.Expense);
+                $('#expenditure').text('$' + response.Expenditure);
+                $('#sales').text(response.Sales);
+                $('#reviews').text(response.Review);
+                $('#demo-pie-1').attr('data-percent', response.SalePercent);
+                $('#demo-pie-2').attr('data-percent', response.ReviewPercent);
                 atom.stopLoading();
-
             },
             error: function (status) {
                 atom.notify('Has an error', 'error');

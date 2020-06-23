@@ -7,6 +7,7 @@ namespace AtomStore.Application.Interfaces
 {
     public interface IProductFeedbackService: IDisposable
     {
+        List<ProductFeedbackViewModel> GetAll();
         List<ProductFeedbackViewModel> GetByProductId(int productId);
         ProductFeedbackViewModel Add(ProductFeedbackViewModel feedbackVM);
 

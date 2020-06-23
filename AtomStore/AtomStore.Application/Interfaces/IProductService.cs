@@ -43,11 +43,12 @@ namespace AtomStore.Application.Interfaces
         List<ProductViewModel> GetUpsellProducts(int top);
 
         List<TagViewModel> GetProductTags(int productId);
-
         bool CheckAvailability(int productId, int size, int color, int quantity);
+        int CheckAvailability(int productId, int size, int color);
 
         List<ColorViewModel> GetAvailableColor(int peoductId);
 
         List<SizeViewModel> GetAvailableSize(int peoductId);
+        int GetInstockProduct();
     }
 }

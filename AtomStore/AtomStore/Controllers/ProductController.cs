@@ -319,6 +319,12 @@ namespace AtomStore.Controllers
             return new OkObjectResult(images);
         }
 
+        [HttpGet]
+        public IActionResult GetQuantity(int productId, int colorId, int sizeId)
+        {
+            return new OkObjectResult(_productService.CheckAvailability(productId,sizeId,colorId));
+        }
+
 
     }
 }

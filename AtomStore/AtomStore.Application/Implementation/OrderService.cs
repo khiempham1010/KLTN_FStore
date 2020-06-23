@@ -7,6 +7,7 @@ using AtomStore.Infrastructure.Interfaces;
 using AtomStore.Utilities.Dtos;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -227,10 +228,21 @@ namespace AtomStore.Application.Implementation
             return orderHistory;
         }
 
-        public bool DecreaseQuantity(int productId, int sizeId, int colorId)
+        public bool DecreaseQuantity(int productId, int sizeId, int colorId, int quantity)
         {
             var product = _productQuantityRepository.FindAll().FirstOrDefault(x => x.ProductId == productId && x.SizeId == sizeId && x.ColorId == colorId);
-            product.Quantity -= 1;
+            product.Quantity -= quantity;
+            if (product.Quantity >= 0)
+            {
+                _productQuantityRepository.Update(product);
+                return true;
+            }
+            return false;
+        } 
+        public bool IncreaseQuantity(int productId, int sizeId, int colorId, int quantity)
+        {
+            var product = _productQuantityRepository.FindAll().FirstOrDefault(x => x.ProductId == productId && x.SizeId == sizeId && x.ColorId == colorId);
+            product.Quantity += quantity;
             if (product.Quantity >= 0)
             {
                 _productQuantityRepository.Update(product);
@@ -249,6 +261,11 @@ namespace AtomStore.Application.Implementation
             var oPrice = (int)_orderDetailRepository.FindAll().Sum(x=>x.Quantity*x.Product.OriginalPrice);
 
             return (int)detail.Sum(x => x.Price * x.Quantity)- oPrice;
+        }
+        public int GetTotalSales()
+        {
+            var detail = _orderDetailRepository.FindAll().Count();
+            return detail;
         }
     }
 }

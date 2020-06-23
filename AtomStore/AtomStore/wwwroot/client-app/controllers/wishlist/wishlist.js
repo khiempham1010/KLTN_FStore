@@ -6,23 +6,23 @@
     }
 
     function registerEvents() {
-        $('body').on('click', '#btnAddToCart', function (e) {
-            e.preventDefault();
-            var id = parseInt($(this).data('Id'));
-            $.ajax({
-                url: '/Cart/AddToCart',
-                type: 'post',
-                dataType: 'json',
-                data: {
-                    productId: id,
-                    quantity: 1
-                },
-                success: function () {
-                    atom.notify('Product was added successful', 'success');
-                    loadData()
-                }
-            });
-        });
+        //$('body').on('click', '#btnAddToCart', function (e) {
+        //    e.preventDefault();
+        //    var id = parseInt($(this).data('id'));
+        //    $.ajax({
+        //        url: '/Cart/AddToCart',
+        //        type: 'post',
+        //        dataType: 'json',
+        //        data: {
+        //            productId: id,
+        //            quantity: 1
+        //        },
+        //        success: function () {
+        //            atom.notify('Product was added successful', 'success');
+        //            loadData()
+        //        }
+        //    });
+        //});
         $('body').on('click', '#btnRemove', function (e) {
             e.preventDefault();
             var id = parseInt($(this).data('id'));

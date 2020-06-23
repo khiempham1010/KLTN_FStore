@@ -15,10 +15,12 @@ namespace AtomStore.Controllers
     {
         private readonly IViewedlistService _viewedlistService;
         public readonly UserManager<AppUser> _userManager;
-        public ViewedlistController(IViewedlistService viewdlistService, UserManager<AppUser> userManager)
+        private readonly IWishlistService _wishlistService;
+        public ViewedlistController(IViewedlistService viewdlistService, UserManager<AppUser> userManager,IWishlistService wishlistService)
         {
             _viewedlistService = viewdlistService;
             _userManager = userManager;
+            _wishlistService = wishlistService;
         }
         [HttpGet]
         [Route("viewedlist.html", Name = "Viewed list")]
@@ -42,6 +44,10 @@ namespace AtomStore.Controllers
         {
             var curUser = _userManager.GetUserAsync(User).Result;
             var model = _viewedlistService.GetAllPaging(curUser.Id, page, 12);
+            foreach (var item in model.Results)
+            {
+                item.Product.Wishlist = _wishlistService.GetByProductAndUserId(item.ProductId, curUser.Id) == default ? false : true;
+            }
             return new OkObjectResult(model);
         }
     }

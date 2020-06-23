@@ -115,7 +115,7 @@ namespace AtomStore.Areas.Admin.Controllers
                     }
                     foreach(var item in orderVm.OrderDetails)
                     {
-                        _orderService.DecreaseQuantity(item.ProductId, item.SizeId, item.ColorId);
+                        _orderService.DecreaseQuantity(item.ProductId, item.SizeId, item.ColorId, item.Quantity);
                     }
                     _orderService.UpdateStatus(orderVm.Id,orderVm.OrderStatus);
                 }
