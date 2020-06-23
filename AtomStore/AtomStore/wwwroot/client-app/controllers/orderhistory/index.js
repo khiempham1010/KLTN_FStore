@@ -14,7 +14,7 @@
                     orderId: id
                 },
                 success: function () {
-                    atom.notify('Product was added successful', 'success');
+                    atom.notify('Order was canceled successful', 'success');
                     $(this).find('.orderStatus').text('Canceled');
                     loadData()
                 }
