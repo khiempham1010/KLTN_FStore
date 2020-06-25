@@ -1,6 +1,7 @@
 ﻿using AtomStore.Application.Recommender.Interfaces;
 using AtomStore.Application.Recommender.Objects;
 using AtomStore.Application.Recommender.Parsers;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -190,9 +191,10 @@ namespace AtomStore.Application.Recommender.Recommender
 
         public void Save(string file)
         {
-            if (!Directory.Exists($@"\uploaded\recommendation\"))
+            string folder = $@"\uploaded\recommendation\";
+            if (!Directory.Exists(folder))
             {
-                Directory.CreateDirectory($@"\uploaded\recommendation");
+                Directory.CreateDirectory(folder);
             }
             using (FileStream fs = File.Create(file))
             using (GZipStream zip = new GZipStream(fs, CompressionMode.Compress))

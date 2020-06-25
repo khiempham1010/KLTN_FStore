@@ -2,6 +2,7 @@
 using AtomStore.Application.Recommender.Interfaces;
 using AtomStore.Application.Recommender.Objects;
 using AtomStore.Application.Recommender.Parsers;
+using Microsoft.AspNetCore.Hosting;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -20,17 +21,20 @@ namespace AtomStore.Application.Recommender.Recommender
         private int neighborCount;
         private int latentUserFeatureCount;
 
-        public UserCollaborativeFilterRecommender(IComparer userComparer, IRater implicitRater, int numberOfNeighbors)
-            : this(userComparer, implicitRater, numberOfNeighbors, 20)
+        private readonly IHostingEnvironment _hostingEnvironment;
+
+        public UserCollaborativeFilterRecommender(IComparer userComparer, IRater implicitRater, IHostingEnvironment hostingEnvironment, int numberOfNeighbors)
+            : this(userComparer, implicitRater, hostingEnvironment, numberOfNeighbors, 20)
         {
         }
 
-        public UserCollaborativeFilterRecommender(IComparer userComparer, IRater implicitRater, int numberOfNeighbors, int latentFeatures)
+        public UserCollaborativeFilterRecommender(IComparer userComparer, IRater implicitRater, IHostingEnvironment hostingEnvironment, int numberOfNeighbors, int latentFeatures)
         {
             comparer = userComparer;
             rater = implicitRater;
             neighborCount = numberOfNeighbors;
             latentUserFeatureCount = latentFeatures;
+            _hostingEnvironment = hostingEnvironment;
         }
 
         public bool Train(UserBehaviorDatabase db)
@@ -147,9 +151,9 @@ namespace AtomStore.Application.Recommender.Recommender
 
         public void Save(string file)
         {
-            if (!Directory.Exists($@"\uploaded\recommendation\"))
+            if (!Directory.Exists(_hostingEnvironment.WebRootPath + $@"\uploaded\recommendation\"))
             {
-                Directory.CreateDirectory($@"\uploaded\recommendation");
+                Directory.CreateDirectory(_hostingEnvironment.WebRootPath + $@"\uploaded\recommendation");
             }
             using (FileStream fs = File.Create(file))
             using (GZipStream zip = new GZipStream(fs, CompressionMode.Compress))

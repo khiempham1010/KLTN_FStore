@@ -8,6 +8,7 @@ using AtomStore.Application.ViewModels.Product;
 using AtomStore.Data.Entities;
 using AtomStore.Infrastructure.Interfaces;
 using AutoMapper;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
@@ -28,8 +29,9 @@ namespace AtomStore.Application.Implementation
         private readonly IRepository<OrderDetail, int> _orderDetailRepository;
         UserBehaviorDatabaseParser parser;
         IRecommender recommender;
+        private readonly IHostingEnvironment _hostingEnvironment;
 
-        string savedModel = $@"\uploaded\recommendation\recommender.dat";
+        string savedModel =$@"\uploaded\recommendation\recommender.dat";
         public RecommenderService(
             IRepository<Product, int> productRepository,
             UserManager<AppUser> userManager,
@@ -38,7 +40,8 @@ namespace AtomStore.Application.Implementation
             IRepository<WishList, int> wishlistRepository,
             IRepository<Order, int> orderRepository,
             IRepository<ProductFeedback, int> feedbackRepository, 
-            IRepository<OrderDetail, int> orderDetailRepository)
+            IRepository<OrderDetail, int> orderDetailRepository,
+            IHostingEnvironment hostingEnvironment)
         {
             _productRepository = productRepository;
             _userManager = userManager;
@@ -48,18 +51,19 @@ namespace AtomStore.Application.Implementation
             _orderRepository = orderRepository;
             _feedbackRepository = feedbackRepository;
             _orderDetailRepository = orderDetailRepository;
+            _hostingEnvironment = hostingEnvironment;
             parser = new UserBehaviorDatabaseParser(_productRepository, _userManager, _tagRepository, _viewedlistRepository, _wishlistRepository, _orderRepository, _feedbackRepository,_orderDetailRepository);
 
             IRater rate = new LinearRater(2, 3, 4, 5, -3);
             IComparer compare = new CorrelationUserComparer();
 
             //user base
-            recommender = new UserCollaborativeFilterRecommender(compare, rate, 5);
-            if (File.Exists(savedModel))
+            recommender = new UserCollaborativeFilterRecommender(compare, rate, _hostingEnvironment, 5);
+            if (File.Exists(_hostingEnvironment.WebRootPath + savedModel))
             {
                 try
                 {
-                    recommender.Load(savedModel);
+                    recommender.Load(_hostingEnvironment.WebRootPath + savedModel);
                 }
                 catch (Exception e)
                 {
@@ -105,7 +109,7 @@ namespace AtomStore.Application.Implementation
         {
             UserBehaviorDatabase db = parser.LoadUserBehaviorDatabase();
             recommender.Train(db);
-            recommender.Save(savedModel);    
+            recommender.Save(_hostingEnvironment.WebRootPath + savedModel);    
         }
     }
 }
