@@ -1,4 +1,4 @@
-﻿create PROC GetRevenueDaily
+﻿alter PROC GetRevenueDaily
 	@fromDate VARCHAR(10),
 	@toDate VARCHAR(10)
 AS
@@ -14,11 +14,14 @@ BEGIN
 
                 where b.DateCreated <= cast(@toDate as date) 
 						AND b.DateCreated >= cast(@fromDate as date)
+						AND b.OrderStatus != 3
                 group by CAST(b.DateCreated AS DATE)
 END
 go
 
 
 
-EXEC dbo.GetRevenueDaily @fromDate = '6/01/2020',
-                         @toDate = '6/17/2020' 
+EXEC dbo.GetRevenueDaily @fromDate = '6/20/2020',
+                         @toDate = '6/26/2020' 
+select *
+from Visitors

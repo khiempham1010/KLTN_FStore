@@ -51,6 +51,7 @@ namespace AtomStore.Data.EF
         public DbSet<ViewedList> Viewedlists { get; set; }
         public DbSet<ProductFeedback> ProductFeedbacks {get;set;}
         public DbSet<FeedbackImage> feedbackImages { get; set; }
+        public DbSet<Visitor> visitors { get; set; }
         protected override void OnModelCreating(ModelBuilder builder)
         {
             #region Identity Config

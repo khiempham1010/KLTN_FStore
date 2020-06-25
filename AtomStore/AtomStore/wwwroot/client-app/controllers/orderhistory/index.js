@@ -15,8 +15,8 @@
                 },
                 success: function () {
                     atom.notify('Order was canceled successful', 'success');
-                    $(this).find('.orderStatus').text('Canceled');
-                    loadData()
+                    var a = $(this).parent();
+                    a.parent().find('.tdStatus').find('.orderStatus').text("Canceled")
                 }
             });
         });

@@ -43,6 +43,7 @@
                 $('#expenditure').text('$' + response.Expenditure);
                 $('#sales').text(response.Sales);
                 $('#reviews').text(response.Review);
+                $('#visitors').text(response.Visittor);
                 $('#demo-pie-1').attr('data-percent', response.SalePercent);
                 $('#demo-pie-2').attr('data-percent', response.ReviewPercent);
                 atom.stopLoading();

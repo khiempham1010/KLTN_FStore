@@ -16,7 +16,7 @@ namespace AtomStore.Areas.Admin.Models
         public int Expenditure { get; set; }
         public int Sales { get; set; }
         public int Review { get; set; }
-        public int visittor { get; set; }
+        public int Visittor { get; set; }
         public int SalePercent { get; set; }
         public int ReviewPercent { get; set; }
 

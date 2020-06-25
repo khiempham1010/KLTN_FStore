@@ -12,6 +12,8 @@ using Microsoft.Extensions.Localization;
 using Microsoft.AspNetCore.Identity;
 using AtomStore.Data.Entities;
 using AtomStore.Application.ViewModels.Product;
+using AtomStore.Utilities.Constants;
+using AtomStore.Extensions;
 
 namespace AtomStore.Controllers
 {
@@ -23,11 +25,12 @@ namespace AtomStore.Controllers
         IWishlistService _wishlistService;
         UserManager<AppUser> _userManager;
         private IProductFeedbackService _productFeedbackService;
-
+        private readonly IVisitorCounterService _visitorCounterService;
         //private readonly IStringLocalizer<HomeController> _localizer;
 
         public HomeController(IProductService productService, IProductCategoryService productCategoryService, IRecommenderService recommenderService, IWishlistService wishlistService,
-            UserManager<AppUser> userManager, IProductFeedbackService productFeedbackService)
+            UserManager<AppUser> userManager, IProductFeedbackService productFeedbackService
+            , IVisitorCounterService visitorCounterService)
         {
 
             _productService = productService;
@@ -36,12 +39,22 @@ namespace AtomStore.Controllers
             _wishlistService = wishlistService;
             _userManager = userManager;
             _productFeedbackService = productFeedbackService;
+            _visitorCounterService = visitorCounterService;
+            
             //_localizer = localizer;
         }
 
         //[ResponseCache(CacheProfileName = "Default")]
         public IActionResult Index()
         {
+            var visitorId = HttpContext.Session.Get<string>(CommonConstants.visitorId);
+            if (visitorId == null)
+            {
+                //don the necessary staffs here to save the count by one
+                HttpContext.Session.Set(CommonConstants.visitorId,Guid.NewGuid().ToString());
+                _visitorCounterService.SetVisitors();
+            }
+
             //var title = _localizer["Title"];
             //var culture = HttpContext.Features.Get<IRequestCultureFeature>().RequestCulture.Culture.Name;
             //ViewData["BodyClass"] = "cms-index-index cms-home-page";

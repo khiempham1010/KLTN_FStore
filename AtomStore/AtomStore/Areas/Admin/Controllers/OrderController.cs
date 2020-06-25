@@ -1,11 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AtomStore.Application.Implementation;
 using AtomStore.Application.Interfaces;
 using AtomStore.Application.ViewModels.Common;
 using AtomStore.Application.ViewModels.Product;
+using AtomStore.Application.ViewModels.System;
+using AtomStore.Data.Entities;
 using AtomStore.Data.Enums;
 using AtomStore.Services;
 using AtomStore.Utilities.Extensions;
@@ -23,16 +27,19 @@ namespace AtomStore.Areas.Admin.Controllers
         private readonly IHostingEnvironment _hostingEnvironment;
         private readonly IViewRenderService _viewRenderService;
         private readonly IEmailSender _emailSender;
+        private readonly IUserService _userService;
         public OrderController(
             IOrderService orderService, 
             IHostingEnvironment hostingEnvironment, 
             IViewRenderService viewRenderService,
-            IEmailSender emailSender )
+            IEmailSender emailSender,
+            IUserService userService)
         {
             _orderService = orderService;
             _hostingEnvironment = hostingEnvironment;
             _viewRenderService = viewRenderService;
             _emailSender = emailSender;
+            _userService = userService;
         }
 
         public IActionResult Index()
@@ -74,6 +81,11 @@ namespace AtomStore.Areas.Admin.Controllers
             }
             else
             {
+                var curOrder = _userService.GetByEmail(orderVm.CustomerEmail).Result;
+                if (curOrder != null)
+                {
+                    orderVm.CustomerId = curOrder.Id;
+                }
                 _orderService.Update(orderVm);
             }
             _orderService.Save();

@@ -18,7 +18,7 @@ namespace AtomStore.Application.Interfaces
         PagedResult<AppUserViewModel> GetAllPagingAsync(string keyword, int page, int pageSize);
 
         Task<AppUserViewModel> GetById(string id);
-
+        Task<AppUserViewModel> GetByEmail(string email);
 
         Task UpdateAsync(AppUserViewModel userVm);
 

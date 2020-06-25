@@ -73,6 +73,7 @@
 
                     $('#txtCustomerAddress').val(data.CustomerAddress);
                     $('#txtCustomerPhone').val(data.CustomerPhone);
+                    $('#txtCustomerEmail').val(data.CustomerEmail);
                     $('#txtCustomerMessage').val(data.CustomerMessage);
                     $('#ddlPaymentMethod').val(data.PaymentMethod);
                     $('#ddlCustomerId').val(data.CustomerId);
@@ -275,6 +276,7 @@
                 var customerAddress = $('#txtCustomerAddress').val();
                 var customerId = $('#ddlCustomerId').val();
                 var customerPhone = $('#txtCustomerPhone').val();
+                var customerEmail = $('#txtCustomerEmail').val();
                 var customerMessage = $('#txtCustomerMessage').val();
                 var paymentMethod = $('#ddlPaymentMethod').val();
                 var orderStatus = $('#ddlOrderStatus').val();
@@ -306,6 +308,7 @@
                         CustomerMessage: customerMessage,
                         CustomerPhone: customerPhone,
                         CustomerName: customerName,
+                        customerEmail: customerEmail,
                         PaymentMethod: paymentMethod,
                         Status: 1,
                         OrderDetails: orderDetails,

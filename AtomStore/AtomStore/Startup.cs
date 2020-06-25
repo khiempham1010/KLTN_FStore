@@ -34,6 +34,7 @@ using AtomStore.Aplication.Dapper.Interfaces;
 using AtomStore.Aplication.Dapper.Implimentation;
 using AtomStore.Hubs;
 using AtomStore.Stripe;
+using AtomStore.Middleware;
 
 namespace AtomStore
 {
@@ -173,15 +174,14 @@ namespace AtomStore
             services.AddTransient<IViewedlistService, ViewedlistService>();
             services.AddTransient<IProductFeedbackService, ProductFeedbackService>();
             services.AddTransient<IRecommenderService, RecommenderService>();
-
+            services.AddTransient<IVisitorCounterService, VisitorCounterService>();
             services.AddSignalR();
-
 
             services.AddMvc().AddJsonOptions(options=>options.SerializerSettings.ContractResolver =new DefaultContractResolver());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env,DbInitializer dbInitializer)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env,DbInitializer dbInitializer,AppDbContext context)
         {
             if (env.IsDevelopment())
             {
@@ -201,11 +201,10 @@ namespace AtomStore
             app.UseCookiePolicy();
             app.UseSession();
             app.UseAuthentication();
-            app.UseSignalR(route=>
+            app.UseSignalR(route =>
             {
                 route.MapHub<ChatHub>("/Chatter");
             });
-
             app.UseMvc(routes =>
             {
                 routes.MapRoute(

@@ -38,7 +38,7 @@ namespace AtomStore.Application.Interfaces
         OrderViewModel GetById(int id);
 
         List<OrderHistoryViewModel> GetOrderHistory(String userEmail);
-
+        Guid GetUserIdById(int id);
         OrderHistoryViewModel GetOneOrderHistory(int orderId);
 
         void Save();

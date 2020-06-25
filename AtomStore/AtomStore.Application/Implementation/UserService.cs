@@ -105,6 +105,14 @@ namespace AtomStore.Application.Implementation
             userVm.Roles = roles.ToList();
             return userVm;
         }
+        public async Task<AppUserViewModel> GetByEmail(string email)
+        {
+            var user = await _userManager.FindByEmailAsync(email);
+            var roles = await _userManager.GetRolesAsync(user);
+            var userVm = Mapper.Map<AppUser, AppUserViewModel>(user);
+            userVm.Roles = roles.ToList();
+            return userVm;
+        }
 
         public async Task UpdateAsync(AppUserViewModel userVm)
         {

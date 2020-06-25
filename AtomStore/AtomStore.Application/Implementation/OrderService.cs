@@ -8,6 +8,7 @@ using AtomStore.Utilities.Dtos;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -120,6 +121,10 @@ namespace AtomStore.Application.Implementation
             return Mapper.Map<Order,OrderViewModel>( _orderRepository.FindById(id));
         }
 
+        public Guid GetUserIdById(int id)
+        {
+            return Guid.Parse(_orderRepository.FindById(id).CustomerId.ToString());
+        }
         public void Save()
         {
             _unitOfWork.Commit();
@@ -264,8 +269,24 @@ namespace AtomStore.Application.Implementation
         }
         public int GetTotalSales()
         {
-            var detail = _orderDetailRepository.FindAll().Count();
-            return detail;
+            var detail = _orderDetailRepository.FindAll();
+            var cancelOrders = _orderRepository.FindAll(x => x.OrderStatus == OrderStatus.Cancelled).ToList();
+            var cancelSales = 0;
+            var sales = 0;
+            foreach (var item in cancelOrders)
+            {
+                item.OrderDetails = _orderDetailRepository.FindAll(x => x.OrderId == item.Id).ToList();
+                foreach(var subItem in item.OrderDetails)
+                {
+                    cancelSales += subItem.Quantity;
+                }
+            }
+            foreach(var item in detail)
+            {
+                sales += item.Quantity;
+            }
+
+            return sales-cancelSales;
         }
     }
 }
