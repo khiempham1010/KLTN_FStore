@@ -30,9 +30,9 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Data.Entities.AppUser" BaseTypeListCollapsed="true">
-    <Position X="9.25" Y="15" Width="2" />
+    <Position X="9.25" Y="14.5" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAAAAAAEAAAAAIAAAAwAAAQAAAAIAAACAAAEAAAAAAA=</HashCode>
+      <HashCode>AAAAAAAEAAAAAIAAAAwAAAQAAAAIAAACAAAEAQAAAAA=</HashCode>
       <FileName>Entities\AppUser.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -77,7 +77,7 @@
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AtomStore.Data.Entities.OrderDetail">
-    <Position X="6.75" Y="16.25" Width="2.25" />
+    <Position X="11.5" Y="11.75" Width="2.25" />
     <TypeIdentifier>
       <HashCode>EAECCAAAEQAAgAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>Entities\OrderDetail.cs</FileName>
@@ -148,6 +148,66 @@
       <FileName>Entities\Tag.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AtomStore.Data.Entities.Contact">
+    <Position X="11.5" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>BQAAAAAEACAAgAAAAAAAAAQAAAAAAAACAAAAIAAAAAA=</HashCode>
+      <FileName>Entities\Contact.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Data.Entities.FeedbackImage">
+    <Position X="11.5" Y="9.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAIAAAAAAAAAIAAAAAAACAAAAAAAAQA=</HashCode>
+      <FileName>Entities\FeedbackImage.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Data.Entities.Message">
+    <Position X="0.75" Y="18.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAA4AAAAAAAAAAAAADAAAAAA=</HashCode>
+      <FileName>Entities\Message.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Data.Entities.ProductFeedback" BaseTypeListCollapsed="true">
+    <Position X="6.75" Y="16.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAIAgAAAEAAAAAAAAYAAAAAABEAAgAEAAABAAA=</HashCode>
+      <FileName>Entities\ProductFeedback.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Data.Entities.SystemConfig" BaseTypeListCollapsed="true">
+    <Position X="9.25" Y="18.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAEAAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Entities\SystemConfig.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Data.Entities.ViewedList" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="19" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAADAAAAACAAAAAAAAAAAAwAAAAAAAAAAAAEAAAIAAA=</HashCode>
+      <FileName>Entities\ViewedList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Data.Entities.Visitor">
+    <Position X="11.5" Y="7.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\Visitor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Data.Entities.WishList" BaseTypeListCollapsed="true">
+    <Position X="11.5" Y="15.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAADAAAAACAAAAAAAAAAAAwAAAAAAAAAAAAEAAAIAAA=</HashCode>
+      <FileName>Entities\WishList.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="AtomStore.Data.Interfaces.IDateTracking">
     <Position X="10" Y="0.5" Width="2" />
     <TypeIdentifier>
@@ -163,7 +223,7 @@
     </TypeIdentifier>
   </Interface>
   <Interface Name="AtomStore.Data.Interfaces.IHasSeoMetaData">
-    <Position X="6" Y="1.25" Width="2" />
+    <Position X="7.75" Y="1.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAAAAIAAAAAAAAAAASAAAAAAAAAAAAAIAAAAAAAAA=</HashCode>
       <FileName>Interfaces\IHasSeoMetaData.cs</FileName>
@@ -197,6 +257,13 @@
       <FileName>Interfaces\ISwitchable.cs</FileName>
     </TypeIdentifier>
   </Interface>
+  <Interface Name="AtomStore.Data.Entities.IHasOwner">
+    <Position X="14.75" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Entities\IHasOwner.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
   <Enum Name="AtomStore.Data.Enums.OrderStatus">
     <Position X="0.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
@@ -207,7 +274,7 @@
   <Enum Name="AtomStore.Data.Enums.PaymentMethod">
     <Position X="2.5" Y="0.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAAEAAAAAgAAABAAAAAAAAAAACAQAAAAABAAAAAAAg=</HashCode>
+      <HashCode>AAAAAAAAAAAAAABAAAAAAAAAAACAQAAAAABAAAAAAAg=</HashCode>
       <FileName>Enums\PaymentMethod.cs</FileName>
     </TypeIdentifier>
   </Enum>

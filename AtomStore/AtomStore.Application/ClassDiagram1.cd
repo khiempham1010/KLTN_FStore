@@ -22,7 +22,7 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.Implementation.CommonService" BaseTypeListCollapsed="true">
-    <Position X="8.5" Y="8" Width="2" />
+    <Position X="0.5" Y="14.75" Width="2" />
     <TypeIdentifier>
       <HashCode>AAAAQAAAAAAAAAAAAgAAAIAAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>Implementation\CommonService.cs</FileName>
@@ -32,7 +32,7 @@
   <Class Name="AtomStore.Application.Implementation.FeedbackService" BaseTypeListCollapsed="true">
     <Position X="6" Y="7.25" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>gAYAgAAAACAAAAAAAgAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <HashCode>gAYAgAAAACAAAAAAAgAAAAAQEAEAAIAAAgAAAAACAIA=</HashCode>
       <FileName>Implementation\FeedbackService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -48,7 +48,7 @@
   <Class Name="AtomStore.Application.Implementation.OrderService" BaseTypeListCollapsed="true">
     <Position X="11" Y="3" Width="2" />
     <TypeIdentifier>
-      <HashCode>AAQIAICEIBAAAECgAgBAAAAAAAAAIMCAgAAAABAAAAA=</HashCode>
+      <HashCode>AAQJAICEIBAAAECgEkBAAAEAAAAAIMCAgAAAABAUAIA=</HashCode>
       <FileName>Implementation\OrderService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -64,7 +64,7 @@
   <Class Name="AtomStore.Application.Implementation.ProductService" BaseTypeListCollapsed="true">
     <Position X="3" Y="3" Width="2.25" />
     <TypeIdentifier>
-      <HashCode>gAYEAIACICAAEABAIgAACAIQAAFgAIAAAgAAAAIGAME=</HashCode>
+      <HashCode>gAYEhICCICAAEABAIgBACAIQEAVgAIAAAgAEIJIGBcE=</HashCode>
       <FileName>Implementation\ProductService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
@@ -80,13 +80,13 @@
   <Class Name="AtomStore.Application.Implementation.UserService" BaseTypeListCollapsed="true">
     <Position X="0.5" Y="7.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAEABAAAAAAAAAAAAAAQAAEAAAAAAAgAAAAAAAAAAIA=</HashCode>
+      <HashCode>AAEABEAAAAAAAAAAAAAQAAEAAACBAAgAAAAAAQAAAIA=</HashCode>
       <FileName>Implementation\UserService.cs</FileName>
     </TypeIdentifier>
     <Lollipop Position="0.2" />
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Common.EnumModel">
-    <Position X="33.75" Y="3.5" Width="1.5" />
+    <Position X="34" Y="3.5" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAgAAAAAAA=</HashCode>
       <FileName>ViewModels\Common\EnumModel.cs</FileName>
@@ -114,14 +114,14 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Product.ColorViewModel">
-    <Position X="28.5" Y="7.25" Width="1.5" />
+    <Position X="28.25" Y="6" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAgAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Product\ColorViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Product.OrderDetailViewModel">
-    <Position X="23.5" Y="9" Width="2" />
+    <Position X="23.25" Y="8.75" Width="2" />
     <TypeIdentifier>
       <HashCode>EAECCAAAEQAAgAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>ViewModels\Product\OrderDetailViewModel.cs</FileName>
@@ -130,7 +130,7 @@
   <Class Name="AtomStore.Application.ViewModels.Product.OrderViewModel">
     <Position X="23.5" Y="5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAADAAAEAAACAAEAABAAAAQAQAAQABAAAAAEAAABAAA=</HashCode>
+      <HashCode>AAADAAAEBAACAAEAABAAAAQAQAAQABAAAAAEAAABAAA=</HashCode>
       <FileName>ViewModels\Product\OrderViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -142,37 +142,37 @@
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Product.ProductImageViewModel">
-    <Position X="28.5" Y="9.5" Width="2" />
+    <Position X="25.75" Y="9.25" Width="2" />
     <TypeIdentifier>
       <HashCode>EAACAAAAAAAAAAIAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Product\ProductImageViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Product.ProductQuantityViewModel">
-    <Position X="31.25" Y="6.75" Width="2.25" />
+    <Position X="30.25" Y="5" Width="2.25" />
     <TypeIdentifier>
       <HashCode>EAACCAAAEAAAgAAAAAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
       <FileName>ViewModels\Product\ProductQuantityViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Product.ProductViewModel">
-    <Position X="26" Y="5" Width="1.75" />
+    <Position X="25.75" Y="3.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AQACAAAMAwAgBgAAIAASAAQAAAAAAFBABIAEAQAAEAA=</HashCode>
+      <HashCode>ASACAAAMAwAgBgAAIAASAAQAAAAAAFFABIAEAQAAEAA=</HashCode>
       <FileName>ViewModels\Product\ProductViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Product.SizeTypeViewModel">
-    <Position X="31.25" Y="5" Width="1.75" />
+    <Position X="31.25" Y="3.25" Width="1.75" />
     <TypeIdentifier>
       <HashCode>AAACAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Product\SizeTypeViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
   <Class Name="AtomStore.Application.ViewModels.Product.SizeViewModel">
-    <Position X="28.5" Y="5" Width="1.5" />
+    <Position X="28.25" Y="4.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAACAAAQAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAACAAAAAAAAAAAAABAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
       <FileName>ViewModels\Product\SizeViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -186,7 +186,7 @@
   <Class Name="AtomStore.Application.ViewModels.System.AppUserViewModel">
     <Position X="21.25" Y="0.5" Width="1.75" />
     <TypeIdentifier>
-      <HashCode>AAACAAAEACAAAICAAAQAQAAAAgAIAAACAQAEAAAAAAA=</HashCode>
+      <HashCode>AAACAAAEACAAAICAAAQAQAAAAgAIAAADAQAEAIAAAAA=</HashCode>
       <FileName>ViewModels\System\AppUserViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -204,6 +204,118 @@
       <FileName>ViewModels\System\PermissionViewModel.cs</FileName>
     </TypeIdentifier>
   </Class>
+  <Class Name="AtomStore.Application.ViewModels.Common.ContactViewModel">
+    <Position X="28.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>BQACAAAEACAAgAAAAAAAAAQAAAAAAAACAAAAIAAAAAA=</HashCode>
+      <FileName>ViewModels\Common\ContactViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.ViewModels.Common.OrderHistoryViewModel">
+    <Position X="21.5" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAECAAAAAAAAAAAAABAAAAAAAAAAQAAAAAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Common\OrderHistoryViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.ViewModels.Product.FeedbackImageViewModel">
+    <Position X="32.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAAAAAAAIAAAACAAAAIAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>ViewModels\Product\FeedbackImageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.ViewModels.Product.ProductFeedbackViewModel">
+    <Position X="34.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAIAgAAAEAAAAAAAAYAAAAAABEAAgAEAAABAAA=</HashCode>
+      <FileName>ViewModels\Product\ProductFeedbackViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.ViewModels.Product.ViewedlistViewModel">
+    <Position X="32.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAACAAAAAAAAAAAAwAAAAAAAAAAAAEEAAIAAA=</HashCode>
+      <FileName>ViewModels\Product\ViewedlistViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.ViewModels.Product.WholePriceViewModel">
+    <Position X="34.5" Y="8.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAABQAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>ViewModels\Product\WholePriceViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.ViewModels.Product.WishlistViewModel">
+    <Position X="30.25" Y="7.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAACAAAAACAAAAAAAAAAAAwAAAAAAAAAAAAEAAAIAAA=</HashCode>
+      <FileName>ViewModels\Product\WishlistViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.ViewModels.System.MessageViewModel">
+    <Position X="21.5" Y="7" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAAACAAAAAQAAAAAA4AAAAAAAAAAAAADAAAAAA=</HashCode>
+      <FileName>ViewModels\System\MessageViewModel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Implementation.ChatService" BaseTypeListCollapsed="true">
+    <Position X="8.5" Y="7.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQIAAIAAAAAAAAAAAgAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Implementation\ChatService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Implementation.ContactService" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="10.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>gAYAAAAAACAAAAAAAoAAAAAAAAEAAIAAAgAAAAAAAIA=</HashCode>
+      <FileName>Implementation\ContactService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Implementation.ProductFeedbackService" BaseTypeListCollapsed="true">
+    <Position X="10.25" Y="10.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAYAgIIAACAAAAAAAgAAAAAQEAEAAAAACgAEAAADAIA=</HashCode>
+      <FileName>Implementation\ProductFeedbackService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Implementation.RecommenderService" BaseTypeListCollapsed="true">
+    <Position X="3" Y="12.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAhAAAIAAAIAAAAAAACAAAAAARMAAEAAAAABAAIIA=</HashCode>
+      <FileName>Implementation\RecommenderService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Implementation.ViewedlistService" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="11.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAABMAAIAAAAAAAAgAAAAAAAAEQAMAAAgAAAAAAAAA=</HashCode>
+      <FileName>Implementation\ViewedlistService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Implementation.VisitorCounterService" BaseTypeListCollapsed="true">
+    <Position X="8.25" Y="14.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAgAAAAAIAAAAAAAAAAAEAAAAAIA=</HashCode>
+      <FileName>Implementation\VisiterCounterService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Implementation.WishlistService" BaseTypeListCollapsed="true">
+    <Position X="5.75" Y="12" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAABMAAIAAAAAAAAgAAAAAAAAEBAMAAAgAAAAAAAAA=</HashCode>
+      <FileName>Implementation\WishlistService.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
   <Interface Name="AtomStore.Application.Interfaces.ICommonService">
     <Position X="24.5" Y="14.75" Width="1.5" />
     <TypeIdentifier>
@@ -214,7 +326,7 @@
   <Interface Name="AtomStore.Application.Interfaces.IFeedbackService">
     <Position X="28" Y="18" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>gAYAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAgAAAAAAAIA=</HashCode>
+      <HashCode>gAYAAAAAAAAAAAAAAAAAAAAAAAEAAIAAAgAAAAAAAIA=</HashCode>
       <FileName>Interfaces\IFeedbackService.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -228,7 +340,7 @@
   <Interface Name="AtomStore.Application.Interfaces.IOrderService">
     <Position X="29.75" Y="14.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAQIAIAEABAAAECgAAAAAAAAAAAAAMCAgAAAAAAAAAA=</HashCode>
+      <HashCode>AAQJAIAEABAAAECgEEAAAAEAAAAAIMCAgAAAABAQAIA=</HashCode>
       <FileName>Interfaces\IOrderService.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -242,7 +354,7 @@
   <Interface Name="AtomStore.Application.Interfaces.IProductService">
     <Position X="33.25" Y="14.75" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAYEAIACAAAAEABAAAAAAAIQAAFgAIAAAgAAAAICAMA=</HashCode>
+      <HashCode>AAYEBIACAAAAEABAAAAAAAIQAAFgAIAAAgAAIIICBMA=</HashCode>
       <FileName>Interfaces\IProductService.cs</FileName>
     </TypeIdentifier>
   </Interface>
@@ -256,8 +368,57 @@
   <Interface Name="AtomStore.Application.Interfaces.IUserService">
     <Position X="24.5" Y="16.25" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAEAAAAAAAAAAAAAAAAQAAEAAAAAAAgAAAAAAAAAAIA=</HashCode>
+      <HashCode>AAEAAEAAAAAAAAAAAAAQAAEAAACBAAgAAAAAAQAAAIA=</HashCode>
       <FileName>Interfaces\IUserService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Interfaces.IChatService">
+    <Position X="33.25" Y="20.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAIAAIAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IChatService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Interfaces.IContactService">
+    <Position X="26.25" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>gAYAAAAAAAAAAAAAAAAAAAAAAAEAAIAAAgAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IContactService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Interfaces.IProductFeedbackService">
+    <Position X="31.5" Y="17.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAYAAIIAAAAAAAAAAAAAAAAQAAEAAAAACgAAAAADAIA=</HashCode>
+      <FileName>Interfaces\IProductFeedbackService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Interfaces.IRecommenderService">
+    <Position X="26.25" Y="20.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IRecommenderService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Interfaces.IViewedlistService">
+    <Position X="24.5" Y="19.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMAAAAAAAAAAAAAAAAAAAAEAAMAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IViewedlistService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Interfaces.IVisitorCounterService">
+    <Position X="28" Y="20.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAIA=</HashCode>
+      <FileName>Interfaces\IVisiterCounterService.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Interfaces.IWishlistService">
+    <Position X="29.75" Y="20" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAMAAAAAAAAAAAAAAAAAAAAEAAMAAAgAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IWishlistService.cs</FileName>
     </TypeIdentifier>
   </Interface>
   <Font Name="Segoe UI" Size="9" />

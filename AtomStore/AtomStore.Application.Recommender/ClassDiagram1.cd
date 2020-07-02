@@ -1,0 +1,148 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="AtomStore.Application.Recommender.Comparers.CorrelationUserComparer" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="0.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Comparers\CorrelationUserComparer.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Objects.ProductRating">
+    <Position X="7.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\ProductRating.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Objects.ProductTag">
+    <Position X="0.5" Y="2" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE=</HashCode>
+      <FileName>Objects\ProductTag.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Objects.ProductTagCounts">
+    <Position X="5.75" Y="5.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\ProductTagCounts.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Objects.Suggestion">
+    <Position X="5.75" Y="3" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAAAAAAAAAAAAAAAgAAAAAAAEAAAAAAAAAAAA=</HashCode>
+      <FileName>Objects\Suggestion.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Objects.UserAction">
+    <Position X="0.5" Y="4" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EAAAAAAAIAAAAAAEAAAAAAgAAAAAAAAAAAAAAAAAAAQ=</HashCode>
+      <FileName>Objects\UserAction.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Objects.UserProductRatings">
+    <Position X="0.5" Y="6.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAgAAAAAAQgAAAAAAAAAAAAAAAAACAA=</HashCode>
+      <FileName>Objects\UserProductRatings.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Objects.UserProductRatingsTable">
+    <Position X="2.25" Y="9.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAACAAAAAAAAAgQAAAAAAAAAAAAAAQAA=</HashCode>
+      <FileName>Objects\UserProductRatingsTable.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Algorithms.Matrix">
+    <Position X="5.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Algorithms\Matrix.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Algorithms.SingularValueDecomposition">
+    <Position X="3" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>ICAAAAAAAIAAAQAAAAAAMIQAAAAQAEgIAAQAIAAAAAA=</HashCode>
+      <FileName>Algorithms\SingularValueDecomposition.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Algorithms.SvdResult">
+    <Position X="7.5" Y="2.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAACAAAAAAAAAAIAAAEAAAAAAAAAEAAA=</HashCode>
+      <FileName>Algorithms\SvdResult.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Parsers.UserBehaviorDatabase">
+    <Position X="7.5" Y="5.25" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAACAAAAAAAAAAAAACAAAAAAIAAEAAAAAAAAAAABQ=</HashCode>
+      <FileName>Parsers\UserBehaviorDatabase.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Parsers.UserBehaviorDatabaseParser">
+    <Position X="5.5" Y="7.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAhAAAIAAAAAAAAAAACAAAAAARIAAAAAAAABAAAAA=</HashCode>
+      <FileName>Parsers\UserBehaviorDatabaseParser.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Parsers.UserBehaviorTransformer">
+    <Position X="9.75" Y="3.75" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAQAAAAAAAAAAAAAAAAQAAAAAAAAgAAAAA=</HashCode>
+      <FileName>Parsers\UserBehaviorTransformer.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Recommender.ItemCollaborativeFilterRecommender" BaseTypeListCollapsed="true">
+    <Position X="9.5" Y="7.5" Width="2.5" />
+    <TypeIdentifier>
+      <HashCode>AAAggJEAAAAAAAAASAAAAAIAQAAEAAEAAAABAAAAAEA=</HashCode>
+      <FileName>Recommender\ItemCollaborativeFilterRecommender.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Recommender.UserCollaborativeFilterRecommender" BaseTypeListCollapsed="true">
+    <Position X="12.25" Y="3.75" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>AAAggJEAAAAAAEAACAAAAAIAAAAEEAEAAAABAAAAAAA=</HashCode>
+      <FileName>Recommender\UserCollaborativeFilterRecommender.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" Collapsed="true" />
+  </Class>
+  <Class Name="AtomStore.Application.Recommender.Raters.LinearRater" BaseTypeListCollapsed="true">
+    <Position X="3" Y="0.75" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAgAAAAAABAAAAgAAAAAQAIAAABAAgAAAA=</HashCode>
+      <FileName>Raters\LinearRater.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Interface Name="AtomStore.Application.Recommender.Interfaces.IComparer">
+    <Position X="9.25" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IComparer.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Recommender.Interfaces.IRater">
+    <Position X="11" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAABAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRater.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="AtomStore.Application.Recommender.Interfaces.IRecommender">
+    <Position X="12.75" Y="0.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAggJAAAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Interfaces\IRecommender.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

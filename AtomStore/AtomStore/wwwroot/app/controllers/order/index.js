@@ -121,6 +121,7 @@
                 var customerMessage = $('#txtCustomerMessage').val();
                 var paymentMethod = $('#ddlPaymentMethod').val();
                 var orderStatus = $('#ddlOrderStatus').val();
+                var customerEmail = $('#txtCustomerEmail').val();
                 //order detail
 
                 var orderDetails = [];
@@ -146,6 +147,7 @@
                         CustomerMessage: customerMessage,
                         CustomerPhone: customerPhone,
                         CustomerName: customerName,
+                        CustomerEmail: customerEmail,
                         PaymentMethod: paymentMethod,
                         Status: 1,
                         OrderDetails: orderDetails
@@ -308,7 +310,7 @@
                         CustomerMessage: customerMessage,
                         CustomerPhone: customerPhone,
                         CustomerName: customerName,
-                        customerEmail: customerEmail,
+                        CustomerEmail: customerEmail,
                         PaymentMethod: paymentMethod,
                         Status: 1,
                         OrderDetails: orderDetails,

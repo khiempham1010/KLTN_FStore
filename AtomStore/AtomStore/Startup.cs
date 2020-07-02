@@ -35,6 +35,7 @@ using AtomStore.Aplication.Dapper.Implimentation;
 using AtomStore.Hubs;
 using AtomStore.Stripe;
 using AtomStore.Middleware;
+using System.IO;
 
 namespace AtomStore
 {
@@ -183,6 +184,8 @@ namespace AtomStore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env,DbInitializer dbInitializer)
         {
+
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -194,7 +197,10 @@ namespace AtomStore
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
-            
+            // WebRootPath == null workaround.
+            if (string.IsNullOrWhiteSpace(env.WebRootPath))
+                env.WebRootPath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot");
+
             app.UseHttpsRedirection();
             app.UseImageResizer();
             app.UseStaticFiles();
