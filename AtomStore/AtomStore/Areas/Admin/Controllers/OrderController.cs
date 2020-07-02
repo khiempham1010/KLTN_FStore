@@ -114,8 +114,8 @@ namespace AtomStore.Areas.Admin.Controllers
             }
             else
             {
-                //try
-                //{
+                try
+                {
                     //Send mail
                     //await _emailSender.SendEmailAsync(_configuration["MailSettings:AdminMail"], "New bill from ATOM Store", content);
                     if (orderVm.CustomerEmail != null)
@@ -130,11 +130,11 @@ namespace AtomStore.Areas.Admin.Controllers
                         _orderService.DecreaseQuantity(item.ProductId, item.SizeId, item.ColorId, item.Quantity);
                     }
                     _orderService.UpdateStatus(orderVm.Id,orderVm.OrderStatus);
-                //}
-                //catch (Exception ex)
-                //{
-                //    ModelState.AddModelError("", ex.Message);
-                //}
+                }
+                catch (Exception ex)
+                {
+                    ModelState.AddModelError("", ex.Message);
+                }
             }
             _orderService.Save();
             return new OkObjectResult(orderVm);
