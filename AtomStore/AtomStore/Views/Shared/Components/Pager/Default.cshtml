@@ -18,7 +18,7 @@
 <div class="pagination-area">
     <div class="col-md-12 col-sm-12">
         <p style="float: right; font-size: 15px">@Model.FirstRowOnPage to @Model.LastRowOnPage in @Model.RowCount products</p>
-        
+
     </div>
     <div class="col-md-12 col-sm-12">
         @if (Model.PageCount > 1)
@@ -30,7 +30,7 @@
                 }
                 else
                 {
-                    <li><a href="@urlTemplate.Replace("{0}", Model.PageCount.ToString())"><i class="fa fa-angle-left"></i></a></li>
+                    <li><a href="@urlTemplate.Replace("{0}", (Model.PageCount-1).ToString())"><i class="fa fa-angle-left"></i></a></li>
                 }
                 @for (var i = startIndex; i <= finishIndex; i++)
                 {
@@ -49,7 +49,7 @@
                 }
                 else
                 {
-                    <li><a href="@urlTemplate.Replace("{0}", Model.PageCount.ToString())"><i class="fa fa-angle-right"></i></a></li>
+                    <li><a href="@urlTemplate.Replace("{0}", (Model.PageCount).ToString())"><i class="fa fa-angle-right"></i></a></li>
                 }
             </ul>
         }

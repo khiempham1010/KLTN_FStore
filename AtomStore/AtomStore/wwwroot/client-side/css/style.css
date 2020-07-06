@@ -7198,7 +7198,7 @@ ul.products-list {
     position: absolute;
     right: 20px;
     top: 8px;
-    border: 1px #e5e5e5 solid;
+    border: 1px #e8e8e8 solid;
     background: #fff;
     width: 32px;
     height: 32px;
@@ -7206,7 +7206,7 @@ ul.products-list {
     text-align: center;
     font-size: 11px;
     transition: color 300ms ease-in-out 0s, background-color 300ms ease-in-out 0s, background-position 300ms ease-in-out 0s;
-    border-radius: 2px;
+    border-radius: 100px;
 }
 
 .product-view-area .flexslider-thumb li img {
