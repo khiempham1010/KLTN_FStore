@@ -9,7 +9,7 @@
     <recaptcha-script validation-message-element-id="recaptchaErrorMessage" />
 
     @await Html.PartialAsync("_ValidationScriptsPartial")
-    <script src="~/client-app/controllers/checkout/index.js"></script>
+    <script src="~/client-app/controllers/checkout/index.js" asp-append-version="true"></script>
     <script>
         var checkoutObj = new CheckoutController();
         checkoutObj.initialize();
@@ -81,7 +81,7 @@
                     }
                     else
                     {
-                        <form action="/checkout.html" method="post">
+                        <form id="frmCheckout" action="/checkout.html" method="post">
                             @Html.AntiForgeryToken()
                             <h4 class="checkout-sep">1. Checkout Method</h4>
                             <div class="box-border">
@@ -200,11 +200,11 @@
                                     {
 
                                         <li>
-                                            @if (@Model.PaymentMethods[i].Value == 3 || @Model.PaymentMethods[i].Value == 0)
+                                            @if (@Model.PaymentMethods[i].Value == 0 || @Model.PaymentMethods[i].Value == 3)
                                             {
                                                 <label asp-for="@Model.PaymentMethods[i].Value">
                                                     <input type="radio" name="paymentMethod" asp-for="PaymentMethod" value="@Model.PaymentMethods[i].Value">
-                                                    @Model.PaymentMethods[i].Name
+                                                    <img class="payment@(Model.PaymentMethods[i].Value)" />
                                                 </label>
                                             }
                                         </li>
@@ -251,7 +251,7 @@
                                     </table>
                                 </div>
                                 @*<button type="button" class="button" onclick="window.location.href='/cart.html'"><span>Back to cart</span></button>*@
-                                <button type="submit" class="button pull-right" id="btnPlaceOrder"><span>Place Order</span></button>
+                                <button class="button pull-right" id="btnPlaceOrder"><span>Place Order</span></button>
 
                                 @*<input type="image" src="https://www.paypal.com/en US/i/btn/btn xpressCheckout.gif"/>*@
                                 @*<a href="https://www.paypal.com/en US">PayPal</a>*@
@@ -280,7 +280,7 @@
                                 @*<button type="submit" id="btnCheckoutPaypal"><img src="~/client-side/images/paypal1.jpg" /></button>*@
 
                             </form>
-                            <button id="btnPaypal"><img src="~/client-side/images/paypal1.jpg" /></button>
+                            <button id="btnPaypal" hidden><img src="~/client-side/images/paypal1.jpg" /></button>
                         </div>
 
 
@@ -353,4 +353,21 @@
         </div>
     </div>
 </div>
+<style>
+    .payment0 {
+        width: 99px;
+        height: 39px;
+        background: url('client-side/images/paymant6.png');
+        margin-left: 10px;
+        border: solid 0px;
+    }
+
+    .payment3 {
+        width: 99px;
+        height: 39px;
+        background: url('client-side/images/payment1.png');
+        margin-left: 10px;
+        border: solid 0px;
+    }
+</style>
 

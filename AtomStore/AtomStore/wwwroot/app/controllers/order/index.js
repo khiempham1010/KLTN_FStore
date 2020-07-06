@@ -449,6 +449,7 @@
             },
             error: function () {
                 atom.notify('Has an error in progress', 'error');
+                
             }
         });
     }
