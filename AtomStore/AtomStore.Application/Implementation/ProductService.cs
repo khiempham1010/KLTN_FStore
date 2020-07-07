@@ -161,7 +161,7 @@ namespace AtomStore.Application.Implementation
             return _productRepository.FindAll(x => x.ProductCategory).ProjectTo<ProductViewModel>().ToList();
         }
 
-        public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, int? minPrice, int? maxPrice, string keyword, int page, int pageSize)
+        public PagedResult<ProductViewModel> GetAllPaging(int? categoryId, int? minPrice, int? maxPrice, string keyword, int page, int pageSize, string sortBy)
         {
             var query = _productRepository.FindAll(x => x.Status == Status.Active);
             if (!string.IsNullOrEmpty(keyword))
@@ -200,9 +200,21 @@ namespace AtomStore.Application.Implementation
 
 
             int totalRow = query.Count();
-
-            query = query.OrderByDescending(x => x.DateCreated)
-                .Skip((page - 1) * pageSize).Take(pageSize);
+            if (sortBy == "price")
+            {
+                query = query.OrderBy(x => x.Price)
+                    .Skip((page - 1) * pageSize).Take(pageSize);
+            }
+            else if(sortBy=="name")
+            {
+                query = query.OrderBy(x => x.Name)
+                    .Skip((page - 1) * pageSize).Take(pageSize);
+            }
+            else
+            {
+                query = query.OrderByDescending(x => x.DateCreated)
+                    .Skip((page - 1) * pageSize).Take(pageSize);
+            }
 
             var data = query.ProjectTo<ProductViewModel>().ToList();
 

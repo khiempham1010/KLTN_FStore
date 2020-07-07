@@ -24,7 +24,7 @@
             // default style
             style: 'bootstrap',
             // default class (string or [string])
-            className: 'error',
+            className: type,
             // show animation
             showAnimation: 'slideDown',
             // show animation duration

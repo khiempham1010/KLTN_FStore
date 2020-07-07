@@ -75,11 +75,11 @@ namespace AtomStore.Controllers
                 StringValues maxPriceString;
                 queryString.TryGetValue("maxPrice", out maxPriceString);
                 int maxPrice = int.Parse(maxPriceString);
-                catalog.Data = _productService.GetAllPaging(id, minPrice, maxPrice, string.Empty, page, pageSize.Value);
+                catalog.Data = _productService.GetAllPaging(id, minPrice, maxPrice, string.Empty, page, pageSize.Value,sortBy);
             }
             else
             {
-                catalog.Data = _productService.GetAllPaging(id, null, null, string.Empty, page, pageSize.Value);
+                catalog.Data = _productService.GetAllPaging(id, null, null, string.Empty, page, pageSize.Value,sortBy);
             }
             catalog.Category = _productCategoryService.GetById(id);
             return View(catalog);
@@ -95,7 +95,7 @@ namespace AtomStore.Controllers
 
             catalog.PageSize = pageSize;
             catalog.SortType = sortBy;
-            catalog.Data = _productService.GetAllPaging(null, null, null, keyword, page, pageSize.Value);
+            catalog.Data = _productService.GetAllPaging(null, null, null, keyword, page, pageSize.Value,sortBy);
             catalog.Keyword = keyword;
 
             return View(catalog);

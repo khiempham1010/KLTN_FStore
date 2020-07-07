@@ -35,7 +35,6 @@
                 atom.startLoading();
             },
             success: function (response) {
-                initChart(response.RevenueReports);
                 $('#totalUSer').text(response.TotalUser);
                 $('#totalRevenue').text('$' + response.TotalRevenue);
                 $('#totalProfit').text('$' + response.TotalProfit);
@@ -46,6 +45,7 @@
                 $('#visitors').text(response.Visittor);
                 $('#demo-pie-1').attr('data-percent', response.SalePercent);
                 $('#demo-pie-2').attr('data-percent', response.ReviewPercent);
+                initChart(response.RevenueReports);
                 atom.stopLoading();
             },
             error: function (status) {

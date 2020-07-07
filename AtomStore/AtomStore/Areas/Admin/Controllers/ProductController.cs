@@ -51,7 +51,7 @@ namespace AtomStore.Areas.Admin.Controllers
         [HttpGet]
         public IActionResult GetAllPaging(int? categoryId,string keyWord, int page,int pageSize)
         {
-            var model = _productService.GetAllPaging(categoryId,null, null, keyWord, page, pageSize);
+            var model = _productService.GetAllPaging(categoryId,null, null, keyWord, page, pageSize,null);
             return new OkObjectResult(model);
         }
 

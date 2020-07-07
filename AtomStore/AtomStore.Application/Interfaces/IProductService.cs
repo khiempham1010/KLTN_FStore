@@ -11,7 +11,7 @@ namespace AtomStore.Application.Interfaces
     {
         List<ProductViewModel> GetAll();
 
-        PagedResult<ProductViewModel> GetAllPaging(int? categoryId, int? minPrice, int? maxPrice, string keyword, int page, int pageSize);
+        PagedResult<ProductViewModel> GetAllPaging(int? categoryId, int? minPrice, int? maxPrice, string keyword, int page, int pageSize,string sortBy);
 
         PagedResult<ProductViewModel> GetAllPagingAdmin(int? categoryId, string keyword, int page, int pageSize);
 
