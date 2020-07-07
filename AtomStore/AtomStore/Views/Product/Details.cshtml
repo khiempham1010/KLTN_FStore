@@ -162,10 +162,11 @@
                                     </div>
                                     @**REVIEWS*---------------------------------------*@
                                     <div id="reviews" class="tab-pane fade">
-                                        @if (Model.ProductFeedback.Count > 0)
-                                        {
-                                            <div class="col-sm-5 col-lg-5 col-md-5">
-                                                <div class="reviews-content-left">
+
+                                        <div class="col-sm-5 col-lg-5 col-md-5">
+                                            <div class="reviews-content-left">
+                                                @if (Model.ProductFeedback.Count > 0)
+                                                {
                                                     @foreach (var item in Model.ProductFeedback)
                                                     {
                                                         <div class="review-ratting">
@@ -204,13 +205,14 @@
                                                             <p class="author"><small> (Posted on @item.DateCreated)</small> </p>
                                                         </div>
                                                     }
-                                                </div>
+                                                }
+                                                else
+                                                {
+                                                    <p>This product has no review!</p>
+                                                }
                                             </div>
-                                        }
-                                        else
-                                        {
-                                            <p>This product has no review!</p>
-                                        }
+                                        </div>
+
                                         @if (User.Identity.IsAuthenticated)
                                         {
                                             <div class="col-sm-7 col-lg-7 col-md-7">
