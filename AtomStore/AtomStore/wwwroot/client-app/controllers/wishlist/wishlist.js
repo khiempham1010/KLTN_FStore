@@ -34,7 +34,7 @@
                     wishlistId : id
                 },
                 success: function () {
-                    atom.notify('Product was added successful', 'success');
+                    atom.notify('Product was deleted successful', 'success');
                     loadData()
                 }
             })
