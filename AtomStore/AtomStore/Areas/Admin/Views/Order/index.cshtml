@@ -41,7 +41,7 @@
 
             </div>
             <div class="col-md-2 col-sm-2 col-xs-12 form-group">
-                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Create)).Succeeded)
+                @if ((await AuthorizationService.AuthorizeAsync(User, "Order", Operations.Create)).Succeeded)
                 {
                     <button class="btn btn-success" id="btn-create" type="button">Create</button>
                 }
@@ -103,7 +103,11 @@
             <td>{{{PaymentMethod}}}</td>
             <td>{{{DateCreated}}}</td>
             <td>{{{OrderStatus}}}</td>
+            @if ((await AuthorizationService.AuthorizeAsync(User, "Order", Operations.Update)).Succeeded)
+            {
             <td><a href="#" data-id="{{Id}}" class="btn-view"><i class="fa fa-eye"></i></a></td>
+            
+            }
         </tr>
     </script>
 </div>

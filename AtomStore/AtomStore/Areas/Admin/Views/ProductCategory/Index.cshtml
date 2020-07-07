@@ -24,7 +24,7 @@
         </div>
         <div class="title_right">
             <div class="col-md-5 col-sm-5 col-xs-12 form-group pull-right">
-                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Create)).Succeeded)
+                @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_CATEGORY", Operations.Create)).Succeeded)
                 {
                     <button class="btn btn-success" id="btnCreate" type="button">Create</button>
                 }
@@ -38,11 +38,11 @@
                 <div class="x-content">
                     <ul id="treeProductCategory"></ul>
                     <div id="contextMenu" class="easyui-menu" style="width:120px;">
-                        @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded)
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_CATEGORY", Operations.Update)).Succeeded)
                         {
                             <div id="btnEdit" data-options="iconCls:'icon-edit'">Update</div>
                         }
-                        @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded)
+                        @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_CATEGORY", Operations.Delete)).Succeeded)
                         {
                             <div id="btnDelete" data-options="iconCls:'icon-remove'">Delete</div>
                         }

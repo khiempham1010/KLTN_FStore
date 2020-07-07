@@ -15,6 +15,9 @@
         product.initialize();
     </script>
 }
+@{ 
+    var canCreate = (AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Create)).Result;
+}
 <div class="bs-example widget-shadow" data-example-id="contextual-table">
     <div class="page-title">
         <div class="title_left">
@@ -35,7 +38,7 @@
                 </select>
             </div>
             <div class="col-md-12 col-sm-12 form-group pull-right">
-                @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Create)).Succeeded)
+                @if (canCreate.Succeeded)
                 {
                     <button id="btnCreate" class="btn btn-success">Create</button>
                 }
@@ -91,17 +94,17 @@
         <td>{{CreatedDate}}</td>
         <td>{{{Status}}}</td>
         <th scope="row">
-            @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded)
+            @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Update)).Succeeded)
             {
                 <a class="btn-edit" data-id="{{Id}}"><i class="fa fa-pencil-square-o"></i></a>
             }
 
-            @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Update)).Succeeded)
+            @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Update)).Succeeded)
             {
                 <a href="#" data-id="{{Id}}" class="btn btn-xs btn-images"><i class="fa fa-image"></i></a>
                 <a href="#" data-id="{{Id}}" class="btn btn-xs btn-quantity"><i class="fa fa-hourglass-start"></i></a>
             }
-            @if ((await AuthorizationService.AuthorizeAsync(User, "USER", Operations.Delete)).Succeeded)
+            @if ((await AuthorizationService.AuthorizeAsync(User, "PRODUCT_LIST", Operations.Delete)).Succeeded)
             {
                 <a class="btn-delete" data-id="{{Id}}"><i class="fa fa-trash-o"></i></a>
             }
