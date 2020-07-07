@@ -6,7 +6,9 @@ using AtomStore.Data.IRepositories;
 using AtomStore.Infrastructure.Interfaces;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Extensions.Internal;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,14 +22,20 @@ namespace AtomStore.Application.Implementation
         private IFunctionRepository _functionRepository;
         private IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;
+        private IRepository<Permission, int> _permissionRepository;
+        private RoleManager<AppRole> _roleManager;
 
         public FunctionService(IMapper mapper,
              IFunctionRepository functionRepository,
-             IUnitOfWork unitOfWork)
+             IUnitOfWork unitOfWork,
+             IRepository<Permission, int> permissionRepository,
+             RoleManager<AppRole> roleManager)
         {
             _functionRepository = functionRepository;
             _unitOfWork = unitOfWork;
             _mapper = mapper;
+            _permissionRepository = permissionRepository;
+            _roleManager = roleManager;
         }
         public bool CheckExistedId(string id)
         {
@@ -58,11 +66,22 @@ namespace AtomStore.Application.Implementation
         public Task<List<FunctionViewModel>> GetAll(string filter)
         {
             var query = _functionRepository.FindAll();
-            if (string.IsNullOrEmpty(filter))
+            if (!string.IsNullOrEmpty(filter))
             {
-                query = query.Where(x => x.Name.Contains(filter) || x.Id.Contains(filter));
-
+                var permissions = new List<Permission>();
+                foreach (var item in filter.Split(";"))
+                {
+                    var role = _roleManager.FindByNameAsync(item).Result;
+                    permissions.AddRange(_permissionRepository.FindAll(x=>x.RoleId==role.Id&&x.CanRead==true).ToList());
+                }
+                var b = _functionRepository.FindAll(x => x.ParentId == null);
+                var a = (from q in query
+                         join f in permissions on q.Id equals f.FunctionId
+                         select q);
+                var c = a.Concat(b);
+                return c.ProjectTo<FunctionViewModel>().ToListAsync();
             }
+            
             return query.ProjectTo<FunctionViewModel>().ToListAsync();
         }
 
