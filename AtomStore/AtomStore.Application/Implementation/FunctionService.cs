@@ -79,7 +79,8 @@ namespace AtomStore.Application.Implementation
                          join f in permissions on q.Id equals f.FunctionId
                          select q);
                 var c = a.Concat(b);
-                return c.ProjectTo<FunctionViewModel>().ToListAsync();
+                foreach(var item in c)
+                return c.Distinct().ProjectTo<FunctionViewModel>().ToListAsync();
             }
             
             return query.ProjectTo<FunctionViewModel>().ToListAsync();
