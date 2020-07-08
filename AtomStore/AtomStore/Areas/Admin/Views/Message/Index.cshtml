@@ -544,35 +544,36 @@
                 }
             </div>
         </div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            <script>
-            const userName = "@ViewBag.CurrentuserName";
-            </script>
-        }
+    </div>
+    @if (User.Identity.IsAuthenticated)
+    {
         <script>
-            $('.left-section-ul').on('click', '.messager', function () {
-                var a = $(this).find('.messagerName').text();
-                $('.messager').removeClass('active');
-                $('#name').text(a);
-                $(this).toggleClass('active');
-                $('.messageList').empty();
-                loaddata(a);
-            });
-            $("#messageText").keypress(function (event) {
-                if (event.keyCode == 13 && !event.shiftKey) {
-                    $("#submitButton").click();
-                    return false;
-                }
-            });
+            const userName = "@ViewBag.CurrentuserName";
         </script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
-        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-        <script src="~/js/chatadmin.js" asp-append-version="true"></script>
-        <script src="~/js/signalrReqHandler.js"></script>
-        <script src="~/lib/jquery/dist/jquery.min.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <!-- custom scrollbar plugin -->
-        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>*@
+    }
+    <script>
+        $('.left-section-ul').on('click', '.messager', function () {
+            var a = $(this).find('.messagerName').text();
+            $('.messager').removeClass('active');
+            $('#name').text(a);
+            $(this).toggleClass('active');
+            $('.messageList').empty();
+            loaddata(a);
+        });
+        $("#messageText").keypress(function (event) {
+            if (event.keyCode == 13 && !event.shiftKey) {
+                $("#submitButton").click();
+                return false;
+            }
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
+    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+    <script src="~/js/chatadmin.js" asp-append-version="true"></script>
+    <script src="~/js/signalrReqHandler.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- custom scrollbar plugin -->
+    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>*@
 </body>
 </html>
