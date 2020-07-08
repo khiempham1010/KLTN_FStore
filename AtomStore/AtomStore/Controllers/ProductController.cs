@@ -59,6 +59,7 @@ namespace AtomStore.Controllers
         [Route("{alias}-c.{id}.html")]
         public IActionResult Catalog(int id, int? pageSize, string sortBy, int page = 1)
         {
+            
             var catalog = new CatalogViewModel();
             if (pageSize == null)
                 pageSize = 12;
@@ -82,6 +83,14 @@ namespace AtomStore.Controllers
                 catalog.Data = _productService.GetAllPaging(id, null, null, string.Empty, page, pageSize.Value,sortBy);
             }
             catalog.Category = _productCategoryService.GetById(id);
+            var currentUser = _userManager.GetUserAsync(User).Result;
+            if (currentUser != null)
+            {
+                foreach (var item in catalog.Data.Results)
+                {
+                    item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+                }
+            }
             return View(catalog);
         }
 
@@ -97,7 +106,14 @@ namespace AtomStore.Controllers
             catalog.SortType = sortBy;
             catalog.Data = _productService.GetAllPaging(null, null, null, keyword, page, pageSize.Value,sortBy);
             catalog.Keyword = keyword;
-
+            var currentUser = _userManager.GetUserAsync(User).Result;
+            if (currentUser != null)
+            {
+                foreach (var item in catalog.Data.Results)
+                {
+                    item.Wishlist = _wishlistService.GetByProductAndUserId(item.Id, currentUser.Id) == default ? false : true;
+                }
+            }
             return View(catalog);
         }
 

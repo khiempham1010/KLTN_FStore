@@ -91,7 +91,16 @@
                                                 </div>
                                                 <div class="pr-info-area">
                                                     <div class="pr-button">
-                                                        <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart"></i> </a> </div>
+                                                        @if (item.Wishlist)
+                                                        {
+                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer; color:red;"> <i class="fa fa-heart"></i> </a> </div>
+
+                                                        }
+                                                        else
+                                                        {
+                                                            <div class="mt-button add_to_wishlist"> <a class="btnAddToWishlist" data-id="@item.Id" style="cursor:pointer"> <i class="fa fa-heart-o"></i> </a> </div>
+
+                                                        }
                                                         @*<div class="mt-button add_to_compare"> <a href="#"> <i class="fa fa-signal"></i> </a> </div>
                                                             <div class="mt-button quick-view"> <a href="#"> <i class="fa fa-search"></i> </a> </div>*@
                                                     </div>
