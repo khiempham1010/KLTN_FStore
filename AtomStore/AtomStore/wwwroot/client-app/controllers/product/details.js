@@ -96,7 +96,7 @@
                         productId: id
                     },
                     success: function () {
-                        atom.notify('Product was added successful', 'success');
+                        atom.notify('Product was deleted successful', 'success');
                         loadHeaderCart();
                         $('#btnAddToWishlist').css('color', 'rgb(51, 51, 51)');
                     },
@@ -121,7 +121,7 @@
                     },
                     success: function () {
                         atom.notify('Product was added successful', 'success');
-                        color.removeClass("fa-heart-o")
+                        color.removeClass("fa-heart")
                         color.addClass("fa-heart");
                         color.css('color', 'rgb(255, 0, 0)');
                         
@@ -141,9 +141,9 @@
                         productId: id
                     },
                     success: function () {
-                        atom.notify('Product was added successful', 'success');
+                        atom.notify('Product was deleted successful', 'success');
                         color.removeClass("fa-heart")
-                        color.addClass("fa-heart-o");
+                        color.addClass("fa-heart");
                         color.css('color', 'rgb(255, 255, 255)');
                         
                     },
