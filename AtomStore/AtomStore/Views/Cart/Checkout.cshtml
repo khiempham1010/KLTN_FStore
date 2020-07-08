@@ -44,8 +44,8 @@
                         if ((bool)ViewData["Success"] == true)
                         {
                             @*<div class="alert alert-success">
-                                    Thank you for your order. We are going to confirm your order soon.
-                                </div>*@
+                    Thank you for your order. We are going to confirm your order soon.
+                </div>*@
                             <div class="successImg"><img src="~/client-side/images/shipped.png" alt="" style="text-align:center"></div>
                             <div class="resetPassword">THANKS FOR YOUR ORDER <img src="~/client-side/images/thankful.png" /></div>
                             <div class="subResetPassword">We will send you a email include E-invoice when order confirmed successfully.</div>
@@ -251,13 +251,14 @@
                                     </table>
                                 </div>
                                 @*<button type="button" class="button" onclick="window.location.href='/cart.html'"><span>Back to cart</span></button>*@
-                                <button class="button pull-right" id="btnPlaceOrder"><span>Place Order</span></button>
 
                                 @*<input type="image" src="https://www.paypal.com/en US/i/btn/btn xpressCheckout.gif"/>*@
                                 @*<a href="https://www.paypal.com/en US">PayPal</a>*@
 
                             </div>
                         </form>
+                        <button class="button pull-right" id="btnPlaceOrder"><span>Place Order</span></button>
+
                         <div>
                             <form id="frmCheckoutPaypal" action="https://www.sandbox.paypal.com/cgi-bin/webscr" method="post">
 
@@ -285,16 +286,16 @@
 
 
                         @*<div>
-                                <form asp-action="CheckoutWithStripe" asp-controller="Cart" method="post">
-                                    <script src="//checkout.stripe.com/v2/checkout.js"
-                                            class="stripe-button"
-                                            data-key="@Stripe.Value.PublishableKey"
-                                            data-locale="auto"
-                                            data-description="Sample Charge">
-                                    </script>
-                                    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-                                </form>
-                            </div>*@
+                <form asp-action="CheckoutWithStripe" asp-controller="Cart" method="post">
+                    <script src="//checkout.stripe.com/v2/checkout.js"
+                            class="stripe-button"
+                            data-key="@Stripe.Value.PublishableKey"
+                            data-locale="auto"
+                            data-description="Sample Charge">
+                    </script>
+                    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+                </form>
+            </div>*@
                     }
                 </div>
             </div>
