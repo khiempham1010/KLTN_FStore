@@ -44,7 +44,7 @@
             width: calc(30% - 1px);
             float: left;
             border-right: 1px solid #E6E6E6;
-            background-color:#222D32;
+            background-color: #222D32;
         }
 
         .headLeft-sub {
@@ -247,7 +247,7 @@
                         .message ul li.msg-left small {
                             /*float: right;*/
                             color: #c1c1c1;
-                            margin-left:70px;
+                            margin-left: 70px;
                         }
 
                     .message ul li.msg-right {
@@ -376,15 +376,17 @@
         <div class="head-section">
             <div class="headLeft-section">
                 <div class="headLeft-sub">
-                    <img src="/client-side/images/chat.png" /><span style="color:#B8C7CE; font-family:Oswald;margin-left:15px;">Messages</span>   
+                    <img src="/client-side/images/chat.png" /><span style="color:#B8C7CE; font-family:Oswald;margin-left:15px;">Messages</span>
                 </div>
             </div>
             <div class="headRight-section">
                 <div class="headRight-sub">
                     <img src="/demo/man01.png" />
                     @*<div id="name">@Model.OrderByDescending(x => x.When).FirstOrDefault().Name</div>*@
-                    <div style="font-size:20px; font-weight:bold; font-family:Oswald;" id="name">@Model.OrderByDescending(x => x.When).Where(x => x.Name != User.Identity.Name).FirstOrDefault().Name</div>
-
+                    @if (Model.Where(x => x.Name != "admin").Any())
+                    {
+                        <div style="font-size:20px; font-weight:bold; font-family:Oswald;" id="name">@Model.OrderByDescending(x => x.When).Where(x => x.Name != User.Identity.Name).FirstOrDefault().Name</div>
+                    }
                     @*<h3 id="name">@Model.OrderByDescending(x => x.When).Where(x => x.Name != User.Identity.Name).FirstOrDefault().Name</h3>*@
                 </div>
             </div>
@@ -392,60 +394,63 @@
         <div class="body-section">
             <div class="left-section mCustomScrollbar" data-mcs-theme="minimal-dark">
                 <ul class="left-section-ul">
-                    @{
-                        var isfirst = true;
-                    }
-                    @foreach (var item in Model.OrderByDescending(x => x.When).GroupBy(x => x.Name))
+                    @if (Model.Where(x => x.Name != "admin").Any())
                     {
-                        var newMessage = Model.OrderByDescending(x => x.When).Where(x => x.Name == item.Key).Take(1).SingleOrDefault();
-                        if (newMessage.Name != userName)
+
+                        var isfirst = true;
+
+                        @foreach (var item in Model.OrderByDescending(x => x.When).GroupBy(x => x.Name))
                         {
-                            if (isfirst)
+                            var newMessage = Model.OrderByDescending(x => x.When).Where(x => x.Name == item.Key).Take(1).SingleOrDefault();
+                            if (newMessage.Name != userName)
                             {
-                                <li class="messager active">
-                                    <div class="chatList">
-                                        <div class="img">
-                                            @*<i class="fa fa-circle"></i>*@
-                                            <img src="/demo/man01.png">
+                                if (isfirst)
+                                {
+                                    <li class="messager active">
+                                        <div class="chatList">
+                                            <div class="img">
+                                                @*<i class="fa fa-circle"></i>*@
+                                                <img src="/demo/man01.png">
+                                            </div>
+                                            <div class="desc">
+                                                @if (newMessage.When.Day == DateTime.Now.Day)
+                                                {
+                                                    <small class="time">@newMessage.When.Hour:@newMessage.When.Minute:@newMessage.When.Second</small>
+                                                }
+                                                else
+                                                {
+                                                    <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
+                                                }
+                                                <h5 style="font-weight:bold; font-size:15px;" class="messagerName">@item.Key</h5>
+                                                <small class="messageText" style="margin-top:5px;font-size:13px;">@newMessage.Text</small>
+                                            </div>
                                         </div>
-                                        <div class="desc">
-                                            @if (newMessage.When.Day == DateTime.Now.Day)
-                                            {
-                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute:@newMessage.When.Second</small>
-                                            }
-                                            else
-                                            {
-                                                <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
-                                            }
-                                            <h5 style="font-weight:bold; font-size:15px;" class="messagerName">@item.Key</h5>
-                                            <small class="messageText" style="margin-top:5px;font-size:13px;" >@newMessage.Text</small>
+                                    </li>
+                                    isfirst = false;
+                                }
+                                else
+                                {
+                                    <li class="messager">
+                                        <div class="chatList">
+                                            <div class="img">
+                                                @*<i class="fa fa-circle"></i>*@
+                                                <img src="/demo/man01.png">
+                                            </div>
+                                            <div class="desc">
+                                                @if (newMessage.When.Day == DateTime.Now.Day)
+                                                {
+                                                    <small class="time">@newMessage.When.Hour:@newMessage.When.Minute:@newMessage.When.Second</small>
+                                                }
+                                                else
+                                                {
+                                                    <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
+                                                }
+                                                <h5 style="font-weight:bold; font-size:15px;" class="messagerName">@item.Key</h5>
+                                                <small class="messageText" style="margin-top:5px;font-size:13px; ">@newMessage.Text</small>
+                                            </div>
                                         </div>
-                                    </div>
-                                </li>
-                                isfirst = false;
-                            }
-                            else
-                            {
-                                <li class="messager">
-                                    <div class="chatList">
-                                        <div class="img">
-                                            @*<i class="fa fa-circle"></i>*@
-                                            <img src="/demo/man01.png">
-                                        </div>
-                                        <div class="desc">
-                                            @if (newMessage.When.Day == DateTime.Now.Day)
-                                            {
-                                                <small class="time">@newMessage.When.Hour:@newMessage.When.Minute:@newMessage.When.Second</small>
-                                            }
-                                            else
-                                            {
-                                                <small class="time">@newMessage.When.Day/@newMessage.When.Month/@newMessage.When.Year</small>
-                                            }
-                                            <h5 style="font-weight:bold; font-size:15px;" class="messagerName">@item.Key</h5>
-                                            <small class="messageText" style="margin-top:5px;font-size:13px; ">@newMessage.Text</small>
-                                        </div>
-                                    </div>
-                                </li>
+                                    </li>
+                                }
                             }
                         }
                     }
@@ -453,94 +458,121 @@
             </div>
 
             <div class="right-section">
-                <div class="message mCustomScrollbar" data-mcs-theme="minimal-dark">
-                    <ul class="messageList" style="background: white; height: 414px; overflow-y: auto; width:auto;">
-                        @{
-                            var firstMessage = Model.OrderByDescending(x => x.When).Where(x => x.Name != "admin").FirstOrDefault();
-                        }
-                        @foreach (var item in Model.OrderBy(x => x.When))
-                        {
-
-                            if (item.Name == firstMessage.Name || (item.ReceiverName != null && item.ReceiverName == firstMessage.Name))
+                @if (Model.Where(x => x.Name != "admin").Any())
+                {
+                    <div class="message mCustomScrollbar" data-mcs-theme="minimal-dark">
+                        <ul class="messageList" style="background: white; height: 414px; overflow-y: auto; width:auto;">
+                            @{
+                                var firstMessage = Model.OrderByDescending(x => x.When).Where(x => x.Name != "admin").FirstOrDefault();
+                            }
+                            @foreach (var item in Model.OrderBy(x => x.When))
                             {
-                                if (item.Name == userName)
+
+                                if (item.Name == firstMessage.Name || (item.ReceiverName != null && item.ReceiverName == firstMessage.Name))
                                 {
-                                    <li class="msg-right" style="word-wrap:break-word;">
-                                        <div class="msg-desc">@item.Text</div>
-                                        <div class="time-right">
-                                            <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
-                                        </div>
-                                    </li>
-                                }
-                                else
-                                {
-                                    <li class="msg-left">
-                                        <div class="msg-desc">@item.Text</div>
-                                        <div class="time-left">
-                                            <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
-                                        </div>
-                                    </li>
+                                    if (item.Name == userName)
+                                    {
+                                        <li class="msg-right" style="word-wrap:break-word;">
+                                            <div class="msg-desc">@item.Text</div>
+                                            <div class="time-right">
+                                                <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
+                                            </div>
+                                        </li>
+                                    }
+                                    else
+                                    {
+                                        <li class="msg-left">
+                                            <div class="msg-desc">@item.Text</div>
+                                            <div class="time-left">
+                                                <small>@item.When.Day/@item.When.Month/@item.When.Year @item.When.Hour:@item.When.Minute</small>
+                                            </div>
+                                        </li>
+                                    }
                                 }
                             }
-                        }
-                    </ul>
-                </div>
-                <div class="right-section-bottom">
-                    <form asp-action="Create" asp-controller="Chat"
-                          data-ajax-begin="clearInputField" data-ajax-complete=""
-                          data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
-                          data-ajax="true" data-ajax-method="POST">
-                        <div asp-validation-summary="ModelOnly"></div>
-                        <div class="form-group" style="margin-bottom:0px;">
-                            @*<input name="Text" type="text" id="messageText" placeholder="Type a message..." />*@
-                            <textarea name="Text" id="messageText" placeholder="Type a message..."></textarea>
-                            <input id="userName" type="hidden" value="@userName" name="Name" />
-                            <input id="receiverId" type="hidden" value="@firstMessage.UserId" name="ReceiverId" />
-                            <button type="submit" value="Send" id="submitButton" class="btn-send"><i class="fa fa-send"></i></button>
-                        </div>
 
-                    </form>
-                    @*<form>
-                            <div class="upload-btn">
-                                <button class="btn"><i class="fa fa-photo"></i></button>
-                                <input type="file" name="myfile" />
+                        </ul>
+                    </div>
+                    <div class="right-section-bottom">
+                        <form asp-action="Create" asp-controller="Chat"
+                              data-ajax-begin="clearInputField" data-ajax-complete=""
+                              data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
+                              data-ajax="true" data-ajax-method="POST">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <div class="form-group" style="margin-bottom:0px;">
+                                @*<input name="Text" type="text" id="messageText" placeholder="Type a message..." />*@
+                                <textarea name="Text" id="messageText" placeholder="Type a message..."></textarea>
+                                <input id="userName" type="hidden" value="@userName" name="Name" />
+                                <input id="receiverId" type="hidden" value="@firstMessage.UserId" name="ReceiverId" />
+                                <button type="submit" value="Send" id="submitButton" class="btn-send"><i class="fa fa-send"></i></button>
                             </div>
-                            <input type="text" name="" placeholder="type here...">
-                            <button class="btn-send"><i class="fa fa-send"></i></button>
-                        </form>*@
-                </div>
+
+                        </form>
+                        @*<form>
+                                <div class="upload-btn">
+                                    <button class="btn"><i class="fa fa-photo"></i></button>
+                                    <input type="file" name="myfile" />
+                                </div>
+                                <input type="text" name="" placeholder="type here...">
+                                <button class="btn-send"><i class="fa fa-send"></i></button>
+                            </form>*@
+                    </div>
+                }
+                else
+                {
+                    <div class="message mCustomScrollbar" data-mcs-theme="minimal-dark">
+                        <ul class="messageList" style="background: white; height: 414px; overflow-y: auto; width:auto;">
+                            <span style="font-size:20px;font-weight:bold; font-family:Oswald"> No data!</span>
+                        </ul>
+                    </div>
+                    <div class="right-section-bottom">
+                        <form asp-action="Create" asp-controller="Chat"
+                              data-ajax-begin="clearInputField" data-ajax-complete=""
+                              data-ajax-failure="alert('Fail')" data-ajax-success="sendMessage"
+                              data-ajax="true" data-ajax-method="POST">
+                            <div asp-validation-summary="ModelOnly"></div>
+                            <div class="form-group" style="margin-bottom:0px;">
+                                @*<input name="Text" type="text" id="messageText" placeholder="Type a message..." />*@
+                                <textarea name="Text" id="messageText" placeholder="Type a message..."></textarea>
+                                <input id="userName" type="hidden" value="@userName" name="Name" />
+                                <input id="receiverId" type="hidden" value="" name="ReceiverId" />
+                                <button type="submit" value="Send" id="submitButton" class="btn-send"><i class="fa fa-send"></i></button>
+                            </div>
+
+                        </form>
+                    </div>
+                }
             </div>
         </div>
-    </div>
-    @if (User.Identity.IsAuthenticated)
-    {
-        <script>
+        @if (User.Identity.IsAuthenticated)
+        {
+            <script>
             const userName = "@ViewBag.CurrentuserName";
+            </script>
+        }
+        <script>
+            $('.left-section-ul').on('click', '.messager', function () {
+                var a = $(this).find('.messagerName').text();
+                $('.messager').removeClass('active');
+                $('#name').text(a);
+                $(this).toggleClass('active');
+                $('.messageList').empty();
+                loaddata(a);
+            });
+            $("#messageText").keypress(function (event) {
+                if (event.keyCode == 13 && !event.shiftKey) {
+                    $("#submitButton").click();
+                    return false;
+                }
+            });
         </script>
-    }
-    <script>
-        $('.left-section-ul').on('click', '.messager', function () {
-            var a = $(this).find('.messagerName').text();
-            $('.messager').removeClass('active');
-            $('#name').text(a);
-            $(this).toggleClass('active');
-            $('.messageList').empty();
-            loaddata(a);
-        });
-        $("#messageText").keypress(function (event) {
-            if (event.keyCode == 13 && !event.shiftKey) {
-                $("#submitButton").click();
-                return false;
-            }
-        });
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
-    <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
-    <script src="~/js/chatadmin.js" asp-append-version="true"></script>
-    <script src="~/js/signalrReqHandler.js"></script>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-    <!-- custom scrollbar plugin -->
-    @*<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>*@
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/aspnet-signalr/1.1.4/signalr.min.js"></script>
+        <script src="~/lib/jquery-ajax-unobtrusive/jquery.unobtrusive-ajax.js"></script>
+        <script src="~/js/chatadmin.js" asp-append-version="true"></script>
+        <script src="~/js/signalrReqHandler.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+        <!-- custom scrollbar plugin -->
+        @*<script src="https://cdnjs.cloudflare.com/ajax/libs/malihu-custom-scrollbar-plugin/3.1.5/jquery.mCustomScrollbar.concat.min.js"></script>*@
 </body>
 </html>
