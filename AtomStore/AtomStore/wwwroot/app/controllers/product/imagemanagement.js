@@ -38,7 +38,7 @@
                     clearFileInput($("#fileImage"));
                     images.push(path);
                     $('#image-list').append('<div class="col-md-3"><img width="100"  data-path="' + path + '" src="' + path + '"><br><a href="#" class="btn-delete-image">Delete</a></div>');
-                    atom.notify('Đã tải ảnh lên thành công!', 'success');
+                    atom.notify('Image uploaded successfully!', 'success');
 
                 },
                 error: function () {
