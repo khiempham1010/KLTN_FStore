@@ -33,15 +33,15 @@ namespace AtomStore.Controllers.Components
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var currentUser = await _userManager.GetUserAsync(UserClaimsPrincipal);
+            var messages = _chatService.GetMessages();
             if (User.Identity.IsAuthenticated)
             {
                 ViewBag.CurrentUserName = currentUser.UserName;
-            }
-            var messages = _chatService.GetMessages();
-            foreach (var item in messages)
-            {
-                if (item.ReceiverId.ToString() != "00000000-0000-0000-0000-000000000000")
-                    item.ReceiverName = _userService.GetById(item.ReceiverId.ToString()).Result.Email;
+                foreach (var item in messages)
+                {
+                    if (item.ReceiverId.ToString() != "00000000-0000-0000-0000-000000000000")
+                        item.ReceiverName = _userService.GetById(item.ReceiverId.ToString()).Result.Email;
+                }
             }
             return View(messages);
         }
