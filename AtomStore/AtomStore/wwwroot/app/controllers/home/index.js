@@ -134,7 +134,7 @@
             legendsize: "140",
             legendposition: 'bottom',
             xaxislabel: 'DAY',
-            title: 'Weekly Profit',
+            title: 'Daily Profit',
             yaxislabel: 'Profit in $'
         });
 
