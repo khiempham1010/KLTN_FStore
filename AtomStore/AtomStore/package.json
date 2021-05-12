@@ -12,7 +12,7 @@
         "nprogress": "0.2.0",
         "bootstrap-daterangepicker": "~2.1.25",
         "fastclick": "~1.0.6",
-        "chart.js": "2.8.0",
+        "chart.js": "2.9.4",
         "jquery-sparkline": "2.4.0",
         "flot": "~0.8.3",
         "flot-spline": "0.0.1",
