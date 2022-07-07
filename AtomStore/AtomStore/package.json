@@ -17,7 +17,7 @@
         "flot": "~0.8.3",
         "flot-spline": "0.0.1",
         "flot.curvedlines": "1.1.1",
-        "moment": "2.24.0",
+        "moment": "2.29.4",
         "bootbox": "5.3.2",
         "notifyjs": "3.0.0",
         "animate.css": "3.7.2",
